@@ -1,0 +1,102 @@
+{
+ "plik_badany": "badany-d028_B.bmp",
+ "rozmiar": [
+  1200,
+  420
+ ],
+ "obraz_badany": "872edc23175f4543",
+ "tryb": "plik wzorca",
+ "typ": "B",
+ "opis_typu": "typ B (katalog wzorców)",
+ "podobienstwo": 0.09,
+ "pewnosc_doboru": null,
+ "niepewny": false,
+ "wskazany_recznie": true,
+ "obraz_wzorca": "785362e53c0440b1",
+ "plik_wzorca": "wzorzec-d028_B.bmp",
+ "para": "wzorzec-d028_B.bmp",
+ "towar": "nie wiem",
+ "miejsca": [
+  {
+   "strefa": "Ściana przednia",
+   "polozenie": "środek",
+   "nazwa": "Ściana przednia — środek",
+   "kategoria": "konstrukcja",
+   "opis": "Gęściej niż wzorzec, mały obiekt.",
+   "przedmiot": "przednia ściana skrzyni ładunkowej (przy kabinie)",
+   "z": 25.9,
+   "pew_wynik": 0.9,
+   "ramka": [
+    88,
+    136,
+    98,
+    190
+   ],
+   "ramka_wz": [
+    0.06416666666666666,
+    0.31666666666666665,
+    0.07166666666666667,
+    0.44285714285714284
+   ],
+   "regula": false,
+   "pominieta": false,
+   "pew": 0.9,
+   "id": 1
+  },
+  {
+   "strefa": "Ładownia",
+   "polozenie": "środek",
+   "nazwa": "Ładownia — środek",
+   "kategoria": "ładunek_dodatek",
+   "opis": "Gęstszy obiekt wewnątrz ładunku, we wzorcu brak.",
+   "przedmiot": "ładunek w środkowej części ładowni",
+   "z": 18,
+   "pew_wynik": 0.86,
+   "ramka": [
+    661,
+    137,
+    698,
+    179
+   ],
+   "ramka_wz": [
+    0.5475,
+    0.319047619047619,
+    0.5775,
+    0.4166666666666667
+   ],
+   "regula": false,
+   "pominieta": false,
+   "pew": 0.86,
+   "id": 2
+  },
+  {
+   "strefa": "Podłoga",
+   "polozenie": "przód",
+   "nazwa": "Podłoga — przód",
+   "kategoria": "konstrukcja",
+   "opis": "Gęściej niż wzorzec, mały obiekt.",
+   "przedmiot": "podłoga naczepy, przód",
+   "z": 12.1,
+   "pew_wynik": 0.79,
+   "ramka": [
+    318,
+    299,
+    333,
+    307
+   ],
+   "ramka_wz": [
+    0.25833333333333336,
+    0.7047619047619048,
+    0.27,
+    0.7214285714285714
+   ],
+   "regula": false,
+   "pominieta": false,
+   "pew": 0.79,
+   "id": 3
+  }
+ ],
+ "czas_analizy_s": 1.1,
+ "metoda": "A_piksele_para",
+ "karta": "NVIDIA GeForce GTX 1050"
+}

@@ -1,0 +1,206 @@
+{
+ "plik_badany": "d019_B.bmp",
+ "rozmiar": [
+  1200,
+  420
+ ],
+ "obraz_badany": "de90705f6cf14482",
+ "tryb": "plik wzorca",
+ "typ": "B",
+ "opis_typu": "typ B (katalog wzorców)",
+ "podobienstwo": 0.07,
+ "pewnosc_doboru": null,
+ "niepewny": false,
+ "wskazany_recznie": true,
+ "obraz_wzorca": "fb5bdf8943e04e46",
+ "plik_wzorca": "wzorzec-d028_B.bmp",
+ "para": "wzorzec-d028_B.bmp",
+ "towar": "nie wiem",
+ "miejsca": [
+  {
+   "strefa": "Ładownia",
+   "polozenie": "tył",
+   "nazwa": "Ładownia — tył",
+   "kategoria": "ładunek_dodatek",
+   "opis": "Gęstszy obiekt wewnątrz ładunku, we wzorcu brak.",
+   "przedmiot": "ładunek w tylnej części ładowni",
+   "z": 82.9,
+   "pew_wynik": 0.97,
+   "ramka": [
+    689,
+    80,
+    925,
+    292
+   ],
+   "ramka_wz": [
+    0.565,
+    0.20238095238095238,
+    0.76,
+    0.7023809523809523
+   ],
+   "regula": false,
+   "pominieta": false,
+   "pew": 0.97,
+   "id": 1
+  },
+  {
+   "strefa": "Ładownia",
+   "polozenie": "środek",
+   "nazwa": "Ładownia — środek",
+   "kategoria": "ładunek_dodatek",
+   "opis": "Gęstszy obiekt wewnątrz ładunku, we wzorcu brak.",
+   "przedmiot": "ładunek w środkowej części ładowni",
+   "z": 56.9,
+   "pew_wynik": 0.96,
+   "ramka": [
+    487,
+    214,
+    574,
+    292
+   ],
+   "ramka_wz": [
+    0.3975,
+    0.5190476190476191,
+    0.4691666666666667,
+    0.7023809523809523
+   ],
+   "regula": false,
+   "pominieta": false,
+   "pew": 0.96,
+   "id": 2
+  },
+  {
+   "strefa": "Ładownia",
+   "polozenie": "przód",
+   "nazwa": "Ładownia — przód",
+   "kategoria": "ładunek_dodatek",
+   "opis": "Gęstszy obiekt wewnątrz ładunku, we wzorcu brak.",
+   "przedmiot": "ładunek w przedniej części ładowni",
+   "z": 48.4,
+   "pew_wynik": 0.95,
+   "ramka": [
+    331,
+    194,
+    477,
+    292
+   ],
+   "ramka_wz": [
+    0.2683333333333333,
+    0.4714285714285714,
+    0.3883333333333333,
+    0.7023809523809523
+   ],
+   "regula": false,
+   "pominieta": false,
+   "pew": 0.95,
+   "id": 3
+  },
+  {
+   "strefa": "Ładownia",
+   "polozenie": "tył",
+   "nazwa": "Ładownia — tył",
+   "kategoria": "ładunek_dodatek",
+   "opis": "Gęstszy obiekt wewnątrz ładunku, we wzorcu brak.",
+   "przedmiot": "ładunek w tylnej części ładowni",
+   "z": 38.2,
+   "pew_wynik": 0.93,
+   "ramka": [
+    945,
+    95,
+    1078,
+    292
+   ],
+   "ramka_wz": [
+    0.7775,
+    0.23809523809523808,
+    0.8866666666666667,
+    0.7023809523809523
+   ],
+   "regula": false,
+   "pominieta": false,
+   "pew": 0.93,
+   "id": 4
+  },
+  {
+   "strefa": "Ładownia",
+   "polozenie": "środek",
+   "nazwa": "Ładownia — środek",
+   "kategoria": "ładunek_dodatek",
+   "opis": "Gęstszy obiekt wewnątrz ładunku, we wzorcu brak.",
+   "przedmiot": "ładunek w środkowej części ładowni",
+   "z": 31.1,
+   "pew_wynik": 0.92,
+   "ramka": [
+    575,
+    199,
+    675,
+    291
+   ],
+   "ramka_wz": [
+    0.4708333333333333,
+    0.48333333333333334,
+    0.5525,
+    0.7
+   ],
+   "regula": false,
+   "pominieta": false,
+   "pew": 0.92,
+   "id": 5
+  },
+  {
+   "strefa": "Ściana przednia",
+   "polozenie": "dół",
+   "nazwa": "Ściana przednia — dół",
+   "kategoria": "konstrukcja",
+   "opis": "Gęściej niż wzorzec, mały obiekt.",
+   "przedmiot": "przednia ściana skrzyni ładunkowej (przy kabinie)",
+   "z": 19.5,
+   "pew_wynik": 0.87,
+   "ramka": [
+    86,
+    242,
+    95,
+    255
+   ],
+   "ramka_wz": [
+    0.065,
+    0.5857142857142857,
+    0.07166666666666667,
+    0.6142857142857143
+   ],
+   "regula": false,
+   "pominieta": false,
+   "pew": 0.87,
+   "id": 6
+  },
+  {
+   "strefa": "Podłoga",
+   "polozenie": "środek",
+   "nazwa": "Podłoga — środek",
+   "kategoria": "konstrukcja",
+   "opis": "Gęściej niż wzorzec, mały obiekt.",
+   "przedmiot": "podłoga naczepy, środek",
+   "z": 12.2,
+   "pew_wynik": 0.79,
+   "ramka": [
+    565,
+    292,
+    710,
+    299
+   ],
+   "ramka_wz": [
+    0.4625,
+    0.7047619047619048,
+    0.5816666666666667,
+    0.719047619047619
+   ],
+   "regula": false,
+   "pominieta": false,
+   "pew": 0.79,
+   "id": 7
+  }
+ ],
+ "czas_analizy_s": 1.1,
+ "metoda": "A_piksele_para",
+ "karta": "NVIDIA GeForce GTX 1050"
+}

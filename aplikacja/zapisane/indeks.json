@@ -1,0 +1,607 @@
+{
+ "zapisano": "2026-11-19T08:48:32.644Z",
+ "przyklady": {
+  "przyklady": [
+   {
+    "id": "test/d028_B",
+    "typ": "B",
+    "ladunek": false,
+    "dodatki": [
+     "maly_konstrukcja (podwojna_podloga)",
+     "sredni_konstrukcja (sciana_przy_kabinie)",
+     "w_ladunku (ladunek)"
+    ],
+    "pelny": false
+   },
+   {
+    "id": "test/d016_B",
+    "typ": "B",
+    "ladunek": false,
+    "dodatki": [
+     "maly_konstrukcja (sciana_przy_kabinie)",
+     "sredni_konstrukcja (podwojna_podloga)"
+    ],
+    "pelny": false
+   },
+   {
+    "id": "test/d019_B",
+    "typ": "B",
+    "ladunek": true,
+    "dodatki": [
+     "duzy_w_ladunku (ladunek)",
+     "maly_konstrukcja (sciana_przy_kabinie)",
+     "sredni_konstrukcja (podwojna_podloga)"
+    ],
+    "pelny": false
+   },
+   {
+    "id": "pelny/d000_A",
+    "typ": "A",
+    "ladunek": true,
+    "dodatki": [
+     "maly_konstrukcja (sciana_przy_kabinie)",
+     "sredni_konstrukcja (sciana_przy_kabinie)",
+     "w_ladunku (ladunek)"
+    ],
+    "pelny": true
+   },
+   {
+    "id": "pelny/c000_A",
+    "typ": "A",
+    "ladunek": true,
+    "dodatki": [],
+    "pelny": true
+   },
+   {
+    "id": "pelny/c001_B",
+    "typ": "B",
+    "ladunek": true,
+    "dodatki": [],
+    "pelny": true
+   },
+   {
+    "id": "pelny/c002_C",
+    "typ": "C",
+    "ladunek": true,
+    "dodatki": [],
+    "pelny": true
+   },
+   {
+    "id": "pelny/d001_B",
+    "typ": "B",
+    "ladunek": true,
+    "dodatki": [
+     "sredni_konstrukcja (podwojna_podloga)",
+     "w_ladunku (ladunek)"
+    ],
+    "pelny": true
+   },
+   {
+    "id": "pelny/d002_C",
+    "typ": "C",
+    "ladunek": true,
+    "dodatki": [
+     "w_ladunku (ladunek)",
+     "duzy_w_ladunku (ladunek)",
+     "maly_konstrukcja (podwojna_podloga)"
+    ],
+    "pelny": true
+   },
+   {
+    "id": "test/c000_A",
+    "typ": "A",
+    "ladunek": true,
+    "dodatki": [],
+    "pelny": false
+   },
+   {
+    "id": "test/c001_B",
+    "typ": "B",
+    "ladunek": true,
+    "dodatki": [],
+    "pelny": false
+   },
+   {
+    "id": "test/c002_C",
+    "typ": "C",
+    "ladunek": true,
+    "dodatki": [],
+    "pelny": false
+   },
+   {
+    "id": "test/c003_A",
+    "typ": "A",
+    "ladunek": false,
+    "dodatki": [],
+    "pelny": false
+   },
+   {
+    "id": "test/c004_B",
+    "typ": "B",
+    "ladunek": false,
+    "dodatki": [],
+    "pelny": false
+   },
+   {
+    "id": "test/c005_C",
+    "typ": "C",
+    "ladunek": false,
+    "dodatki": [],
+    "pelny": false
+   },
+   {
+    "id": "test/c006_A",
+    "typ": "A",
+    "ladunek": true,
+    "dodatki": [],
+    "pelny": false
+   },
+   {
+    "id": "test/c007_B",
+    "typ": "B",
+    "ladunek": true,
+    "dodatki": [],
+    "pelny": false
+   },
+   {
+    "id": "test/c008_C",
+    "typ": "C",
+    "ladunek": true,
+    "dodatki": [],
+    "pelny": false
+   },
+   {
+    "id": "test/c009_A",
+    "typ": "A",
+    "ladunek": false,
+    "dodatki": [],
+    "pelny": false
+   },
+   {
+    "id": "test/c010_B",
+    "typ": "B",
+    "ladunek": false,
+    "dodatki": [],
+    "pelny": false
+   },
+   {
+    "id": "test/c011_C",
+    "typ": "C",
+    "ladunek": false,
+    "dodatki": [],
+    "pelny": false
+   },
+   {
+    "id": "test/c012_A",
+    "typ": "A",
+    "ladunek": true,
+    "dodatki": [],
+    "pelny": false
+   },
+   {
+    "id": "test/c013_B",
+    "typ": "B",
+    "ladunek": true,
+    "dodatki": [],
+    "pelny": false
+   },
+   {
+    "id": "test/c014_C",
+    "typ": "C",
+    "ladunek": true,
+    "dodatki": [],
+    "pelny": false
+   },
+   {
+    "id": "test/c015_A",
+    "typ": "A",
+    "ladunek": false,
+    "dodatki": [],
+    "pelny": false
+   },
+   {
+    "id": "test/c016_B",
+    "typ": "B",
+    "ladunek": false,
+    "dodatki": [],
+    "pelny": false
+   },
+   {
+    "id": "test/c017_C",
+    "typ": "C",
+    "ladunek": false,
+    "dodatki": [],
+    "pelny": false
+   },
+   {
+    "id": "test/c018_A",
+    "typ": "A",
+    "ladunek": true,
+    "dodatki": [],
+    "pelny": false
+   },
+   {
+    "id": "test/c019_B",
+    "typ": "B",
+    "ladunek": true,
+    "dodatki": [],
+    "pelny": false
+   },
+   {
+    "id": "test/c020_C",
+    "typ": "C",
+    "ladunek": true,
+    "dodatki": [],
+    "pelny": false
+   },
+   {
+    "id": "test/c021_A",
+    "typ": "A",
+    "ladunek": false,
+    "dodatki": [],
+    "pelny": false
+   },
+   {
+    "id": "test/c022_B",
+    "typ": "B",
+    "ladunek": false,
+    "dodatki": [],
+    "pelny": false
+   },
+   {
+    "id": "test/c023_C",
+    "typ": "C",
+    "ladunek": false,
+    "dodatki": [],
+    "pelny": false
+   },
+   {
+    "id": "test/c024_A",
+    "typ": "A",
+    "ladunek": true,
+    "dodatki": [],
+    "pelny": false
+   },
+   {
+    "id": "test/c025_B",
+    "typ": "B",
+    "ladunek": true,
+    "dodatki": [],
+    "pelny": false
+   },
+   {
+    "id": "test/c026_C",
+    "typ": "C",
+    "ladunek": true,
+    "dodatki": [],
+    "pelny": false
+   },
+   {
+    "id": "test/c027_A",
+    "typ": "A",
+    "ladunek": false,
+    "dodatki": [],
+    "pelny": false
+   },
+   {
+    "id": "test/c028_B",
+    "typ": "B",
+    "ladunek": false,
+    "dodatki": [],
+    "pelny": false
+   },
+   {
+    "id": "test/c029_C",
+    "typ": "C",
+    "ladunek": false,
+    "dodatki": [],
+    "pelny": false
+   },
+   {
+    "id": "test/d000_A",
+    "typ": "A",
+    "ladunek": true,
+    "dodatki": [
+     "maly_konstrukcja (sciana_przy_kabinie)"
+    ],
+    "pelny": false
+   },
+   {
+    "id": "test/d001_B",
+    "typ": "B",
+    "ladunek": true,
+    "dodatki": [
+     "sredni_konstrukcja (sciana_przy_kabinie)"
+    ],
+    "pelny": false
+   },
+   {
+    "id": "test/d002_C",
+    "typ": "C",
+    "ladunek": true,
+    "dodatki": [
+     "w_ladunku (ladunek)",
+     "duzy_w_ladunku (ladunek)"
+    ],
+    "pelny": false
+   },
+   {
+    "id": "test/d003_A",
+    "typ": "A",
+    "ladunek": false,
+    "dodatki": [
+     "duzy_w_ladunku (ladunek)"
+    ],
+    "pelny": false
+   },
+   {
+    "id": "test/d004_B",
+    "typ": "B",
+    "ladunek": false,
+    "dodatki": [
+     "maly_konstrukcja (sciana_przy_kabinie)",
+     "sredni_konstrukcja (skrzynka)"
+    ],
+    "pelny": false
+   },
+   {
+    "id": "test/d005_C",
+    "typ": "C",
+    "ladunek": false,
+    "dodatki": [
+     "sredni_konstrukcja (sciana_przy_kabinie)"
+    ],
+    "pelny": false
+   },
+   {
+    "id": "test/d006_A",
+    "typ": "A",
+    "ladunek": true,
+    "dodatki": [
+     "w_ladunku (ladunek)",
+     "duzy_w_ladunku (ladunek)",
+     "maly_konstrukcja (podwojna_podloga)"
+    ],
+    "pelny": false
+   },
+   {
+    "id": "test/d007_B",
+    "typ": "B",
+    "ladunek": true,
+    "dodatki": [
+     "duzy_w_ladunku (ladunek)",
+     "maly_konstrukcja (podwojna_podloga)",
+     "sredni_konstrukcja (belka)"
+    ],
+    "pelny": false
+   },
+   {
+    "id": "test/d008_C",
+    "typ": "C",
+    "ladunek": true,
+    "dodatki": [
+     "maly_konstrukcja (belka)",
+     "sredni_konstrukcja (sciana_przy_kabinie)",
+     "w_ladunku (ladunek)"
+    ],
+    "pelny": false
+   },
+   {
+    "id": "test/d009_A",
+    "typ": "A",
+    "ladunek": false,
+    "dodatki": [
+     "sredni_konstrukcja (belka)",
+     "w_ladunku (ladunek)",
+     "duzy_w_ladunku (ladunek)"
+    ],
+    "pelny": false
+   },
+   {
+    "id": "test/d010_B",
+    "typ": "B",
+    "ladunek": false,
+    "dodatki": [
+     "w_ladunku (ladunek)",
+     "duzy_w_ladunku (ladunek)",
+     "maly_konstrukcja (podwojna_podloga)"
+    ],
+    "pelny": false
+   },
+   {
+    "id": "test/d011_C",
+    "typ": "C",
+    "ladunek": false,
+    "dodatki": [
+     "duzy_w_ladunku (ladunek)"
+    ],
+    "pelny": false
+   },
+   {
+    "id": "test/d012_A",
+    "typ": "A",
+    "ladunek": true,
+    "dodatki": [
+     "maly_konstrukcja (sciana_przy_kabinie)"
+    ],
+    "pelny": false
+   },
+   {
+    "id": "test/d013_B",
+    "typ": "B",
+    "ladunek": true,
+    "dodatki": [
+     "sredni_konstrukcja (podwojna_podloga)",
+     "w_ladunku (ladunek)"
+    ],
+    "pelny": false
+   },
+   {
+    "id": "test/d014_C",
+    "typ": "C",
+    "ladunek": true,
+    "dodatki": [
+     "w_ladunku (ladunek)",
+     "duzy_w_ladunku (ladunek)",
+     "maly_konstrukcja (podwojna_podloga)"
+    ],
+    "pelny": false
+   },
+   {
+    "id": "test/d015_A",
+    "typ": "A",
+    "ladunek": false,
+    "dodatki": [
+     "duzy_w_ladunku (ladunek)",
+     "maly_konstrukcja (skrzynka)",
+     "sredni_konstrukcja (podwojna_podloga)"
+    ],
+    "pelny": false
+   },
+   {
+    "id": "test/d017_C",
+    "typ": "C",
+    "ladunek": false,
+    "dodatki": [
+     "sredni_konstrukcja (sciana_przy_kabinie)"
+    ],
+    "pelny": false
+   },
+   {
+    "id": "test/d018_A",
+    "typ": "A",
+    "ladunek": true,
+    "dodatki": [
+     "w_ladunku (ladunek)"
+    ],
+    "pelny": false
+   },
+   {
+    "id": "test/d020_C",
+    "typ": "C",
+    "ladunek": true,
+    "dodatki": [
+     "maly_konstrukcja (sciana_przy_kabinie)",
+     "sredni_konstrukcja (sciana_przy_kabinie)"
+    ],
+    "pelny": false
+   },
+   {
+    "id": "test/d021_A",
+    "typ": "A",
+    "ladunek": false,
+    "dodatki": [
+     "sredni_konstrukcja (sciana_przy_kabinie)",
+     "w_ladunku (ladunek)"
+    ],
+    "pelny": false
+   },
+   {
+    "id": "test/d022_B",
+    "typ": "B",
+    "ladunek": false,
+    "dodatki": [
+     "w_ladunku (ladunek)",
+     "duzy_w_ladunku (ladunek)",
+     "maly_konstrukcja (podwojna_podloga)"
+    ],
+    "pelny": false
+   },
+   {
+    "id": "test/d023_C",
+    "typ": "C",
+    "ladunek": false,
+    "dodatki": [
+     "duzy_w_ladunku (ladunek)"
+    ],
+    "pelny": false
+   },
+   {
+    "id": "test/d024_A",
+    "typ": "A",
+    "ladunek": true,
+    "dodatki": [
+     "maly_konstrukcja (sciana_przy_kabinie)",
+     "sredni_konstrukcja (belka)"
+    ],
+    "pelny": false
+   },
+   {
+    "id": "test/d025_B",
+    "typ": "B",
+    "ladunek": true,
+    "dodatki": [
+     "sredni_konstrukcja (sciana_przy_kabinie)",
+     "w_ladunku (ladunek)"
+    ],
+    "pelny": false
+   },
+   {
+    "id": "test/d026_C",
+    "typ": "C",
+    "ladunek": true,
+    "dodatki": [
+     "w_ladunku (ladunek)"
+    ],
+    "pelny": false
+   },
+   {
+    "id": "test/d027_A",
+    "typ": "A",
+    "ladunek": false,
+    "dodatki": [
+     "duzy_w_ladunku (ladunek)",
+     "maly_konstrukcja (podwojna_podloga)"
+    ],
+    "pelny": false
+   },
+   {
+    "id": "test/d029_C",
+    "typ": "C",
+    "ladunek": false,
+    "dodatki": [
+     "sredni_konstrukcja (sciana_przy_kabinie)",
+     "w_ladunku (ladunek)"
+    ],
+    "pelny": false
+   }
+  ],
+  "towary": [
+   "nie wiem",
+   "sprzęt i AGD",
+   "odzież i tekstylia",
+   "żywność i napoje",
+   "materiały budowlane",
+   "inne",
+   "pusta naczepa"
+  ],
+  "katalog": [
+   {
+    "typ": "A",
+    "obraz": "33ecf3257d0b4ace",
+    "opis": "typ A (katalog wzorców)"
+   },
+   {
+    "typ": "B",
+    "obraz": "33f69fafa1424116",
+    "opis": "typ B (katalog wzorców)"
+   },
+   {
+    "typ": "C",
+    "obraz": "1ef0371f84474841",
+    "opis": "typ C (katalog wzorców)"
+   }
+  ]
+ },
+ "analizy": {
+  "przyklad:test/d019_B|para|nie wiem": "analiza-1.json",
+  "przyklad:test/d028_B|para|nie wiem": "analiza-2.json",
+  "przyklad:test/c001_B|auto|pusta naczepa": "analiza-3.json",
+  "przyklad:test/d019_B|auto|sprzęt i AGD": "analiza-4.json",
+  "przyklad:test/d019_B|auto|nie wiem": "analiza-5.json",
+  "przyklad:test/d019_B|plik:zapisany|nie wiem": "analiza-6.json",
+  "plik:zapisany|plik:zapisany|nie wiem": "analiza-7.json",
+  "plik:zapisany|auto|nie wiem": "analiza-8.json",
+  "plik:zapisany|typ:A|nie wiem": "analiza-9.json"
+ }
+}

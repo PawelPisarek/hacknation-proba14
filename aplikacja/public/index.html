@@ -103,7 +103,7 @@ function kartaM(m,i){const st=S.stan[m.id];
 
 function zapisLinie(){const l=[];
  if(S.R.tryb=="plik wzorca")l.push(`wzorzec: plik ${S.R.plik_wzorca} (wskazany ręcznie)`); // P36
- wszystkie().filter(m=>S.stan[m.id]).forEach(m=>l.push(`${m.nazwa} — ${S.stan[m.id].typ=='zlec'?'do kontroli: '+m.przedmiot:'odrzucone ('+S.stan[m.id].powod+')'}`));
+ wszystkie().filter(m=>S.stan[m.id]).forEach(m=>l.push(`${m.nazwa}${m.regula?' (⚑ alarm z reguły: pusta naczepa)':''} — ${S.stan[m.id].typ=='zlec'?'do kontroli: '+m.przedmiot:'odrzucone ('+S.stan[m.id].powod+')'}`));
  const p=pominieteNiezlecone();if(pominiete())l.push(`pominięte (towar zgodny ze zgłoszeniem): ${p.length}`+(p.length?` — ${p.map(m=>m.nazwa).join(', ')}`:''));return l} // P29
 function wzKrotko(){const r=S.R;return r.tryb=="para"?"para":r.tryb=="plik wzorca"?`plik ${r.plik_wzorca}`:r.opis_typu}
 function ekranGlowny(){const r=S.R,w=naLiscie(),pom=pominiete(),reg=w.some(m=>m.regula);
@@ -158,7 +158,7 @@ function pobierz(){const r=S.R,d={obraz_badany:r.plik_badany,rozmiar:r.rozmiar,w
  wzorzec_niepewny:r.niepewny,wzorzec_wskazany_recznie:r.wskazany_recznie,plik_wzorca:r.plik_wzorca,rodzaj_towaru:S.towar,obraz_z_ramkami:"zapis-kontroli.png",
  pominiete_towar_zgodny:pominieteNiezlecone().length,pominiete:pominieteNiezlecone().map(m=>({id:m.id,nazwa:m.nazwa,ramka:m.ramka,pewnosc:m.pew,opis_roznicy:m.roznica})),
  miejsca:wszystkie().filter(m=>S.stan[m.id]).map(m=>({id:m.id,nazwa:m.nazwa,strefa:m.strefa,ramka:m.ramka,pewnosc:m.pew,opis_roznicy:m.roznica,przedmiot_kontroli:m.przedmiot,
-  alarm_z_reguly:m.regula?"pusta naczepa":null,decyzja:S.stan[m.id].typ=="zlec"?"do kontroli":"odrzucone",powod:S.stan[m.id].powod||null})),
+  alarm_z_reguly:m.regula?"alarm z reguły: pusta naczepa":null,decyzja:S.stan[m.id].typ=="zlec"?"do kontroli":"odrzucone",powod:S.stan[m.id].powod||null})),
  metoda:r.metoda,karta:r.karta,czas_analizy_s:r.czas_analizy_s,zapisano:new Date().toISOString()};
  const u=URL.createObjectURL(new Blob([JSON.stringify(d,null,2)],{type:"application/json"}));pobierzPlik("zapis-kontroli.json",u);setTimeout(()=>URL.revokeObjectURL(u),1000);pobierzPng()}
 // P32: obraz badanego auta z ramkami (kolor wg decyzji) → PNG

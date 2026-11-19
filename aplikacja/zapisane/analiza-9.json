@@ -1,0 +1,179 @@
+{
+ "plik_badany": "lustro-d028_B.bmp",
+ "rozmiar": [
+  1200,
+  420
+ ],
+ "obraz_badany": "1ff5a362e60b46dc",
+ "tryb": "wskazany typ",
+ "typ": "A",
+ "opis_typu": "typ A (katalog wzorców)",
+ "podobienstwo": 0.03,
+ "pewnosc_doboru": 0.123,
+ "niepewny": false,
+ "wskazany_recznie": true,
+ "obraz_wzorca": "33ecf3257d0b4ace",
+ "plik_wzorca": null,
+ "towar": "nie wiem",
+ "miejsca": [
+  {
+   "strefa": "Rama i podwozie",
+   "polozenie": "środek",
+   "nazwa": "Rama i podwozie — środek",
+   "kategoria": "konstrukcja",
+   "opis": "Gęściej niż wzorzec, ok. 1/4 długości naczepy.",
+   "przedmiot": "rama i podwozie, środek",
+   "z": 74.7,
+   "pew_wynik": 0.95,
+   "ramka": [
+    118,
+    319,
+    278,
+    404
+   ],
+   "ramka_wz": [
+    0.5475,
+    0.7357142857142858,
+    0.6833333333333333,
+    0.9333333333333333
+   ],
+   "regula": false,
+   "pominieta": false,
+   "pew": 0.95,
+   "id": 1
+  },
+  {
+   "strefa": "Ładownia",
+   "polozenie": "tył",
+   "nazwa": "Ładownia — tył",
+   "kategoria": "ładunek_inny",
+   "opis": "Gęściej niż wzorzec — ładunek, którego we wzorcu nie ma, ok. połowy długości naczepy.",
+   "przedmiot": "ładunek w tylnej części ładowni",
+   "z": 29.1,
+   "pew_wynik": 0.88,
+   "ramka": [
+    93,
+    43,
+    650,
+    334
+   ],
+   "ramka_wz": [
+    0.5266666666666666,
+    0.08095238095238096,
+    1,
+    0.7690476190476191
+   ],
+   "regula": false,
+   "pominieta": false,
+   "pew": 0.88,
+   "id": 2
+  },
+  {
+   "strefa": "Ładownia",
+   "polozenie": "środek",
+   "nazwa": "Ładownia — środek",
+   "kategoria": "ładunek_dodatek",
+   "opis": "Gęstszy obiekt wewnątrz ładunku, we wzorcu brak.",
+   "przedmiot": "ładunek w środkowej części ładowni",
+   "z": 13.4,
+   "pew_wynik": 0.74,
+   "ramka": [
+    94,
+    63,
+    105,
+    293
+   ],
+   "ramka_wz": [
+    0.5275,
+    0.12857142857142856,
+    0.5358333333333334,
+    0.6714285714285714
+   ],
+   "regula": false,
+   "pominieta": false,
+   "pew": 0.74,
+   "id": 3
+  },
+  {
+   "strefa": "Podłoga",
+   "polozenie": "tył",
+   "nazwa": "Podłoga — tył",
+   "kategoria": "konstrukcja",
+   "opis": "Gęściej niż wzorzec, mały obiekt.",
+   "przedmiot": "podłoga naczepy, tył",
+   "z": 12.2,
+   "pew_wynik": 0.71,
+   "ramka": [
+    565,
+    294,
+    577,
+    305
+   ],
+   "ramka_wz": [
+    0.9291666666666667,
+    0.6761904761904762,
+    0.9383333333333334,
+    0.7
+   ],
+   "regula": false,
+   "pominieta": false,
+   "pew": 0.71,
+   "id": 4
+  },
+  {
+   "strefa": "Rama i podwozie",
+   "polozenie": "tył",
+   "nazwa": "Rama i podwozie — tył",
+   "kategoria": "konstrukcja",
+   "opis": "Gęściej niż wzorzec, mały obiekt.",
+   "przedmiot": "rama i podwozie, tył",
+   "z": 7.2,
+   "pew_wynik": 0.52,
+   "ramka": [
+    245,
+    317,
+    252,
+    324
+   ],
+   "ramka_wz": [
+    0.6558333333333334,
+    0.7309523809523809,
+    0.6608333333333334,
+    0.7452380952380953
+   ],
+   "regula": false,
+   "pominieta": false,
+   "pew": 0.52,
+   "id": 5
+  },
+  {
+   "strefa": "Podłoga",
+   "polozenie": "tył",
+   "nazwa": "Podłoga — tył",
+   "kategoria": "konstrukcja",
+   "opis": "Gęściej niż wzorzec, mały obiekt.",
+   "przedmiot": "podłoga naczepy, tył",
+   "z": 7,
+   "pew_wynik": 0.5,
+   "ramka": [
+    500,
+    295,
+    506,
+    301
+   ],
+   "ramka_wz": [
+    0.8733333333333333,
+    0.6785714285714286,
+    0.8775,
+    0.6904761904761905
+   ],
+   "regula": false,
+   "pominieta": false,
+   "pew": 0.5,
+   "id": 6
+  }
+ ],
+ "czas_analizy_s": 1.06,
+ "metoda": "C_model_typu",
+ "karta": "NVIDIA GeForce GTX 1050"
+}

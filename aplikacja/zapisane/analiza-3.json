@@ -1,0 +1,179 @@
+{
+ "plik_badany": "c001_B.bmp",
+ "rozmiar": [
+  1200,
+  420
+ ],
+ "obraz_badany": "4000204dcf334a0b",
+ "tryb": "dobrany",
+ "typ": "B",
+ "opis_typu": "typ B (katalog wzorców)",
+ "podobienstwo": 0.07,
+ "pewnosc_doboru": 0.541,
+ "niepewny": false,
+ "wskazany_recznie": false,
+ "obraz_wzorca": "33f69fafa1424116",
+ "plik_wzorca": null,
+ "towar": "pusta naczepa",
+ "miejsca": [
+  {
+   "strefa": "Ładownia",
+   "polozenie": "środek",
+   "nazwa": "Ładownia — środek",
+   "kategoria": "ładunek_inny",
+   "opis": "Gęściej niż wzorzec — ładunek, którego we wzorcu nie ma.",
+   "przedmiot": "ładunek w środkowej części ładowni",
+   "z": 47.7,
+   "pew_wynik": 0.93,
+   "ramka": [
+    444,
+    215,
+    533,
+    293
+   ],
+   "ramka_wz": [
+    0.37333333333333335,
+    0.5047619047619047,
+    0.4475,
+    0.6880952380952381
+   ],
+   "regula": true,
+   "pominieta": false,
+   "pew": 0.93,
+   "id": 1
+  },
+  {
+   "strefa": "Ładownia",
+   "polozenie": "tył",
+   "nazwa": "Ładownia — tył",
+   "kategoria": "ładunek_inny",
+   "opis": "Gęściej niż wzorzec — ładunek, którego we wzorcu nie ma.",
+   "przedmiot": "ładunek w tylnej części ładowni",
+   "z": 44,
+   "pew_wynik": 0.92,
+   "ramka": [
+    797,
+    127,
+    877,
+    292
+   ],
+   "ramka_wz": [
+    0.6675,
+    0.2976190476190476,
+    0.7341666666666666,
+    0.6857142857142857
+   ],
+   "regula": true,
+   "pominieta": false,
+   "pew": 0.92,
+   "id": 2
+  },
+  {
+   "strefa": "Ładownia",
+   "polozenie": "środek",
+   "nazwa": "Ładownia — środek",
+   "kategoria": "ładunek_inny",
+   "opis": "Gęściej niż wzorzec — ładunek, którego we wzorcu nie ma, ok. 1/4 długości naczepy.",
+   "przedmiot": "ładunek w środkowej części ładowni",
+   "z": 28.2,
+   "pew_wynik": 0.88,
+   "ramka": [
+    534,
+    200,
+    678,
+    293
+   ],
+   "ramka_wz": [
+    0.4483333333333333,
+    0.46904761904761905,
+    0.5683333333333334,
+    0.6880952380952381
+   ],
+   "regula": true,
+   "pominieta": false,
+   "pew": 0.88,
+   "id": 3
+  },
+  {
+   "strefa": "Ładownia",
+   "polozenie": "przód",
+   "nazwa": "Ładownia — przód",
+   "kategoria": "ładunek_inny",
+   "opis": "Gęściej niż wzorzec — ładunek, którego we wzorcu nie ma.",
+   "przedmiot": "ładunek w przedniej części ładowni",
+   "z": 23.1,
+   "pew_wynik": 0.85,
+   "ramka": [
+    97,
+    144,
+    213,
+    292
+   ],
+   "ramka_wz": [
+    0.08416666666666667,
+    0.3380952380952381,
+    0.18083333333333335,
+    0.6857142857142857
+   ],
+   "regula": true,
+   "pominieta": false,
+   "pew": 0.85,
+   "id": 4
+  },
+  {
+   "strefa": "Ładownia",
+   "polozenie": "tył",
+   "nazwa": "Ładownia — tył",
+   "kategoria": "ładunek_inny",
+   "opis": "Gęściej niż wzorzec — ładunek, którego we wzorcu nie ma, ok. 1/4 długości naczepy.",
+   "przedmiot": "ładunek w tylnej części ładowni",
+   "z": 22.8,
+   "pew_wynik": 0.85,
+   "ramka": [
+    900,
+    200,
+    1030,
+    292
+   ],
+   "ramka_wz": [
+    0.7533333333333333,
+    0.46904761904761905,
+    0.8616666666666667,
+    0.6857142857142857
+   ],
+   "regula": true,
+   "pominieta": false,
+   "pew": 0.85,
+   "id": 5
+  },
+  {
+   "strefa": "Ładownia",
+   "polozenie": "środek",
+   "nazwa": "Ładownia — środek",
+   "kategoria": "ładunek_inny",
+   "opis": "Gęściej niż wzorzec — ładunek, którego we wzorcu nie ma.",
+   "przedmiot": "ładunek w środkowej części ładowni",
+   "z": 22.3,
+   "pew_wynik": 0.84,
+   "ramka": [
+    701,
+    129,
+    793,
+    292
+   ],
+   "ramka_wz": [
+    0.5875,
+    0.30238095238095236,
+    0.6641666666666667,
+    0.6857142857142857
+   ],
+   "regula": true,
+   "pominieta": false,
+   "pew": 0.84,
+   "id": 6
+  }
+ ],
+ "czas_analizy_s": 1.06,
+ "metoda": "C_model_typu",
+ "karta": "NVIDIA GeForce GTX 1050"
+}

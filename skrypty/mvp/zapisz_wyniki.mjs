@@ -11,17 +11,16 @@ const png = async (t) => { const p = path.join(KAT, t + ".png"); if (!fs.existsS
 const przyklady = await j("/przyklady");
 for (const k of przyklady.katalog) await png(k.obraz);
 const analizy = {};
+// "plik" = wgranie PLIK_WZ, "plik=<ścieżka>" = wgranie tego pliku; w kluczu zapisu oba to "plik:zapisany"
+const wgraj = async (p) => (await j("/wgraj", { method: "POST", headers: { "content-type": "application/octet-stream", "x-nazwa": path.basename(p) }, body: fs.readFileSync(p) })).id;
+const zrodlo = async (v) => v === "plik" ? wgraj(PLIK_WZ) : v.startsWith("plik=") ? wgraj(v.slice(5)) : v;
+const klucz = (v) => v === "plik" || v.startsWith("plik=") ? "plik:zapisany" : v;
 for (const [b, w, t] of WARIANTY) {
-  let wz = w;
-  if (w === "plik") {
-    const r = await fetch(USL + "/wgraj", { method: "POST", headers: { "content-type": "application/octet-stream", "x-nazwa": path.basename(PLIK_WZ) }, body: fs.readFileSync(PLIK_WZ) });
-    wz = (await r.json()).id;
-  }
-  const a = await j("/analiza", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ badany: b, wzorzec: wz, towar: t }) });
+  const a = await j("/analiza", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ badany: await zrodlo(b), wzorzec: await zrodlo(w), towar: t }) });
   await png(a.obraz_badany); await png(a.obraz_wzorca);
   const nazwa = `analiza-${Object.keys(analizy).length + 1}.json`;
   fs.writeFileSync(path.join(KAT, nazwa), JSON.stringify(a, null, 1));
-  analizy[`${b}|${w === "plik" ? "plik:zapisany" : w}|${t}`] = nazwa;
+  analizy[`${klucz(b)}|${klucz(w)}|${t}`] = nazwa;
   console.log(`${b} | ${w} | ${t} → ${a.tryb}, ${a.miejsca.length} miejsc: ${a.miejsca.map((m) => `${m.nazwa} ${Math.round(m.pew * 100)}%${m.pominieta ? " (pominięta)" : ""}${m.regula ? " (reguła)" : ""}`).join("; ")}`);
 }
 fs.writeFileSync(path.join(KAT, "indeks.json"), JSON.stringify({ zapisano: new Date().toISOString(), przyklady, analizy }, null, 1));

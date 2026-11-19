@@ -1,0 +1,102 @@
+{
+ "plik_badany": "d019_B.bmp",
+ "rozmiar": [
+  1200,
+  420
+ ],
+ "obraz_badany": "41c35578c9004eb5",
+ "tryb": "para",
+ "typ": "B",
+ "opis_typu": "typ B (katalog wzorców)",
+ "podobienstwo": 0.09,
+ "pewnosc_doboru": null,
+ "niepewny": false,
+ "wskazany_recznie": false,
+ "obraz_wzorca": "676865b945b34840",
+ "plik_wzorca": null,
+ "para": "d019_B.bmp",
+ "towar": "nie wiem",
+ "miejsca": [
+  {
+   "strefa": "Ładownia",
+   "polozenie": "środek",
+   "nazwa": "Ładownia — środek",
+   "kategoria": "ładunek_dodatek",
+   "opis": "Gęstszy obiekt wewnątrz ładunku, we wzorcu brak.",
+   "przedmiot": "ładunek w środkowej części ładowni",
+   "z": 50.3,
+   "pew_wynik": 0.95,
+   "ramka": [
+    689,
+    90,
+    838,
+    213
+   ],
+   "ramka_wz": [
+    0.565,
+    0.22380952380952382,
+    0.6875,
+    0.5142857142857142
+   ],
+   "regula": false,
+   "pominieta": false,
+   "pew": 0.95,
+   "id": 1
+  },
+  {
+   "strefa": "Ściana przednia",
+   "polozenie": "dół",
+   "nazwa": "Ściana przednia — dół",
+   "kategoria": "konstrukcja",
+   "opis": "Gęściej niż wzorzec, mały obiekt.",
+   "przedmiot": "przednia ściana skrzyni ładunkowej (przy kabinie)",
+   "z": 25.9,
+   "pew_wynik": 0.9,
+   "ramka": [
+    86,
+    241,
+    95,
+    255
+   ],
+   "ramka_wz": [
+    0.065,
+    0.5833333333333334,
+    0.07166666666666667,
+    0.6142857142857143
+   ],
+   "regula": false,
+   "pominieta": false,
+   "pew": 0.9,
+   "id": 2
+  },
+  {
+   "strefa": "Podłoga",
+   "polozenie": "środek",
+   "nazwa": "Podłoga — środek",
+   "kategoria": "konstrukcja",
+   "opis": "Gęściej niż wzorzec, mały obiekt.",
+   "przedmiot": "podłoga naczepy, środek",
+   "z": 16.3,
+   "pew_wynik": 0.85,
+   "ramka": [
+    565,
+    292,
+    710,
+    299
+   ],
+   "ramka_wz": [
+    0.4625,
+    0.7047619047619048,
+    0.5816666666666667,
+    0.719047619047619
+   ],
+   "regula": false,
+   "pominieta": false,
+   "pew": 0.85,
+   "id": 3
+  }
+ ],
+ "czas_analizy_s": 1.16,
+ "metoda": "A_piksele_para",
+ "karta": "NVIDIA GeForce GTX 1050"
+}

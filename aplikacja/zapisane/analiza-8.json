@@ -1,0 +1,595 @@
+{
+ "plik_badany": "lustro-d028_B.bmp",
+ "rozmiar": [
+  1200,
+  420
+ ],
+ "obraz_badany": "1f8ead54b4254326",
+ "tryb": "dobrany",
+ "typ": "C",
+ "opis_typu": "typ C (katalog wzorców)",
+ "podobienstwo": 0.04,
+ "pewnosc_doboru": 0.123,
+ "niepewny": true,
+ "wskazany_recznie": false,
+ "obraz_wzorca": "1ef0371f84474841",
+ "plik_wzorca": null,
+ "towar": "nie wiem",
+ "miejsca": [
+  {
+   "strefa": "Rama i podwozie",
+   "polozenie": "środek",
+   "nazwa": "Rama i podwozie — środek",
+   "kategoria": "konstrukcja",
+   "opis": "Gęściej niż wzorzec, ok. 1/4 długości naczepy.",
+   "przedmiot": "rama i podwozie, środek",
+   "z": 129.5,
+   "pew_wynik": 0.97,
+   "ramka": [
+    118,
+    307,
+    282,
+    404
+   ],
+   "ramka_wz": [
+    0.5641666666666667,
+    0.7238095238095238,
+    0.6983333333333334,
+    0.95
+   ],
+   "regula": false,
+   "pominieta": false,
+   "pew": 0.78,
+   "id": 1
+  },
+  {
+   "strefa": "Ładownia",
+   "polozenie": "tył",
+   "nazwa": "Ładownia — tył",
+   "kategoria": "ładunek_inny",
+   "opis": "Gęściej niż wzorzec — ładunek, którego we wzorcu nie ma, ok. połowy długości naczepy.",
+   "przedmiot": "ładunek w tylnej części ładowni",
+   "z": 51,
+   "pew_wynik": 0.93,
+   "ramka": [
+    93,
+    43,
+    649,
+    366
+   ],
+   "ramka_wz": [
+    0.5433333333333333,
+    0.09523809523809523,
+    1,
+    0.8595238095238096
+   ],
+   "regula": false,
+   "pominieta": false,
+   "pew": 0.74,
+   "id": 2
+  },
+  {
+   "strefa": "Ładownia",
+   "polozenie": "środek",
+   "nazwa": "Ładownia — środek",
+   "kategoria": "ładunek_dodatek",
+   "opis": "Gęstszy obiekt wewnątrz ładunku, we wzorcu brak.",
+   "przedmiot": "ładunek w środkowej części ładowni",
+   "z": 34.2,
+   "pew_wynik": 0.9,
+   "ramka": [
+    93,
+    64,
+    107,
+    294
+   ],
+   "ramka_wz": [
+    0.5433333333333333,
+    0.14523809523809525,
+    0.5541666666666667,
+    0.6904761904761905
+   ],
+   "regula": false,
+   "pominieta": false,
+   "pew": 0.72,
+   "id": 3
+  },
+  {
+   "strefa": "Ładownia",
+   "polozenie": "tył",
+   "nazwa": "Ładownia — tył",
+   "kategoria": "ładunek_dodatek",
+   "opis": "Gęstszy obiekt wewnątrz ładunku, we wzorcu brak.",
+   "przedmiot": "ładunek w tylnej części ładowni",
+   "z": 25.8,
+   "pew_wynik": 0.86,
+   "ramka": [
+    504,
+    66,
+    542,
+    291
+   ],
+   "ramka_wz": [
+    0.8816666666666667,
+    0.15,
+    0.9125,
+    0.6833333333333333
+   ],
+   "regula": false,
+   "pominieta": false,
+   "pew": 0.69,
+   "id": 4
+  },
+  {
+   "strefa": "Podłoga",
+   "polozenie": "środek",
+   "nazwa": "Podłoga — środek",
+   "kategoria": "konstrukcja",
+   "opis": "Gęściej niż wzorzec, mały obiekt.",
+   "przedmiot": "podłoga naczepy, środek",
+   "z": 22.8,
+   "pew_wynik": 0.85,
+   "ramka": [
+    125,
+    294,
+    191,
+    306
+   ],
+   "ramka_wz": [
+    0.57,
+    0.6928571428571428,
+    0.6233333333333333,
+    0.719047619047619
+   ],
+   "regula": false,
+   "pominieta": false,
+   "pew": 0.68,
+   "id": 5
+  },
+  {
+   "strefa": "Podłoga",
+   "polozenie": "tył",
+   "nazwa": "Podłoga — tył",
+   "kategoria": "konstrukcja",
+   "opis": "Gęściej niż wzorzec, mały obiekt.",
+   "przedmiot": "podłoga naczepy, tył",
+   "z": 22.7,
+   "pew_wynik": 0.85,
+   "ramka": [
+    271,
+    294,
+    338,
+    306
+   ],
+   "ramka_wz": [
+    0.69,
+    0.6928571428571428,
+    0.7441666666666666,
+    0.719047619047619
+   ],
+   "regula": false,
+   "pominieta": false,
+   "pew": 0.68,
+   "id": 6
+  },
+  {
+   "strefa": "Podłoga",
+   "polozenie": "tył",
+   "nazwa": "Podłoga — tył",
+   "kategoria": "konstrukcja",
+   "opis": "Gęściej niż wzorzec, mały obiekt.",
+   "przedmiot": "podłoga naczepy, tył",
+   "z": 23.1,
+   "pew_wynik": 0.85,
+   "ramka": [
+    417,
+    294,
+    457,
+    306
+   ],
+   "ramka_wz": [
+    0.81,
+    0.6928571428571428,
+    0.8425,
+    0.719047619047619
+   ],
+   "regula": false,
+   "pominieta": false,
+   "pew": 0.68,
+   "id": 7
+  },
+  {
+   "strefa": "Podłoga",
+   "polozenie": "tył",
+   "nazwa": "Podłoga — tył",
+   "kategoria": "konstrukcja",
+   "opis": "Gęściej niż wzorzec, mały obiekt.",
+   "przedmiot": "podłoga naczepy, tył",
+   "z": 22.2,
+   "pew_wynik": 0.84,
+   "ramka": [
+    197,
+    294,
+    265,
+    306
+   ],
+   "ramka_wz": [
+    0.6291666666666667,
+    0.6928571428571428,
+    0.6841666666666667,
+    0.719047619047619
+   ],
+   "regula": false,
+   "pominieta": false,
+   "pew": 0.67,
+   "id": 8
+  },
+  {
+   "strefa": "Podłoga",
+   "polozenie": "tył",
+   "nazwa": "Podłoga — tył",
+   "kategoria": "konstrukcja",
+   "opis": "Gęściej niż wzorzec, mały obiekt.",
+   "przedmiot": "podłoga naczepy, tył",
+   "z": 22.1,
+   "pew_wynik": 0.84,
+   "ramka": [
+    344,
+    294,
+    411,
+    306
+   ],
+   "ramka_wz": [
+    0.75,
+    0.6928571428571428,
+    0.8041666666666667,
+    0.719047619047619
+   ],
+   "regula": false,
+   "pominieta": false,
+   "pew": 0.67,
+   "id": 9
+  },
+  {
+   "strefa": "Ładownia",
+   "polozenie": "środek",
+   "nazwa": "Ładownia — środek",
+   "kategoria": "ładunek_dodatek",
+   "opis": "Gęstszy obiekt wewnątrz ładunku, we wzorcu brak.",
+   "przedmiot": "ładunek w środkowej części ładowni",
+   "z": 17.1,
+   "pew_wynik": 0.8,
+   "ramka": [
+    143,
+    66,
+    153,
+    291
+   ],
+   "ramka_wz": [
+    0.585,
+    0.15,
+    0.5925,
+    0.6833333333333333
+   ],
+   "regula": false,
+   "pominieta": false,
+   "pew": 0.64,
+   "id": 10
+  },
+  {
+   "strefa": "Ładownia",
+   "polozenie": "tył",
+   "nazwa": "Ładownia — tył",
+   "kategoria": "ładunek_dodatek",
+   "opis": "Gęstszy obiekt wewnątrz ładunku, we wzorcu brak.",
+   "przedmiot": "ładunek w tylnej części ładowni",
+   "z": 17.1,
+   "pew_wynik": 0.8,
+   "ramka": [
+    425,
+    66,
+    435,
+    291
+   ],
+   "ramka_wz": [
+    0.8166666666666667,
+    0.15,
+    0.8241666666666667,
+    0.6833333333333333
+   ],
+   "regula": false,
+   "pominieta": false,
+   "pew": 0.64,
+   "id": 11
+  },
+  {
+   "strefa": "Ładownia",
+   "polozenie": "tył",
+   "nazwa": "Ładownia — tył",
+   "kategoria": "ładunek_dodatek",
+   "opis": "Gęstszy obiekt wewnątrz ładunku, we wzorcu brak.",
+   "przedmiot": "ładunek w tylnej części ładowni",
+   "z": 16.8,
+   "pew_wynik": 0.79,
+   "ramka": [
+    250,
+    66,
+    259,
+    291
+   ],
+   "ramka_wz": [
+    0.6725,
+    0.15,
+    0.6791666666666667,
+    0.6833333333333333
+   ],
+   "regula": false,
+   "pominieta": false,
+   "pew": 0.63,
+   "id": 12
+  },
+  {
+   "strefa": "Ładownia",
+   "polozenie": "środek",
+   "nazwa": "Ładownia — środek",
+   "kategoria": "ładunek_dodatek",
+   "opis": "Gęstszy obiekt wewnątrz ładunku, we wzorcu brak.",
+   "przedmiot": "ładunek w środkowej części ładowni",
+   "z": 14.7,
+   "pew_wynik": 0.76,
+   "ramka": [
+    179,
+    66,
+    188,
+    291
+   ],
+   "ramka_wz": [
+    0.6141666666666666,
+    0.15,
+    0.6208333333333333,
+    0.6833333333333333
+   ],
+   "regula": false,
+   "pominieta": false,
+   "pew": 0.61,
+   "id": 13
+  },
+  {
+   "strefa": "Ładownia",
+   "polozenie": "tył",
+   "nazwa": "Ładownia — tył",
+   "kategoria": "ładunek_dodatek",
+   "opis": "Gęstszy obiekt wewnątrz ładunku, we wzorcu brak.",
+   "przedmiot": "ładunek w tylnej części ładowni",
+   "z": 14.3,
+   "pew_wynik": 0.76,
+   "ramka": [
+    355,
+    66,
+    364,
+    291
+   ],
+   "ramka_wz": [
+    0.7591666666666667,
+    0.15,
+    0.7658333333333334,
+    0.6833333333333333
+   ],
+   "regula": false,
+   "pominieta": false,
+   "pew": 0.61,
+   "id": 14
+  },
+  {
+   "strefa": "Ładownia",
+   "polozenie": "tył",
+   "nazwa": "Ładownia — tył",
+   "kategoria": "ładunek_dodatek",
+   "opis": "Gęstszy obiekt wewnątrz ładunku, we wzorcu brak.",
+   "przedmiot": "ładunek w tylnej części ładowni",
+   "z": 14.4,
+   "pew_wynik": 0.76,
+   "ramka": [
+    461,
+    66,
+    469,
+    291
+   ],
+   "ramka_wz": [
+    0.8466666666666667,
+    0.15,
+    0.8525,
+    0.6833333333333333
+   ],
+   "regula": false,
+   "pominieta": false,
+   "pew": 0.61,
+   "id": 15
+  },
+  {
+   "strefa": "Ładownia",
+   "polozenie": "tył",
+   "nazwa": "Ładownia — tył",
+   "kategoria": "ładunek_dodatek",
+   "opis": "Gęstszy obiekt wewnątrz ładunku, we wzorcu brak.",
+   "przedmiot": "ładunek w tylnej części ładowni",
+   "z": 14.1,
+   "pew_wynik": 0.75,
+   "ramka": [
+    215,
+    66,
+    223,
+    291
+   ],
+   "ramka_wz": [
+    0.6441666666666667,
+    0.15,
+    0.65,
+    0.6833333333333333
+   ],
+   "regula": false,
+   "pominieta": false,
+   "pew": 0.6,
+   "id": 16
+  },
+  {
+   "strefa": "Ładownia",
+   "polozenie": "tył",
+   "nazwa": "Ładownia — tył",
+   "kategoria": "ładunek_dodatek",
+   "opis": "Gęstszy obiekt wewnątrz ładunku, we wzorcu brak.",
+   "przedmiot": "ładunek w tylnej części ładowni",
+   "z": 14.1,
+   "pew_wynik": 0.75,
+   "ramka": [
+    390,
+    66,
+    399,
+    291
+   ],
+   "ramka_wz": [
+    0.7883333333333333,
+    0.15,
+    0.795,
+    0.6833333333333333
+   ],
+   "regula": false,
+   "pominieta": false,
+   "pew": 0.6,
+   "id": 17
+  },
+  {
+   "strefa": "Ładownia",
+   "polozenie": "tył",
+   "nazwa": "Ładownia — tył",
+   "kategoria": "ładunek_dodatek",
+   "opis": "Gęstszy obiekt wewnątrz ładunku, we wzorcu brak.",
+   "przedmiot": "ładunek w tylnej części ładowni",
+   "z": 11.3,
+   "pew_wynik": 0.69,
+   "ramka": [
+    286,
+    67,
+    294,
+    291
+   ],
+   "ramka_wz": [
+    0.7025,
+    0.1523809523809524,
+    0.7083333333333334,
+    0.6833333333333333
+   ],
+   "regula": false,
+   "pominieta": false,
+   "pew": 0.55,
+   "id": 18
+  },
+  {
+   "strefa": "Ładownia",
+   "polozenie": "tył",
+   "nazwa": "Ładownia — tył",
+   "kategoria": "ładunek_dodatek",
+   "opis": "Gęstszy obiekt wewnątrz ładunku, we wzorcu brak.",
+   "przedmiot": "ładunek w tylnej części ładowni",
+   "z": 9.3,
+   "pew_wynik": 0.62,
+   "ramka": [
+    319,
+    67,
+    327,
+    201
+   ],
+   "ramka_wz": [
+    0.73,
+    0.1523809523809524,
+    0.735,
+    0.46904761904761905
+   ],
+   "regula": false,
+   "pominieta": false,
+   "pew": 0.5,
+   "id": 19
+  },
+  {
+   "strefa": "Ładownia",
+   "polozenie": "tył",
+   "nazwa": "Ładownia — tył",
+   "kategoria": "ładunek_dodatek",
+   "opis": "Gęstszy obiekt wewnątrz ładunku, we wzorcu brak.",
+   "przedmiot": "ładunek w tylnej części ładowni",
+   "z": 9.3,
+   "pew_wynik": 0.62,
+   "ramka": [
+    319,
+    204,
+    327,
+    290
+   ],
+   "ramka_wz": [
+    0.73,
+    0.4785714285714286,
+    0.735,
+    0.680952380952381
+   ],
+   "regula": false,
+   "pominieta": false,
+   "pew": 0.5,
+   "id": 20
+  },
+  {
+   "strefa": "Podłoga",
+   "polozenie": "środek",
+   "nazwa": "Podłoga — środek",
+   "kategoria": "konstrukcja",
+   "opis": "Gęściej niż wzorzec, mały obiekt.",
+   "przedmiot": "podłoga naczepy, środek",
+   "z": 7.8,
+   "pew_wynik": 0.55,
+   "ramka": [
+    96,
+    295,
+    119,
+    301
+   ],
+   "ramka_wz": [
+    0.5458333333333333,
+    0.6952380952380952,
+    0.5641666666666667,
+    0.7071428571428572
+   ],
+   "regula": false,
+   "pominieta": false,
+   "pew": 0.5,
+   "id": 21
+  },
+  {
+   "strefa": "Podłoga",
+   "polozenie": "tył",
+   "nazwa": "Podłoga — tył",
+   "kategoria": "konstrukcja",
+   "opis": "Gęściej niż wzorzec, mały obiekt.",
+   "przedmiot": "podłoga naczepy, tył",
+   "z": 8.9,
+   "pew_wynik": 0.61,
+   "ramka": [
+    462,
+    295,
+    483,
+    301
+   ],
+   "ramka_wz": [
+    0.8475,
+    0.6952380952380952,
+    0.8641666666666666,
+    0.7071428571428572
+   ],
+   "regula": false,
+   "pominieta": false,
+   "pew": 0.5,
+   "id": 22
+  }
+ ],
+ "czas_analizy_s": 1.07,
+ "metoda": "C_model_typu",
+ "karta": "NVIDIA GeForce GTX 1050"
+}
