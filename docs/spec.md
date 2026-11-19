@@ -5,7 +5,7 @@
 ## 1. Co zobaczy i zrobi użytkownik (według Artura)
 Użytkownik: operator RTG przy stanowisku, kilka minut na auto (P1).
 Ekran główny = **wariant 3 + lista z wariantu 2** (P12). Makieta: https://pawelpisarek.github.io/hacknation-proba14/warianty/3/
-1. Operator wczytuje obraz badanego auta (`.bmp`); wzorzec dobiera się sam (podpis „dobrany: typ …, podobieństwo …”) albo operator wskazuje wzorzec (tryb z parą).
+1. Operator wczytuje obraz badanego auta (`.bmp`) i wybiera z listy **rodzaj zgłoszonego towaru** albo „nie wiem” (P15, P17); wzorzec dobiera się sam (podpis „dobrany: typ …, podobieństwo …”) albo operator wskazuje wzorzec (tryb z parą).
 2. Widzi **dwa obrazy obok siebie**: wzorzec (z zaznaczonym odpowiednikiem miejsca) i badane auto (z ramkami).
 3. Z boku **lista miejsc od najpewniejszego** (P7). Każda pozycja: nazwa miejsca, krótko czym różni się od wzorca (P9), pewność.
 4. Klik w miejsce (na liście albo w ramce) — **oba obrazy przybliżają to samo miejsce** (powiększenie, P10/idea 5).
@@ -17,7 +17,7 @@ Poza zakresem: podsumowanie partii poza linią „ile miejsc” (z 7 Artur wzią
 **Demo ≤ 2 min (P4, P11):** wczytanie → wzorzec dobrany → ramka na podwójnej podłodze (najpewniejsza, pierwsza) → klik → powiększenie na obu obrazach → „do kontroli” → ściana przy kabinie → „do kontroli” → trzecie (ładunek) → „odrzuć” z powodem → zapis i linia „zostało 0”.
 
 ## 2. Wejście i wyjście
-**Wejście:** plik `.bmp` badanego auta (8 bit, skala szarości; docelowo ~50 MB, zadanie p. 3/7); opcjonalnie drugi `.bmp` jako wzorzec (tryb z parą); katalog czystych wzorców (do nauki i doboru).
+**Wejście:** rodzaj zgłoszonego towaru z listy (domyślnie „nie wiem”; lista wstępna — założenie = rekomendacja P17: sprzęt i AGD · odzież i tekstylia · żywność i napoje · materiały budowlane · inne); plik `.bmp` badanego auta (8 bit, skala szarości; docelowo ~50 MB, zadanie p. 3/7); opcjonalnie drugi `.bmp` jako wzorzec (tryb z parą); katalog czystych wzorców (do nauki i doboru).
 **Wyjście na plik wynikowy:**
 - obraz z ramkami (PNG, układ obrazu badanego w pełnej rozdzielczości);
 - JSON: lista miejsc `{id, nazwa, ramka {x,y,w,h}, pewność, opis różnicy, przedmiot kontroli, decyzja, powód}` + wzorzec użyty + czas analizy;
@@ -37,6 +37,7 @@ Wynik zapisuje **miejsce i przedmiot kontroli** (zadanie p. 9); integracja z rep
 | **Bez pary (dobór wzorca)** | domyślny — operator zwykle pary nie ma (P8) | system wybiera z katalogu czystych najbliższy typ naczepy, potem jak wyżej; podpis „dobrany: …” |
 Jeśli dobór wzorca zawodzi (podobieństwo poniżej progu z kalibracji) — ekran pokazuje ramki z ostrzeżeniem „wzorzec niepewny — wskaż wzorzec” i prosi o wskazanie wzorca (tryb z parą; tryb pary pierwszy w razie porażki E1, `docs/pm/02`). Założenie = rekomendacja P16 (A), czeka na Artura; ramek nie ukrywamy (P2, P8).
 Inny ładunek zgodny ze zgłoszeniem (P15, Artur): **nie zaznaczamy go, ale tylko gdy narzędzie zna zgłoszenie** — operator wybiera rodzaj towaru z listy (pole na ekranie przed analizą). Bez wybranego rodzaju towaru zaznaczamy wszystko, co różni się od wzorca (P2: zbędny alarm lepszy niż przeoczenie).
+Reguła: przy wybranym rodzaju towaru różnica w ładunku, którą da się wyjaśnić tym rodzajem (inny ładunek niż we wzorcu), nie dostaje ramki; przy „nie wiem” zaznaczamy wszystko, co różni się od wzorca (P2). Rozpoznanie „zgodny ze zgłoszeniem” — zadanie dla Programisty, do zmierzenia w A15/A16; generator: osobny mały zbiór kontrolny „inny ładunek zgodny ze zgłoszeniem” w trybie bez pary (otwarte, pytanie do Szefa, Q5).
 
 ## 5. Raport
 - Obraz z ramkami + JSON (pkt 2) — układ jak w makiecie: ramki numerowane wg kolejności listy.
@@ -51,6 +52,7 @@ Auto: „Ciągnik + naczepa plandeka, nr rej. XX 0000 (dane udawane)”. Wzorzec
 2. Ściana przy kabinie, 78%, „przednia ściana grubsza, wewnątrz jednolity gęsty kształt”, przedmiot: przednia ściana skrzyni.
 3. W ładunku — paleta 5, 54%, „gęstszy prostokątny obiekt w środku palety; we wzorcu brak”, przedmiot: paleta nr 5.
 Powody odrzucenia: znany element konstrukcji · ładunek zgodny z deklaracją · artefakt obrazu · inny typ naczepy niż wzorzec · inne.
+Pole „Rodzaj zgłoszonego towaru” (lista rozwijana nad obrazami, domyślnie „nie wiem”); makieta wariantu 3 go jeszcze nie ma — do dodania przez Programistę (P14/P15).
 (Źródło: `docs/makieta/warianty/wspolne.js`; liczby w opisach to dane udawane makiety, nie wyniki modelu.)
 
 ## 7. Kryteria akceptacji (testy)
@@ -71,6 +73,8 @@ Liczby progowe ustala Szef po pierwszym przebiegu (E1+E2); do tego czasu kryteri
 | A12 | Zmniejszenie obrazu | mały dodatek w konstrukcji (typ „mały w konstrukcji”, Q5) wykrywany po zmniejszeniu do 1200 px; porównanie FN na zmniejszeniu i na pełnym obrazie (decyzja Q7) |
 | A13 | Partia i duże pliki | przebieg partii pełnowymiarowych obrazów (3+3 pary 12000×4200, ~50 MB): czas na obraz, szczytowa pamięć karty, obrazy/min; wynik zapisany, wynik bez obietnic (zadanie p. 3, 6) |
 | A14 | Ocena przez operatora (E3) | próba ręczna z Arturem na makiecie: czy z ramek, opisu różnicy i powiększenia da się podjąć „do kontroli / odrzuć” dla każdej ramki w kilka minut; wynik: tak/nie + uwagi |
+| A15 | Rodzaj towaru wybrany | na zbiorze kontrolnym „inny ładunek zgodny ze zgłoszeniem” brak ramek na zgodnym ładunku; dodatek w konstrukcji nadal oznaczony |
+| A16 | „Nie wiem” | bez wybranego rodzaju towaru zaznaczone jest wszystko, co różni się od wzorca (P15, P2) |
 
 ## 8. Ryzyka (z /discover i zadania)
 1. Dobór wzorca bez pary zawodzi → tryb pary jako ratunek (P11, E1).
