@@ -1,11 +1,11 @@
-# Stan — 12:59 (sob)
+# Stan — 13:32 (sob)
 Kamień: 20:00 makieta (GitHub Pages) + docs/hacktribe.md; spec zamknięty 11:48.
 
 | zadanie | kto | status |
 |---|---|---|
 | 0 materiały | Analityk | zamknięte |
 | 0P szkielet, generator, ocena FP/FN, wynik bazowy | Programista | zamknięte (68a4eb8): A FN 0/60, FP 2/30; 0,49 s/obraz 50 MB |
-| S1+S2+B1–B3 + kalibracja ≥60 par → S3 (kontrolny, strefy, towar) → S4 → B4–B16 | Programista | w toku — przebieg 1 + S3 na karcie (gen-v3, db6a28f), czeka WYNIK |
+| S1+S2+B1–B3 + kalibracja ≥60 par → S3 (kontrolny, strefy, towar) → S4 → B4–B16 | Programista | kalibracja 60 par + scalanie zamknięte (7af1dcb: A FP 0/30, FN 1/60); S1–S3 + A15b ponawiane po restarcie |
 | 1a competitive-analysis (docs/pm/01) | Projektant | zamknięte (R3) + 2 poprawki Szefa |
 | 1b /discover (docs/pm/02) | Projektant | zamknięte |
 | przesłuchanie Artura | Projektant | P1–P17 odp. |
@@ -17,8 +17,8 @@ Kamień: 20:00 makieta (GitHub Pages) + docs/hacktribe.md; spec zamknięty 11:48
 | HackTribe DRAFT | Prezenter | opisy wg speca zamknięte (R2 Analityk; 297/899/1909); liczby + link makiety przed 20:00 |
 | slajdy szkielet (docs/slajdy.md) | Prezenter | zamknięte (R3) |
 | 5 makieta R3 | Programista | zamknięte — krytyk R3 8/10; braki 1–3 → Artur P34–P37, 4–5 poprawione (spec §6 R3, 08 bez „do dodania”) |
-| MVP z makiety (docs/zadania/01) | Programista | wdrożone — hacknation.ksefbot.pl 200, tag dziala-na-pewno (3ac3e74); poprawka reguły towaru A15b + pomiar z S3 w toku |
-| materiały do stanu faktycznego (link ksefbot, Architektura, historia pokazu) | Prezenter | zlecone |
+| MVP z makiety (docs/zadania/01) | Programista | wdrożone 200, tag na 3ac3e74; poprawka A15b na main (aa2c5a1), czeka wdrożenie + przeklik + tag |
+| materiały do stanu faktycznego (link ksefbot, Architektura, historia pokazu) | Prezenter | zrobione (264ecad); liczby pokazu po odświeżeniu P39 |
 | spec §6 + 08 wg P27–P33 | Projektant | zamknięte; „do dodania” w H2, H9, H10 sprawdzi krytyk R3 |
 | spec §6 + 08 H4 K3 wg P18–P26 | Projektant | zamknięte (spójność sprawdzi krytyk R2) |
 | docs/demo.md szkielet (K1–K6, 120 s, gdy coś padnie) | Prezenter | zamknięte po R3 + 2 poprawki redakcyjne; pola [z prawdziwego wyniku] i próba czasu po MVP/R10 |
