@@ -1,6 +1,6 @@
-# Scenariusz pokazu — „Różnica RTG” (SZKIELET po R1, ≤ 120 s)
+# Scenariusz pokazu — „Różnica RTG” (SZKIELET po R3, ≤ 120 s)
 
-Stan: szkielet po recenzji R1 (Analityk, 5 braków; rozstrzygnięcia Szefa w `docs/decyzje.md`). Pokaz nagrywa człowiek. Źródła: `docs/spec.md` §6, `docs/pm/09-pre-mortem.md` (kroki K1–K6, cztery warstwy), `docs/decyzje.md` (P27–P36).
+Stan: szkielet po R3 (recenzje R1–R3 Analityka; rozstrzygnięcia Szefa w `docs/decyzje.md`). Pokaz nagrywa człowiek. Źródła: `docs/spec.md` §6, `docs/pm/09-pre-mortem.md` (kroki K1–K6, cztery warstwy), `docs/decyzje.md` (P27–P36).
 Miejsca „[z prawdziwego wyniku]” uzupełniamy po wyborze obrazu pokazowego i jego przebiegu (ryzyko R10; Programista zapisuje wynik w `docs/decyzje.md`). Liczb i nazw z makiety nie przepisujemy — to dane udawane.
 Linki: warstwa 1 — ksefbot.pl, **jeszcze niewdrożony** (ostatnio HTTP 530; link wpiszemy po kodzie 200); warstwa 3 — makieta, dane udawane: https://pawelpisarek.github.io/hacknation-proba14/makieta/.
 
@@ -12,7 +12,7 @@ Linki: warstwa 1 — ksefbot.pl, **jeszcze niewdrożony** (ostatnio HTTP 530; li
 | Sekunda | Krok | Co widać na ekranie | Co mówimy |
 |---|---|---|---|
 | 0–10 | start | Ekran startowy, dwa pola na obrazy; pole „Rodzaj zgłoszonego towaru” ustawiamy na **[z prawdziwego wyniku: rodzaj towaru]** | „Operator RTG ma kilka minut na jedno auto. Narzędzie pokazuje, co różni obraz badany od wzorca, i podpowiada, gdzie patrzeć najpierw. Zaczynam od zgłoszonego towaru.” |
-| 10–20 | K1 | Wgranie pary: obraz badany **[z prawdziwego wyniku: plik]** i wzorzec; po analizie lista miejsc z numerowanymi ramkami (czas: **[z prawdziwego wyniku: czas]**, nie obiecujemy liczby) | „Wgrywam parę obrazów. Lista idzie od najpewniejszego miejsca.” |
+| 10–20 | K1 | Wgranie pary: obraz badany **[z prawdziwego wyniku: plik]** i wzorzec; po analizie lista miejsc z numerowanymi ramkami | „Wgrywam parę obrazów. Lista idzie od najpewniejszego miejsca. Analiza trwała [z prawdziwego wyniku: czas].” |
 | 20–32 | K1 | **[z prawdziwego wyniku: liczba]** miejsc; pierwsze: **[nazwa miejsca]**, **[pewność]%**; kliknięcie → powiększenie na wzorcu i badanym obok siebie | „Nazwa miejsca, opis różnicy i pewność. Powiększenie pokazuje to samo miejsce na wzorcu i na badanym.” |
 | 32–42 | K4 | Komunikat „pominięto N różnic” (**[z prawdziwego wyniku: N]**), przycisk „Pokaż pominięte”; po kliknięciu jedną różnicę zlecamy do kontroli, „zostało” rośnie | „Różnice zgodne ze zgłoszonym towarem są domyślnie pominięte, ale można je zobaczyć i zlecić do kontroli.” |
 | 42–67 | K3 | „do kontroli” i „odrzuć” z powodem; „Następne miejsce” przeskakuje po nierozstrzygniętych; linia „zostało N” maleje do „zostało 0”, okno zamyka się po ostatnim | „Każde miejsce: do kontroli albo odrzuć z powodem. „Następne miejsce” prowadzi dalej, aż zostanie 0.” |
