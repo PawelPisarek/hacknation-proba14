@@ -1,4 +1,4 @@
-# Stan — 12:55 (sob)
+# Stan — 12:59 (sob)
 Kamień: 20:00 makieta (GitHub Pages) + docs/hacktribe.md; spec zamknięty 11:48.
 
 | zadanie | kto | status |
@@ -17,12 +17,12 @@ Kamień: 20:00 makieta (GitHub Pages) + docs/hacktribe.md; spec zamknięty 11:48
 | HackTribe DRAFT | Prezenter | opisy wg speca zamknięte (R2 Analityk; 297/899/1909); liczby + link makiety przed 20:00 |
 | slajdy szkielet (docs/slajdy.md) | Prezenter | zamknięte (R3) |
 | 5 makieta R3 | Programista | zamknięte — krytyk R3 8/10; braki 1–3 → Artur P34–P37, 4–5 poprawione (spec §6 R3, 08 bez „do dodania”) |
-| MVP z makiety (docs/zadania/01) | Programista | w toku — kod aplikacji i usługi na main, ksefbot.pl jeszcze 530 |
-| materiały do stanu faktycznego (link makiety) | Prezenter | zamknięte po R2 (2e13ac2); README uruchomienie po MVP |
+| MVP z makiety (docs/zadania/01) | Programista | wdrożone — hacknation.ksefbot.pl 200, tag dziala-na-pewno (3ac3e74); poprawka reguły towaru A15b + pomiar z S3 w toku |
+| materiały do stanu faktycznego (link ksefbot, Architektura, historia pokazu) | Prezenter | zlecone |
 | spec §6 + 08 wg P27–P33 | Projektant | zamknięte; „do dodania” w H2, H9, H10 sprawdzi krytyk R3 |
 | spec §6 + 08 H4 K3 wg P18–P26 | Projektant | zamknięte (spójność sprawdzi krytyk R2) |
 | docs/demo.md szkielet (K1–K6, 120 s, gdy coś padnie) | Prezenter | zamknięte po R3 + 2 poprawki redakcyjne; pola [z prawdziwego wyniku] i próba czasu po MVP/R10 |
-| pokaz wg P39 (B: d019_B bez pary, „sprzęt i AGD”, 5+5, jedno „odrzuć”) | Programista → Prezenter | w toku — lista 5 miejsc do demo-wynik.md + zapis w MVP; potem demo.md (Prezenter) |
+| pokaz wg P39 (d019_B bez pary, „sprzęt i AGD”, start od ściany przedniej, jedno „odrzuć”) | Programista → Prezenter | lista w demo-wynik.md (31fdc68); liczby odświeżone po poprawce A15b → demo.md, hacktribe, slajdy |
 | README szkielet + LICENSE MIT | Prezenter | zamknięte (5b5e8b1) |
 | 7 pre-mortem (docs/pm/09) | Analityk | zamknięte po R2 (6564be7); R1/R2/tryb zapisu → zadania/01 |
 
