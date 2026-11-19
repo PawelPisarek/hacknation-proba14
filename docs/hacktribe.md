@@ -18,13 +18,17 @@ Hackathon
 
 https://github.com/PawelPisarek/hacknation-proba14
 
+## Link do działającej wersji
+
+https://hacknation.ksefbot.pl/
+
 ## Link do makiety
 
 https://pawelpisarek.github.io/hacknation-proba14/makieta/
 
-## Opis krótki (≤ 300 znaków) [267/300]
+## Opis krótki (≤ 300 znaków) [293/300]
 
-Operator RTG widzi obraz naczepy obok wzorcowego i listę 4 miejsc od najpewniejszego; wybiera rodzaj towaru (też „pusta naczepa”) i „do kontroli” albo „odrzuć”. Bez pary sam dobiera wzorzec, a gdy niepewny, ostrzega. Zapis kontroli z obrazem z ramkami. Dane sztuczne.
+Operator RTG widzi obraz naczepy obok wzorcowego i listę miejsc ([z prawdziwego wyniku: N]) od najpewniejszego; wybiera rodzaj towaru (też „pusta naczepa”) i „do kontroli” albo „odrzuć”. Bez pary sam dobiera wzorzec, a gdy niepewny, ostrzega. Zapis kontroli z obrazem z ramkami. Dane sztuczne.
 
 ## Opis średni (≤ 1000 znaków) [903/1000]
 
@@ -34,17 +38,19 @@ Wzorzec nie jest konieczny: bez pary program sam go dobiera, a gdy jest niepewny
 
 Wynik bazowy na sztucznym zbiorze (prawdziwych obrazów nie mamy): 2 z 30 czystych obrazów z alarmem, 0 z 60 dodatków przeoczonych.
 
-## Opis pełny (≤ 2000 znaków) [1780/2000]
+## Opis pełny (≤ 2000 znaków) [1941/2000]
 
 Problem. Operatorzy RTG Służby Celno-Skarbowej oceniają obrazy naczep i decydują o kontroli fizycznej. Towar bywa ukryty w drobnych przeróbkach konstrukcji, np. w podwójnej podłodze albo ścianie przy kabinie, a istniejące narzędzie do wykrywania papierosów słabo radzi sobie z małymi ilościami. Operator przy stanowisku ma kilka minut na auto.
 
-Rozwiązanie. Operator wczytuje obraz naczepy i wybiera rodzaj zgłoszonego towaru: sprzęt i AGD, odzież, żywność, materiały budowlane, inne, „pusta naczepa” albo „nie wiem”. Widzi obraz badany obok wzorcowego i listę miejsc od najpewniejszego (w makiecie 4: Podłoga — środek, Ściana przednia — przód, Ładownia — tył, Ładownia — przód), każde z opisem różnicy bez miar i pewnością. Dla „pustej naczepy” pozycja dostaje flagę „alarm z reguły”. Kliknięcie przybliża miejsce na obu obrazach, a „Następne miejsce” prowadzi do kolejnego bez zamykania okna. Operator zleca „do kontroli” albo odrzuca z powodem. Zapis kontroli (miejsce, przedmiot, pominięte różnice) zawiera obraz naczepy z ramkami — dowód dla kontroli fizycznej.
+Rozwiązanie. Operator wczytuje obraz naczepy i wybiera rodzaj zgłoszonego towaru: sprzęt i AGD, odzież, żywność, materiały budowlane, inne, „pusta naczepa” albo „nie wiem”. Widzi obraz badany obok wzorcowego i listę miejsc od najpewniejszego (w pokazie: obraz bez pary, towar „sprzęt i AGD”, lista od ściany przedniej, [z prawdziwego wyniku: N miejsc i pewności]), każde z opisem różnicy bez miar i pewnością. Dla „pustej naczepy” pozycja dostaje flagę „alarm z reguły”. Kliknięcie przybliża miejsce na obu obrazach, a „Następne miejsce” prowadzi do kolejnego bez zamykania okna. Operator zleca „do kontroli” albo odrzuca z powodem. Zapis kontroli (miejsce, przedmiot, pominięte różnice) zawiera obraz naczepy z ramkami — dowód dla kontroli fizycznej.
 
 Bez pary. Program sam dobiera wzorzec z katalogu. Gdy jest niepewny, pokazuje ramki z ostrzeżeniem „wzorzec niepewny — wskaż wzorzec”; po wskazaniu ramki i pewność się przeliczają.
 
 Skrytki. Dodatek poza ładownią zawsze jest alarmem. Towar zgodny ze zgłoszeniem nie jest zaznaczany, ale „Pokaż pominięte” pozwala go zlecić do kontroli.
 
 Wynik bazowy (sztuczny zbiór, karta GTX 1050; nie przesądza o jakości na prawdziwych obrazach): na 30 czystych obrazach 2 z alarmem, z 60 dodatków 0 przeoczonych (0 z 33 w konstrukcji); pełny obraz 50,4 MB: 0,49 s (źródło: wyniki/bazowy/przebieg.log). Cele jeszcze niezmierzone: uczenie tylko na czystych obrazach, praca bez internetu; przetwarzanie partią z wiersza poleceń — w planie.
+
+Działająca wersja: https://hacknation.ksefbot.pl/
 
 Makieta: https://pawelpisarek.github.io/hacknation-proba14/makieta/
 

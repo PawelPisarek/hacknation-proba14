@@ -1,6 +1,6 @@
 # Slajdy: Różnica RTG
 
-Prezentacja (9 slajdów, jeden nagłówek `##` = jeden slajd; docelowo PDF). Źródła: `docs/spec.md`, `docs/hacktribe.md`, `README.md`. Dane są sztuczne; liczby skuteczności pochodzą z wyniku bazowego (`wyniki/bazowy/`) i nie przesądzają o jakości na prawdziwych obrazach. Makieta (R3): https://pawelpisarek.github.io/hacknation-proba14/makieta/
+Prezentacja (9 slajdów, jeden nagłówek `##` = jeden slajd; docelowo PDF). Źródła: `docs/spec.md`, `docs/hacktribe.md`, `README.md`. Dane są sztuczne; liczby skuteczności pochodzą z wyniku bazowego (`wyniki/bazowy/`) i nie przesądzają o jakości na prawdziwych obrazach. Działająca wersja: https://hacknation.ksefbot.pl/ . Makieta (R3): https://pawelpisarek.github.io/hacknation-proba14/makieta/
 
 ## 1. Różnica RTG
 
@@ -8,7 +8,7 @@ Prezentacja (9 slajdów, jeden nagłówek `##` = jeden slajd; docelowo PDF). Źr
 
 Narzędzie dla operatora RTG Służby Celno-Skarbowej. Zespół: Hackathon.
 
-*Co pokazać:* ekran główny makiety R3: obraz badany obok wzorcowego, z boku lista 4 miejsc.
+*Co pokazać:* ekran główny makiety R3: obraz badany obok wzorcowego, z boku lista miejsc.
 
 ## 2. Problem operatora
 
@@ -23,12 +23,12 @@ Narzędzie dla operatora RTG Służby Celno-Skarbowej. Zespół: Hackathon.
 
 - Operator wczytuje obraz badanej naczepy (`.bmp`).
 - Na ekranie dwa obrazy obok siebie: wzorzec i badane auto z ramkami.
-- Z boku lista miejsc od najpewniejszego (w pokazie 4: Podłoga — środek 91%, Ściana przednia — przód 78%, Ładownia — tył 66%, Ładownia — przód 57%), każde z opisem różnicy bez miar.
+- Z boku lista miejsc od najpewniejszego (w pokazie: obraz bez pary, towar „sprzęt i AGD”, lista od ściany przedniej; miejsca i pewności: [z prawdziwego wyniku]), każde z opisem różnicy bez miar.
 - Klik w miejsce przybliża je na obu obrazach; „Następne miejsce” prowadzi do kolejnego bez zamykania okna.
 - Decyzja zostaje po operatorze: „do kontroli” albo „odrzuć” (z powodem z listy).
 - Zapis kontroli: miejsce, przedmiot kontroli, „do kontroli” / odrzucone (powód) i pominięte różnice; zawiera obraz naczepy z ramkami (podgląd, pobranie JSON + PNG) — dowód dla kontroli fizycznej. Zapis kończy demo.
 
-*Co pokazać:* lista 4 miejsc; klik w pierwsze i powiększenie na obu obrazach, „Następne miejsce”; 3. pozycję „do kontroli”, 4. „odrzuć”; na końcu zapis kontroli z obrazem z ramkami.
+*Co pokazać:* lista miejsc ([z prawdziwego wyniku]); klik w pierwsze i powiększenie na obu obrazach, „Następne miejsce”; jedną pozycję „do kontroli”, jedną „odrzuć”; na końcu zapis kontroli z obrazem z ramkami.
 
 ## 4. Tryb bez pary i niepewny wzorzec
 
@@ -66,7 +66,7 @@ Narzędzie dla operatora RTG Służby Celno-Skarbowej. Zespół: Hackathon.
 - Cały model liczy na małej karcie graficznej (GTX 1050, 4 GB), nigdy na procesorze.
 - Model uczony tylko na obrazach czystych, bez przykładów przemytu (cel, jeszcze niezmierzony).
 - Skalowanie: pełny obraz (ok. 50 MB) przechodzi w 0,49 s; partia z wiersza poleceń (folder `.bmp` → JSON, PNG, CSV) — **w planie**, dopóki nie zadziała; pomiar na większych zbiorach jeszcze przed nami. Liczby 50,4 MB i 991 MiB: `wyniki/bazowy/przebieg.log`.
-- Cel: praca bez internetu i chmury, jeszcze niezmierzony; pokaz pod linkiem idzie przez sieć (przeglądarka → ksefbot.pl → usługa na OMENie; ksefbot.pl w przygotowaniu).
+- Cel: praca bez internetu i chmury, jeszcze niezmierzony; pokaz pod linkiem idzie przez sieć (przeglądarka → ksefbot.pl → usługa na OMENie; działająca wersja: https://hacknation.ksefbot.pl/).
 
 *Co pokazać:* zrzut z karty OMENa (przebieg na GPU) albo schemat: przeglądarka → ksefbot.pl → usługa na OMENie → JSON + PNG.
 
@@ -76,7 +76,7 @@ Narzędzie dla operatora RTG Służby Celno-Skarbowej. Zespół: Hackathon.
 - **Modele Claude** (Anthropic): kod, specyfikacja, teksty.
 - **pm-skills** (MIT): kroki produktowe, nazwa, value proposition, PRD.
 - Skill `dummy-dataset` (plan sztucznego zbioru) i generator `anomalie/generator.py`; biblioteki `numpy`, `scipy`, `pillow`, `torch`, `torchvision`.
-- GitHub Pages (makieta), Coolify na ksefbot.pl (w przygotowaniu — adres dziś nie odpowiada), orkiestrator i karta graficzna OMENa.
+- GitHub Pages (makieta), Coolify na ksefbot.pl (https://hacknation.ksefbot.pl/), orkiestrator i karta graficzna OMENa.
 
 *Co pokazać:* zrzut listy botów w OpenMausBot albo sekcja „Użyte narzędzia” z README.
 
@@ -87,6 +87,6 @@ Narzędzie dla operatora RTG Służby Celno-Skarbowej. Zespół: Hackathon.
 - Dane KAS: ich nie mamy; jeśli się pojawią, tylko w ramach zasad z zadania (chronione, bez kopiowania poza hackathon), po decyzji Pawła.
 - Integracja z repozytorium obrazów skanera jako ścieżka wdrożenia.
 
-*Co pokazać:* link do repo https://github.com/PawelPisarek/hacknation-proba14 i do makiety https://pawelpisarek.github.io/hacknation-proba14/makieta/ .
+*Co pokazać:* link do repo https://github.com/PawelPisarek/hacknation-proba14, do działającej wersji https://hacknation.ksefbot.pl/ i do makiety https://pawelpisarek.github.io/hacknation-proba14/makieta/ .
 
 <!-- skill: value-prop-statements -->

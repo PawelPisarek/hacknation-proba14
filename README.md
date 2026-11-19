@@ -54,7 +54,9 @@ Duże obrazy nie trafiają do repo (`dane/`, `*.bmp` w `.gitignore`).
 
 ## Architektura
 
-TODO (uzupełnia Programista): przepływ obraz wzorcowy + badany → różnice → raport (obraz z ramkami, plik ze współrzędnymi, podsumowanie partii — przetwarzanie partią z wiersza poleceń w planie, dopóki nie zadziała); praca bez internetu (cel budowy, jeszcze niezmierzony).
+Przeglądarka otwiera aplikację na ksefbot.pl. Ta aplikacja (Node) tylko pokazuje ekran i przekazuje zapytania `/api/*` do usługi na karcie graficznej w sieci lokalnej (`usluga/serwer.py`, GTX 1050); adres usługi jest ustawiany w konfiguracji wdrożenia, nie w repozytorium.
+
+Przepływ: obraz badany (z parą — plus wzorcowy) → usługa liczy różnice na karcie graficznej → lista miejsc z pewnością, obraz z ramkami i plik JSON → zapis kontroli. Dwie metody w produkcie: **A** — z parą (porównanie pikseli obrazu badanego i wzorcowego), **C** — bez pary (model typu naczepy dobiera wzorzec; więcej zbędnych alarmów, liczby w tabeli wyżej). Metoda **B** (cechy, para) zostaje w README jako porównanie. Gdy karta nie odpowiada, aplikacja pokazuje „wynik zapisany” z wcześniejszego przebiegu, z podpisem. Przetwarzanie partią z wiersza poleceń — w planie, dopóki nie zadziała; praca bez internetu to cel budowy, jeszcze niezmierzony.
 
 ## Użyte narzędzia
 
@@ -71,7 +73,7 @@ Narzędzia przygotowane wcześniej i użyte w projekcie (każde w jednym zdaniu:
 - **dummy-dataset** — skill, z którego Programista ułożył plan sztucznego zbioru; obrazy tworzy nasz generator `anomalie/generator.py` na karcie graficznej.
 - **Biblioteki z `requirements.txt` i kodu:** `numpy` i `scipy` — obliczenia i przetwarzanie obrazów, `pillow` — wczytywanie i zapis obrazów .bmp/.png, `torch` i `torchvision` (z indeksu CUDA) — liczenie na karcie graficznej i cechy ResNet18.
 - **GitHub Pages** — publikacja makiety ekranu (warianty i wersja końcowa) pod publicznym adresem.
-- **Coolify na ksefbot.pl** — hosting aplikacji (w przygotowaniu — adres dziś nie odpowiada).
+- **Coolify na ksefbot.pl** — hosting aplikacji (https://hacknation.ksefbot.pl/).
 - **Orkiestrator i karta graficzna OMENa** (GTX 1050, 4 GB) — całe liczenie (generator, uczenie, ocena) idzie na karcie, uruchamiane przez orkiestrator (`--klasa gpu-tlo`), nigdy na procesorze.
 
 ## Licencja
