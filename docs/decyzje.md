@@ -23,3 +23,4 @@ P3 11:27 Artur: Co operator robi z wynikiem: zleca kontrolę fizyczną miejsca, 
 11:27 Analityk: recenzja hacktribe R1 — 5 braków
 11:28 Szef: recenzja 1a R1 (5 braków) → Projektant poprawia cały docs/pm/01, potem R2.
 11:28 Szef: recenzja hacktribe R1 (5 braków) → Prezenter poprawia cały docs/hacktribe.md: bez obietnic jako stanu (offline/skalowanie/kompresja — jako cel, do czasu pomiaru), bez „setek obrazów”, dwa tryby porównania (Q6), zastrzeżenie o sztucznym zbiorze, miejsca na liczby FP/FN i czas (TODO), wyróżnik: uczenie tylko na czystych obrazach, mała karta, offline. Braki produktowe (2, 5) nie idą do Artura — usuwamy niepotwierdzone zdania; P3 i ilość obrazów pyta Projektant.
+P2 11:28 odpowiedź: odwrotnie niż rekomendacja — gorszy jest przeoczony dodatek (przemyt = realna szkoda), zbędny alarm to minuta więcej przy aucie; byle zaznaczeń na jednym aucie było kilka, nie kilkadziesiąt (Artur w pokoju)
