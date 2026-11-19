@@ -1,4 +1,4 @@
-# Stan — 12:46 (sob)
+# Stan — 12:47 (sob)
 Kamień: 20:00 makieta (GitHub Pages) + docs/hacktribe.md; spec zamknięty 11:48.
 
 | zadanie | kto | status |
@@ -21,7 +21,7 @@ Kamień: 20:00 makieta (GitHub Pages) + docs/hacktribe.md; spec zamknięty 11:48
 | materiały do stanu faktycznego (link makiety) | Prezenter | zamknięte po R2 (2e13ac2); README uruchomienie po MVP |
 | spec §6 + 08 wg P27–P33 | Projektant | zamknięte; „do dodania” w H2, H9, H10 sprawdzi krytyk R3 |
 | spec §6 + 08 H4 K3 wg P18–P26 | Projektant | zamknięte (spójność sprawdzi krytyk R2) |
-| docs/demo.md szkielet (K1–K6, 120 s, gdy coś padnie) | Prezenter | recenzja 1 (Analityk) — 0e12f75 |
+| docs/demo.md szkielet (K1–K6, 120 s, gdy coś padnie) | Prezenter | poprawka po R1 (5 braków; kolejność K1→K4→K3→K6, flaga wg P27) |
 | README szkielet + LICENSE MIT | Prezenter | zamknięte (5b5e8b1) |
 | 7 pre-mortem (docs/pm/09) | Analityk | zamknięte po R2 (6564be7); R1/R2/tryb zapisu → zadania/01 |
 
