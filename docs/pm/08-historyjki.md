@@ -70,8 +70,8 @@ Gdy mam kilka minut na auto, chcę z ramek, opisu różnicy i powiększenia podj
 
 ### H11. Zapis kontroli i jego odczyt — operator (ostatni krok demo)
 Gdy skończyłem decyzje przy aucie, chcę zapisać kontrolę i pobrać plik „miejsce — do kontroli: przedmiot / odrzucone (powód)”, żeby dało się potem odczytać, co zlecono i dlaczego odrzucono (zadanie p. 9; P3).
-- K1. Zapis: JSON na serwerze aplikacji z możliwością pobrania (zapisu w makiecie jeszcze nie ma — **do dodania**, spec §6); zawiera użyty wzorzec, rodzaj towaru, miejsce, przedmiot kontroli, decyzję i powód (spec §2, §4d). Test: A8.
-- K2. Obraz z ramkami (PNG, układ pełnej rozdzielczości) jest częścią wyniku (spec §2). Test: brak w §7 (A13 mierzy partię, H12, nie PNG z ekranu); sprawdzenie ręczne w makiecie — **do dodania**.
+- K1. Zapis: JSON na serwerze aplikacji z możliwością pobrania (zapis i pobranie JSON są w makiecie R2; spec §6); zawiera użyty wzorzec, rodzaj towaru, miejsce, przedmiot kontroli, decyzję i powód (spec §2, §4d). Test: A8.
+- K2. Obraz naczepy z ramkami (PNG, układ pełnej rozdzielczości) jest częścią zapisu kontroli i **już w makiecie** — Artur: „dowód dla kontroli fizycznej” (P32 = B; spec §2, §4d, §6). W makiecie: podgląd obrazu z ramkami i przycisk „Pobierz obraz z ramkami (PNG)” obok JSON. Test: sprawdzenie ręczne w makiecie (A14).
 - K3. Operator otwiera pobrany zapis i widzi dla każdej pozycji miejsce, decyzję i powód odrzucenia — bez nowych ekranów. Test: A8.
 
 ### H12. Partia obrazów i duże pliki — ścieżka techniczna, bez roli użytkownika (poza makietą)

@@ -1,6 +1,6 @@
 # Specyfikacja: Różnica RTG (po recenzji przejścia, runda 1)
 
-Źródła: `docs/pm/04-write-prd.md`, `docs/pm/02-discover.md`, `docs/pm/03-warianty-ekranu.md`, `docs/zadanie.md`, `docs/decyzje.md` (P1–P26). Dane i ekrany są **sztuczne** (zdjęć KAS nie mamy). Liczenie wyłącznie na karcie (GTX 1050, 4 GB), nigdy na procesorze. Ekran po polsku.
+Źródła: `docs/pm/04-write-prd.md`, `docs/pm/02-discover.md`, `docs/pm/03-warianty-ekranu.md`, `docs/zadanie.md`, `docs/decyzje.md` (P1–P33). Dane i ekrany są **sztuczne** (zdjęć KAS nie mamy). Liczenie wyłącznie na karcie (GTX 1050, 4 GB), nigdy na procesorze. Ekran po polsku.
 
 ## 1. Co zobaczy i zrobi użytkownik (według Artura)
 Użytkownik: operator RTG przy stanowisku, kilka minut na auto (P1).

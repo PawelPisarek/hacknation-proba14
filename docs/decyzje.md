@@ -161,3 +161,4 @@ P31 12:19 odpowiedź: A (przycisk „Następne miejsce” w powiększeniu) — A
 P32 12:19 odpowiedź: B — obraz naczepy z ramkami w zapisie kontroli już w makiecie („to jest dowód dla kontroli fizycznej”); rekomendacja A odrzucona — Artur w pokoju
 P33 12:19 odpowiedź: nic do wyrzucenia — Artur w pokoju
 12:20 Projektant: korekta rekomendacji P29, P31 → B (zostawiamy jak jest) nie wysłana do pokoju — Artur odpowiedział na P27–P33 o 12:19, przed korektą (P29 A, P31 A, P32 B); odpowiedź Artura wygrywa
+12:20 Projektant: spec i 08 dopasowane do P27–P33; H11 K2 PNG z ramkami już w makiecie (P32 = B), zakres P1–P33
