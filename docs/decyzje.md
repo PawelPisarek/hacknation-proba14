@@ -16,3 +16,4 @@ P1 11:25 Artur: Kto pierwszy patrzy na wynik: operator RTG przy stanowisku na gr
 11:26 Szef: (Q7, Q8) przechowywanie bezstratne, analiza na kafelkach/zmniejszeniu z pomiarem wpływu na przeoczenia; raport: obraz z ramkami + plik ze współrzędnymi + podsumowanie partii.
 11:26 Szef: (Q9) skrypt oceny przyjmuje dowolny katalog .bmp (+ opcjonalnie maski) i wypisuje FP/FN — gotowy na obce obrazy.
 11:26 Szef: (Q2) co ważniejsze dla operatora (zbędne alarmy czy przeoczenia) — pyta Artura Projektant (jego pozycja 4 w docs/pm/00-niewiadome.md).
+11:27 Analityk: recenzja 1a R1 — 5 braków
