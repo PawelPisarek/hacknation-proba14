@@ -185,3 +185,4 @@ P38 12:32 odpowiedź: zostaje „Hackathon” (Paweł)
 12:33 Analityk: recenzja materiałów R2 (README, hacktribe, slajdy; po 5f0596a) — 2 braki: (1) hacktribe.md l.15 „Hackathon (do potwierdzenia przez ludzi)” wobec P38 (ustalone); (2) hacktribe.md pełny: „Makieta” + opis „Następne miejsce… bez zamykania okna” OK, ale README „Jak uruchomić lokalnie” bez nagłówka-wprowadzenia i z opisem narzędzia zamiast kroków uruchomienia — po MVP (Programista). Braki 1–3 z R1 usunięte; kody HTTP (curl -L): makieta 200, repo 200, OpenMausBot 200, pm-skills 200, ksefbot.pl 530 (opisane jako „w przygotowaniu”); liczby zgodne z liniami WYNIK
 12:33 Szef: materiały R2 (Analityk, 2 braki) → Prezenter: 1 usunąć „do potwierdzenia” przy nazwie zespołu (P38); 2 zostaje — README uruchomienie po MVP (= brak 5 z R1)
 12:34 Szef: materiały — brak R2/1 poprawiony (2e13ac2); pętla zamknięta po R2, zostaje tylko README uruchomienie po MVP
+12:35 Szef: krok 7 pre-mortem → Analityk (docs/pm/09)
