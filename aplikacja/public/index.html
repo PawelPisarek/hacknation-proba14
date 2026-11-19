@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Różnica RTG — MVP</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;background:#f4f5f7;color:#1c1f24;font-size:15px}
+header{background:#1f2a37;color:#fff;padding:10px 16px;display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline}
+header h1{font-size:17px;margin:0}.meta{font-size:13px;opacity:.85}.wz{font-size:13px;color:#cfe3ff}
+.licz{font-weight:700;background:#ffd24a;color:#1c1f24;padding:2px 8px;border-radius:4px}
+main{padding:12px;max-width:1400px;margin:auto}
+.uklad{display:grid;grid-template-columns:1fr 360px;gap:12px;align-items:start}
+.obok{display:flex;gap:10px}.obok>div{flex:1;min-width:0}.obok h2{font-size:14px;margin:4px 0}
+.lista{position:sticky;top:8px;max-height:calc(100vh - 16px);overflow:auto}
+.lista h2{font-size:15px;margin:2px 0 8px}
+@media(max-width:900px){.uklad{grid-template-columns:1fr}.lista{position:static;max-height:none}}
+@media(max-width:600px){.obok{flex-direction:column}}
+.rtg{width:100%;height:auto;display:block;background:#e9e9e9;border:1px solid #bbb;border-radius:4px}
+.ramka{fill:none;stroke:#d11;cursor:pointer}.ramka.akt{stroke:#ff8c00}
+.ramka.odp{stroke:#1a5fd1;cursor:pointer}.ramka.odp.akt{stroke:#ff8c00}
+.ramka.zlec{stroke:#0a7d32}.ramka.odrz{stroke:#888}.ramka.pom{stroke:#888}
+.etyk{font-weight:bold;font-family:system-ui;fill:#d11;stroke:#fff;paint-order:stroke;stroke-linejoin:round;pointer-events:none}
+.pomb{display:inline-block;font-size:12px;background:#eee;border:1px solid #bbb;border-radius:4px;padding:1px 6px;margin-left:4px;font-weight:400}
+.miejsce{background:#fff;border:1px solid #d5d8dd;border-radius:6px;padding:10px;margin-bottom:10px;cursor:pointer}
+.miejsce.akt{border-color:#ff8c00;box-shadow:0 0 0 2px #ff8c0055}
+.miejsce h3{margin:0 0 4px;font-size:15px}.miejsce p{margin:4px 0;font-size:14px}
+.btns select{flex:1 1 150px;min-width:0;max-width:100%}
+.typ{font-size:12px;color:#555}.pew{font-weight:700}.btns{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+button,select,input[type=file]{font:inherit;padding:8px 10px;border-radius:5px;border:1px solid #888;background:#fff;cursor:pointer;min-height:40px;max-width:100%}
+button.kontrola{background:#0a7d32;color:#fff;border-color:#0a7d32}button.odrzuc{color:#a11;border-color:#a11}
+button.glowny{background:#1f2a37;color:#fff;border-color:#1f2a37;font-weight:600}
+button:disabled{opacity:.5;cursor:default}
+.stan{font-size:13px;font-weight:600}.stan.zlec{color:#0a7d32}.stan.odrz{color:#666}
+.ostrz{background:#fff3cd;border:1px solid #e0b100;border-radius:6px;padding:8px 10px;margin-bottom:10px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.blad{background:#fde2e2;border:1px solid #d11;border-radius:6px;padding:8px 10px;margin:10px 0}
+.info{background:#e8f1ff;border:1px solid #9bbcf0;border-radius:6px;padding:6px 10px;font-size:13px;margin-bottom:10px}
+.karta{background:#fff;border:1px solid #d5d8dd;border-radius:8px;padding:16px;max-width:620px;margin:16px auto}
+.karta label{display:block;font-weight:600;margin:12px 0 4px}.karta select,.karta input[type=file]{width:100%}.karta .typ{margin-top:3px}
+.karta label.chk{font-weight:400}
+#zoom{position:fixed;inset:0;background:#000c;display:none;align-items:center;justify-content:center;z-index:9;padding:12px}
+#zoom.on{display:flex}#zoom .okno{background:#fff;border-radius:6px;padding:10px;max-width:900px;width:100%;max-height:100%;overflow:auto}
+#zoom .obrazy{display:flex;gap:8px;flex-wrap:wrap}#zoom .obrazy>div{flex:1;min-width:240px}#zoom b{font-size:13px}
+.zapis{font-size:14px;background:#fff;border:1px dashed #999;border-radius:6px;padding:10px;margin-top:10px}
+.zapis li{margin:3px 0}.uwaga{font-size:12px;color:#666;margin-top:8px}
+.ladow{position:fixed;inset:0;background:#fffd;display:flex;align-items:center;justify-content:center;font-size:18px;z-index:8}
+.alarm{color:#a11}
+</style></head><body><div id="app"></div><div id="zoom"></div>
+<script>
+// MVP (docs/zadania/01-mvp-z-makiety.md): logika makiety R3 + P34–P37, wynik z usługi na karcie OMENa (przez /api).
+const POWODY=["znany element konstrukcji","ładunek zgodny z deklaracją","artefakt obrazu (szum, krawędź)","inny typ naczepy niż wzorzec","inne"]; // P3
+let K={przyklady:[],towary:["nie wiem"],katalog:[]};      // z usługi
+let S={ekran:"start",zrodlo:"",towar:"nie wiem",para:true,plikB:null,plikW:null,R:null,wzorzec:"auto",pokazPom:false,akt:null,stan:{},zapisano:false,blad:"",zapytanie:null};
+const api=(u,o)=>fetch("/api"+u,o).then(async r=>{const j=await r.json().catch(()=>({blad:"zła odpowiedź ("+r.status+")"}));if(!r.ok)throw new Error(j.blad||("błąd "+r.status));return j});
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const proc=x=>Math.round(x*100)+"%";
+function odmR(n){const d=n%10,s=n%100;return n==1?"różnicę":(d>=2&&d<=4&&(s<12||s>14))?"różnice":"różnic"} // P30
+function odm(n){const d=n%10,s=n%100;return n==1?"miejsce":(d>=2&&d<=4&&(s<12||s>14))?"miejsca":"miejsc"} // P25
+function powody(){return POWODY.map(p=>p=="ładunek zgodny z deklaracją"&&S.towar=="nie wiem"?"ładunek zgodny z dokumentami (sprawdzony ręcznie)":p)} // P21
+const pusta=()=>S.towar=="pusta naczepa";
+function wszystkie(){return S.R?S.R.miejsca.map(m=>({...m,pom:m.pominieta,roznica:m.opis})):[]} // kolejność z usługi: alarmy z reguły, potem od najpewniejszego (P7, P27, P34)
+function widoczne(){return wszystkie().filter(m=>!m.pom||S.stan[m.id])}           // liczą się do „ile miejsc”
+function naLiscie(){return wszystkie().filter(m=>!m.pom||S.pokazPom||S.stan[m.id])} // P23
+function pominiete(){return wszystkie().filter(m=>m.pom).length}
+function pominieteNiezlecone(){return wszystkie().filter(m=>m.pom&&!S.stan[m.id])}
+const zostalo=()=>widoczne().filter(m=>!S.stan[m.id]).length;
+function linia(){const n=widoczne().length,p=zostalo();return `${n} ${odm(n)} do sprawdzenia · zostało ${p}`}
+const opisAuta=()=>S.R?`obraz ${S.R.plik_badany}`:"";
+function podpisWz(){const r=S.R;if(!r)return"";const pod=String(r.podobienstwo.toFixed(2)).replace(".",",");
+ if(r.tryb=="plik wzorca")return `wzorzec: plik ${r.plik_wzorca} (wskazany ręcznie)`;  // P36
+ if(r.tryb=="para")return `wzorzec: czysty obraz tej samej naczepy (para, ${r.para})`;
+ return `wzorzec ${r.wskazany_recznie?"wskazany ręcznie":"dobrany"}: ${r.opis_typu} (podobieństwo ${pod})`}
+const imgUrl=t=>"/api/obraz/"+t+".png";
+
+// obraz + ramki w SVG (współrzędne obrazu badanego w pełnej rozdzielczości)
+function svg(badany,ramki,vb){const r=S.R,W=r.rozmiar[0],H=r.rozmiar[1],sw=Math.max(2,W/330),fs=W*0.044;let s="";
+ if(ramki)naLiscie().forEach((m,i)=>{const b=badany?m.ramka:[m.ramka_wz[0]*W,m.ramka_wz[1]*H,m.ramka_wz[2]*W,m.ramka_wz[3]*H],st=S.stan[m.id];
+  const akt=m.id==S.akt,dash=st&&st.typ=="odrz"||m.pom?`stroke-dasharray="${sw*1.5} ${sw*2.5}"`:(!badany||st)?`stroke-dasharray="${sw*3} ${sw*1.5}"`:"";
+  s+=`<rect class="ramka ${badany?'':'odp'} ${m.pom?'pom':''} ${akt?'akt':''} ${st?st.typ:''}" data-id="${m.id}" x="${b[0]}" y="${b[1]}" width="${Math.max(b[2]-b[0],sw*3)}" height="${Math.max(b[3]-b[1],sw*3)}" stroke-width="${akt?sw*1.7:sw}" ${dash}/>`+
+   (badany?`<text class="etyk" x="${b[0]+sw}" y="${Math.max(fs,b[1]-sw*2)}" font-size="${fs}" stroke-width="${fs*0.18}">${i+1}</text>`:"")});
+ return `<svg class="rtg" viewBox="${vb||`0 0 ${W} ${H}`}" role="img" aria-label="${badany?'Obraz RTG badanego auta':'Obraz RTG wzorca'}"><image href="${imgUrl(badany?r.obraz_badany:r.obraz_wzorca)}" x="0" y="0" width="${W}" height="${H}" preserveAspectRatio="none"/>${s}</svg>`}
+function vbM(m,badany){const r=S.R,W=r.rozmiar[0],H=r.rozmiar[1],b=badany?m.ramka:[m.ramka_wz[0]*W,m.ramka_wz[1]*H,m.ramka_wz[2]*W,m.ramka_wz[3]*H];
+ const w=Math.max(b[2]-b[0],W*0.05),h=Math.max(b[3]-b[1],H*0.12),p=Math.max(w,h)*0.5,cx=(b[0]+b[2])/2,cy=(b[1]+b[3])/2,ww=w+2*p,hh=h+2*p;return `${cx-ww/2} ${cy-hh/2} ${ww} ${hh}`}
+
+function ekranStart(){const pr=K.przyklady;
+ return `<header><h1>Różnica RTG — nowe auto</h1><span class="meta">MVP · wynik z karty graficznej (OMEN, sieć lokalna) · dane sztuczne</span></header>
+ ${(S.R&&S.R.zapisany)||(S.ekran=="start"&&K.zapisany)?`<div class="ostrz"><b>Wynik zapisany z karty</b> (${esc(new Date((S.R&&S.R.zapisano)||K.zapisano).toLocaleString("pl-PL"))}) — usługa na karcie OMENa teraz nie odpowiada, pokazujemy wynik zapisany wcześniej z tej karty.</div>`:""}<div class="karta"><b>1. Wczytaj obraz i wybierz rodzaj zgłoszonego towaru</b>
+ ${S.blad?`<div class="blad">${esc(S.blad)}</div>`:""}
+ <label for="zrodlo">Obraz RTG z danych (.bmp)</label><select id="zrodlo">${pr.map(p=>`<option value="przyklad:${p.id}" ${("przyklad:"+p.id)==S.zrodlo?'selected':''}>${p.id}${p.pelny?' (pełny, ~50 MB)':''} — typ ${p.typ}${p.ladunek?', z ładunkiem':', pusta'}</option>`).join("")}<option value="plik" ${S.zrodlo=="plik"?'selected':''}>Własny plik .bmp…</option></select>
+ <div id="plikiBox" ${S.zrodlo=="plik"?"":"hidden"}><label for="plikB">Plik badanego auta (.bmp)</label><input type="file" id="plikB" accept=".bmp,image/bmp">
+  <label for="plikW">Czysty obraz tej samej naczepy (.bmp, opcjonalnie — tryb z parą)</label><input type="file" id="plikW" accept=".bmp,image/bmp"></div>
+ <label for="towar">Rodzaj zgłoszonego towaru</label><select id="towar">${K.towary.map(t=>`<option ${t==S.towar?'selected':''}>${t}</option>`).join("")}</select>
+ <div class="typ">„nie wiem” — zaznaczamy wszystko, co różni się od wzorca. Przy wybranym rodzaju towar zgodny w ładunku nie jest zaznaczany; dodatek w konstrukcji i w ładunku — zawsze.</div>
+ <div id="paraBox" ${S.zrodlo=="plik"?"hidden":""}><label class="chk"><input type="checkbox" id="para" ${S.para?'checked':''}> Mam czysty obraz tej samej naczepy (tryb z parą)</label>
+ <div class="typ">Bez zaznaczenia narzędzie samo dobierze wzorzec z katalogu.</div></div>
+ <p><button class="glowny" data-a="analizuj">Analizuj</button></p></div>`}
+
+function kartaM(m,i){const st=S.stan[m.id];
+ return `<div class="miejsce ${m.id==S.akt?'akt':''}" data-id="${m.id}"><h3>${i+1}. ${esc(m.nazwa)}${m.pom?'<span class="pomb">pominięte — towar zgodny ze zgłoszeniem</span>':''}</h3>
+ <div class="typ">${m.kategoria=="konstrukcja"?"konstrukcja pojazdu":"ładunek"}</div><p>${esc(m.roznica)}</p><p>Pewność: <span class="pew">${proc(m.pew)}</span></p>
+ ${m.regula?`<div class="stan alarm">⚑ alarm z reguły: pusta naczepa</div>`:""}
+ ${!st&&m.pom?`<div class="btns"><button class="kontrola" data-k="${m.id}">Do kontroli</button><button data-z="${m.id}">Powiększ</button></div>`:st?`<div class="stan ${st.typ}">${st.typ=='zlec'?'✔ Do kontroli: '+esc(m.przedmiot):'✖ Odrzucono: '+esc(st.powod)}</div> <button data-cofnij="${m.id}">Cofnij</button>`:
+ `<div class="btns"><button class="kontrola" data-k="${m.id}">Do kontroli</button>
+ <select data-p="${m.id}" aria-label="Powód odrzucenia"><option value="">Powód odrzucenia…</option>${powody().map(p=>`<option>${p}</option>`).join("")}</select>
+ <button class="odrzuc" data-o="${m.id}">Odrzuć</button><button data-z="${m.id}">Powiększ</button></div>`}</div>`}
+
+function zapisLinie(){const l=[];
+ if(S.R.tryb=="plik wzorca")l.push(`wzorzec: plik ${S.R.plik_wzorca} (wskazany ręcznie)`); // P36
+ wszystkie().filter(m=>S.stan[m.id]).forEach(m=>l.push(`${m.nazwa} — ${S.stan[m.id].typ=='zlec'?'do kontroli: '+m.przedmiot:'odrzucone ('+S.stan[m.id].powod+')'}`));
+ const p=pominieteNiezlecone();if(pominiete())l.push(`pominięte (towar zgodny ze zgłoszeniem): ${p.length}`+(p.length?` — ${p.map(m=>m.nazwa).join(', ')}`:''));return l} // P29
+function wzKrotko(){const r=S.R;return r.tryb=="para"?"para":r.tryb=="plik wzorca"?`plik ${r.plik_wzorca}`:r.opis_typu}
+function ekranGlowny(){const r=S.R,w=naLiscie(),pom=pominiete(),reg=w.some(m=>m.regula);
+ return `<header><h1>Różnica RTG</h1><span class="licz">${linia()}</span><span class="wz">${esc(podpisWz())}</span><span class="meta">${esc(opisAuta())} · towar: ${esc(S.towar)}</span>
+ <button data-a="nowe" style="margin-left:auto;min-height:32px;padding:4px 10px">Nowe auto</button></header><main>
+ ${(S.R&&S.R.zapisany)||(S.ekran=="start"&&K.zapisany)?`<div class="ostrz"><b>Wynik zapisany z karty</b> (${esc(new Date((S.R&&S.R.zapisano)||K.zapisano).toLocaleString("pl-PL"))}) — usługa na karcie OMENa teraz nie odpowiada, pokazujemy wynik zapisany wcześniej z tej karty.</div>`:""}
+ ${S.blad?`<div class="blad">${esc(S.blad)}</div>`:""}
+ ${r.niepewny?`<div class="ostrz"><b>⚠ Wzorzec niepewny — wskaż wzorzec.</b> Ramki pokazujemy mimo to, pewność obniżona.
+  <select id="wskaz"><option value="">Typ z katalogu…</option>${K.katalog.map(k=>`<option value="${k.typ}">${esc(k.opis)}</option>`).join("")}</select>
+  <button data-a="wskaz">Przelicz z tym wzorcem</button><button data-a="plik">Wgraj plik wzorca</button><input type="file" id="plikWz" accept=".bmp,image/bmp" hidden></div>`:""}
+ ${pom?`<div class="info">Towar zgodny ze zgłoszeniem (${esc(S.towar)}) w ładunku nie jest zaznaczany: pominięto ${pom} ${odmR(pom)} w ładunku. Dodatki w konstrukcji i ukryte w ładunku są zaznaczane zawsze. <button data-a="pom" style="min-height:32px;padding:4px 10px">${S.pokazPom?"Ukryj pominięte":"Pokaż pominięte"}</button></div>`:""}
+ <div class="uklad"><div><div class="obok">
+  <div><h2>Wzorzec ${r.tryb=="plik wzorca"?"(plik, wskazany ręcznie)":r.tryb=="para"?"(czysty obraz)":r.wskazany_recznie?"(wskazany ręcznie)":"(dobrany)"} — odpowiednik miejsc</h2>${svg(false,true)}</div>
+  <div><h2>Badane auto</h2>${svg(true,true)}</div></div>
+  <p class="uwaga">Kliknij miejsce na liście albo ramkę: oba obrazy przybliżają to samo miejsce. Obrazy sztuczne (generator), wynik z karty graficznej.</p>
+  ${w.length==0?`<div class="info">Brak różnic względem wzorca powyżej progu.</div>`:""}
+  ${S.zapisano?`<div class="zapis"><b>Zapis kontroli</b> — ${esc(opisAuta())}; wzorzec: ${esc(wzKrotko())}; towar: ${esc(S.towar)}<ul>${zapisLinie().map(l=>`<li>${esc(l)}</li>`).join("")}</ul>
+   <p><b>Obraz naczepy z ramkami (PNG)</b></p><img id="zapisPng" alt="Obraz naczepy z ramkami" style="width:100%;border:1px solid #bbb;border-radius:4px">
+   <div class="btns"><button data-a="pobierz">Pobierz zapis (JSON + PNG)</button><button data-a="pobierzPng">Pobierz tylko obraz (PNG)</button></div></div>`:""}
+ </div><aside class="lista"><h2>${reg?"Najpierw alarmy z reguły, potem od najpewniejszego":"Miejsca od najpewniejszego"}</h2>${w.map(kartaM).join("")}
+  ${zostalo()==0&&!S.zapisano?`<button class="glowny" data-a="zapisz" style="width:100%">Zapisz kontrolę</button>`:""}
+  ${zostalo()>0?`<div class="uwaga">Zapis kontroli będzie dostępny po decyzji przy każdym miejscu.</div>`:""}</aside></div></main>`}
+
+function odswiez(){document.getElementById("app").innerHTML=S.ekran=="start"?ekranStart():ekranGlowny();
+ const z=document.getElementById("zrodlo");if(z)z.onchange=()=>{const p=z.value=="plik";document.getElementById("plikiBox").hidden=!p;document.getElementById("paraBox").hidden=p}}
+function powieksz(id){const m=naLiscie().find(x=>x.id==id);if(!m)return;S.akt=id;odswiez();const z=document.getElementById("zoom");
+ z.innerHTML=`<div class="okno"><b>${esc(m.nazwa)}</b> — pewność ${proc(m.pew)}${m.regula?' <span class="alarm">⚑ alarm z reguły: pusta naczepa</span>':''}<div class="obrazy">
+ <div><b>Wzorzec</b>${svg(false,true,vbM(m,false))}</div><div><b>Badane auto</b>${svg(true,true,vbM(m,true))}</div></div><p>${esc(m.roznica)}</p>
+ <div class="btns">${S.stan[m.id]?"":`<button class="kontrola" data-k="${m.id}">Do kontroli</button><select data-p="${m.id}" aria-label="Powód odrzucenia"><option value="">Powód odrzucenia…</option>${powody().map(p=>`<option>${p}</option>`).join("")}</select><button class="odrzuc" data-o="${m.id}">Odrzuć</button>`}<button data-nast="${m.id}">Następne miejsce</button><button data-zamknij>Zamknij</button></div></div>`;z.classList.add("on")}
+function nastepny(){const n=widoczne().find(m=>!S.stan[m.id]);S.akt=n?n.id:null}
+// P35: następne nierozstrzygnięte (po bieżącym, potem od początku); gdy brak — zamyka okno
+function nastepneMiejsce(id){const l=naLiscie(),i=l.findIndex(m=>m.id==id),k=[...l.slice(i+1),...l.slice(0,Math.max(i,0))].find(m=>!S.stan[m.id]);
+ if(k)return powieksz(k.id);document.getElementById("zoom").classList.remove("on");S.akt=null;odswiez()}
+
+function ladowanie(t){const l=document.createElement("div");l.className="ladow";l.textContent=t;document.body.appendChild(l);return l}
+async function wgraj(plik){const r=await fetch("/api/wgraj",{method:"POST",headers:{"Content-Type":"application/octet-stream","X-Nazwa":encodeURIComponent(plik.name)},body:plik});
+ const j=await r.json().catch(()=>({blad:"zła odpowiedź"}));if(!r.ok)throw new Error(j.blad||"wgranie nie powiodło się");return j.id}
+async function licz(zap){const l=ladowanie("Analiza…");S.blad="";  // P26: bez czasu analizy na ekranie
+ try{const r=await api("/analiza",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(zap)});
+  S.R=r;S.zapytanie=zap;S.pokazPom=false;S.stan={};S.zapisano=false;S.ekran="glowny";nastepny()}
+ catch(e){S.blad="Analiza nie powiodła się: "+e.message+". Usługa liczy na karcie graficznej OMENa w sieci lokalnej — gdy nie działa, uruchamia ją Programista."}
+ finally{l.remove();odswiez()}}
+async function analizuj(){S.zrodlo=document.getElementById("zrodlo").value;S.towar=document.getElementById("towar").value;
+ try{let zap;
+  if(S.zrodlo=="plik"){const b=document.getElementById("plikB").files[0],w=document.getElementById("plikW").files[0];
+   if(!b){S.blad="Wybierz plik .bmp badanego auta.";return odswiez()}
+   const l=ladowanie("Wysyłanie obrazu…");try{zap={badany:await wgraj(b),wzorzec:w?await wgraj(w):"auto",towar:S.towar}}finally{l.remove()}}
+  else{S.para=document.getElementById("para").checked;zap={badany:S.zrodlo,wzorzec:S.para?"para":"auto",towar:S.towar}}
+  await licz(zap)}catch(e){S.blad=e.message;odswiez()}}
+function pobierzPlik(nazwa,url){const x=document.createElement("a");x.href=url;x.download=nazwa;document.body.appendChild(x);x.click();x.remove()}
+function pobierz(){const r=S.R,d={obraz_badany:r.plik_badany,rozmiar:r.rozmiar,wzorzec:wzKrotko(),tryb_wzorca:r.tryb,podobienstwo:r.podobienstwo,
+ wzorzec_niepewny:r.niepewny,wzorzec_wskazany_recznie:r.wskazany_recznie,plik_wzorca:r.plik_wzorca,rodzaj_towaru:S.towar,obraz_z_ramkami:"zapis-kontroli.png",
+ pominiete_towar_zgodny:pominieteNiezlecone().length,pominiete:pominieteNiezlecone().map(m=>({id:m.id,nazwa:m.nazwa,ramka:m.ramka,pewnosc:m.pew,opis_roznicy:m.roznica})),
+ miejsca:wszystkie().filter(m=>S.stan[m.id]).map(m=>({id:m.id,nazwa:m.nazwa,strefa:m.strefa,ramka:m.ramka,pewnosc:m.pew,opis_roznicy:m.roznica,przedmiot_kontroli:m.przedmiot,
+  alarm_z_reguly:m.regula?"pusta naczepa":null,decyzja:S.stan[m.id].typ=="zlec"?"do kontroli":"odrzucone",powod:S.stan[m.id].powod||null})),
+ metoda:r.metoda,karta:r.karta,czas_analizy_s:r.czas_analizy_s,zapisano:new Date().toISOString()};
+ const u=URL.createObjectURL(new Blob([JSON.stringify(d,null,2)],{type:"application/json"}));pobierzPlik("zapis-kontroli.json",u);setTimeout(()=>URL.revokeObjectURL(u),1000);pobierzPng()}
+// P32: obraz badanego auta z ramkami (kolor wg decyzji) → PNG
+function pngZapisu(gotowe){const r=S.R,img=new Image();img.onload=()=>{const sk=Math.max(1,Math.round(2000/img.naturalWidth)),c=document.createElement("canvas");
+  c.width=img.naturalWidth*sk;c.height=img.naturalHeight*sk+40;const g=c.getContext("2d"),f=c.width/r.rozmiar[0];g.fillStyle="#fff";g.fillRect(0,0,c.width,c.height);g.drawImage(img,0,0,c.width,c.height-40);
+  const kol={zlec:"#0a7d32",odrz:"#777"};g.lineJoin="round";
+  naLiscie().forEach((m,i)=>{const st=S.stan[m.id];if(m.pom&&!st)return;const c2=st?kol[st.typ]:"#d11",b=m.ramka.map(v=>v*f);
+   g.strokeStyle=c2;g.lineWidth=4;g.setLineDash(st&&st.typ=="odrz"?[8,8]:[]);g.strokeRect(b[0],b[1],Math.max(b[2]-b[0],6),Math.max(b[3]-b[1],6));g.setLineDash([]);
+   g.font="bold 40px sans-serif";g.lineWidth=8;g.strokeStyle="#fff";const y=Math.max(40,b[1]-6);g.strokeText(String(i+1),b[0]+4,y);g.fillStyle=c2;g.fillText(String(i+1),b[0]+4,y)});
+  g.fillStyle="#222";g.font="18px sans-serif";g.fillText(`${opisAuta()} · wzorzec: ${wzKrotko()} · towar: ${S.towar} · ${new Date().toLocaleString("pl-PL")}`,10,c.height-14);
+  gotowe(c.toDataURL("image/png"))};img.src=imgUrl(r.obraz_badany)}
+function pokazPng(){pngZapisu(u=>{const e=document.getElementById("zapisPng");if(e)e.src=u})}
+function pobierzPng(){pngZapisu(u=>pobierzPlik("zapis-kontroli.png",u))}
+
+document.addEventListener("click",e=>{const t=e.target.closest("[data-a],[data-k],[data-o],[data-z],[data-nast],[data-zamknij],[data-cofnij]")||e.target,d=t.dataset,z=document.getElementById("zoom");
+ if(e.target==z||d.zamknij!==undefined){z.classList.remove("on");return}
+ if(d.a=="analizuj")return analizuj();
+ if(d.a=="nowe"){S.ekran="start";S.blad="";return odswiez()}
+ if(d.a=="wskaz"){const v=document.getElementById("wskaz").value;if(!v)return document.getElementById("wskaz").focus();return licz({...S.zapytanie,wzorzec:"typ:"+v})} // P28
+ if(d.a=="pom"){S.pokazPom=!S.pokazPom;return odswiez()}
+ if(d.a=="plik"){const i=document.getElementById("plikWz");i.onchange=async()=>{if(!i.files.length)return;const l=ladowanie("Wysyłanie wzorca…");
+   try{const id=await wgraj(i.files[0]);l.remove();await licz({...S.zapytanie,wzorzec:id})}catch(er){l.remove();S.blad=er.message;odswiez()}};return i.click()}
+ if(d.a=="pobierzPng")return pobierzPng();
+ if(d.nast)return nastepneMiejsce(+d.nast);
+ if(d.a=="zapisz"){S.zapisano=true;odswiez();return pokazPng()}
+ if(d.a=="pobierz")return pobierz();
+ if(d.k){S.stan[d.k]={typ:"zlec"};z.classList.remove("on");nastepny();return odswiez()}
+ if(d.o){const s=document.querySelector(`#zoom.on select[data-p="${d.o}"]`)||document.querySelector(`select[data-p="${d.o}"]`);if(!s.value){s.focus();s.style.borderColor="#d11";s.style.boxShadow="0 0 0 2px #d1133";return}
+  S.stan[d.o]={typ:"odrz",powod:s.value};z.classList.remove("on");nastepny();return odswiez()}
+ if(d.cofnij){delete S.stan[d.cofnij];S.zapisano=false;S.akt=+d.cofnij;return odswiez()}
+ if(d.z)return powieksz(+d.z);
+ if(["SELECT","BUTTON","INPUT","LABEL","OPTION"].includes(e.target.tagName))return;
+ const r=e.target.closest("[data-id]");if(r&&S.ekran=="glowny"){if(z.classList.contains("on")&&r.closest("#zoom"))return;powieksz(+r.dataset.id)}
+});
+api("/przyklady").then(j=>{K=j;S.zrodlo=S.zrodlo||("przyklad:"+(j.przyklady[0]||{}).id);odswiez()})
+ .catch(e=>{S.blad="Usługa na karcie graficznej (OMEN) nie odpowiada: "+e.message+". Można wgrać własny plik, ale analiza ruszy dopiero, gdy usługa działa.";odswiez()});
+odswiez();
+</script></body></html>
