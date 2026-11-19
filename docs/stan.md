@@ -1,4 +1,4 @@
-# Stan — 11:50 (sob)
+# Stan — 11:51 (sob)
 Kamień: 20:00 makieta (GitHub Pages) + docs/hacktribe.md; spec zamknięty 11:48.
 
 | zadanie | kto | status |
@@ -10,8 +10,8 @@ Kamień: 20:00 makieta (GitHub Pages) + docs/hacktribe.md; spec zamknięty 11:48
 | przesłuchanie Artura | Projektant | P1–P17 odp. |
 | 3 warianty ekranu (szkice docs/pm/03) → makiety gh-pages | Programista | zamknięte — wybrany 3 + lista z boku (P12) |
 | 2 /write-prd → docs/pm/04 + docs/spec.md | Projektant | zamknięte (R3); recenzja odbiorcy R1: 5 braków rozstrzygniętych → Projektant poprawia, R2 Programista |
-| 3 założenia + atak (docs/pm/05) | Analityk | zlecone |
-| 6 nazwa + hasło (docs/pm/06) | Prezenter | zamknięte — „Różnica RTG” + hasło A → hacktribe/README (zlecone) |
+| 3 założenia + atak (docs/pm/05) | Analityk | wynik OK (znaczniki); recenzja Projektant zlecona; A15b → spec; sondy S1–S4 → Programista po 0P |
+| 6 nazwa + hasło (docs/pm/06) | Prezenter | zamknięte — „Różnica RTG” + hasło A → hacktribe/README zrobione |
 | HackTribe DRAFT | Prezenter | zamknięte po R2; liczby + link makiety przed 20:00 |
 | README szkielet + LICENSE MIT | Prezenter | zamknięte (5b5e8b1) |
 
