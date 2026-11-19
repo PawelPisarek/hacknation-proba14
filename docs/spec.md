@@ -36,7 +36,7 @@ Wynik zapisuje **miejsce i przedmiot kontroli** (zadanie p. 9); integracja z rep
 | **Z parą** | operator ma czysty obraz tego samego typu | wyrównanie badanego do wzorca, różnica tłumienia, ramki |
 | **Bez pary (dobór wzorca)** | domyślny — operator zwykle pary nie ma (P8) | system wybiera z katalogu czystych najbliższy typ naczepy, potem jak wyżej; podpis „dobrany: …” |
 Jeśli dobór wzorca zawodzi (podobieństwo poniżej progu z kalibracji) — ekran prosi o wskazanie wzorca (tryb z parą) i nie pokazuje ramek (decyzja Szefa: tryb pary pierwszy w razie porażki E1, `docs/pm/02`).
-Inny ładunek zgodny ze zgłoszeniem (P15 czeka): założenie = rekomendacja „nie zaznaczamy” w konstrukcji; w ładunku miejsce dostaje niższą pewność i dopisek „ładunek inny niż we wzorcu”.
+Inny ładunek zgodny ze zgłoszeniem (P15, Artur): **nie zaznaczamy go, ale tylko gdy narzędzie zna zgłoszenie** — operator wybiera rodzaj towaru z listy (pole na ekranie przed analizą). Bez wybranego rodzaju towaru zaznaczamy wszystko, co różni się od wzorca (P2: zbędny alarm lepszy niż przeoczenie).
 
 ## 5. Raport
 - Obraz z ramkami + JSON (pkt 2) — układ jak w makiecie: ramki numerowane wg kolejności listy.
@@ -78,7 +78,7 @@ Liczby progowe ustala Szef po pierwszym przebiegu (E1+E2); do tego czasu kryteri
 6. Liczba aut dziennie nieznana (założenie, P5).
 
 ## 9. Otwarte
-- P15 (inny ładunek) czeka na Artura; spec zawiera rekomendację oznaczoną jako założenie. P13 (przyciski przy pozycji listy) i P14 (układ wariantu 3 zostaje; dodać powiększenie, linię „ile miejsc”, powód przy „odrzuć”) — rozstrzygnięte.
+- P13, P14, P15 rozstrzygnięte przez Artura (przyciski przy pozycji listy; układ wariantu 3 + powiększenie, linia „ile miejsc”, powód przy „odrzuć”; zgłoszony towar niezaznaczany tylko gdy operator wybrał rodzaj towaru).
 
 <!-- skill: przeplywy-pm -->
 <!-- skill: create-prd -->

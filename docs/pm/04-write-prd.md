@@ -41,8 +41,8 @@ Zakres (pomysły wybrane przez Artura: 1, 2, 3, 4, 6 + powiększenie z 5 + linia
 ### Założenia i otwarte pytania
 - Liczba aut dziennie nieznana (P5, założenie).
 - Najryzykowniejsze (P11, kolejność Artura): dobór wzorca bez pary → skrytka w podłodze/ścianie → ufność operatora w kolejność. Sprawdzane eksperymentami E1–E3 (`docs/pm/02`).
-- Inny ładunek zgodny ze zgłoszeniem: czy zaznaczać — P15 (rekomendacja: nie); do odpowiedzi spec zakłada rekomendację i oznacza to jako założenie.
-- P13: przyciski przy każdej pozycji listy; P14: układ wariantu 3 zostaje (Artur). P15 (inny ładunek) czeka.
+- Inny ładunek zgodny ze zgłoszeniem (P15, Artur): nie zaznaczamy, ale tylko gdy operator wybrał rodzaj towaru z listy; bez tego zaznaczamy wszystko, co różni się od wzorca.
+- P13: przyciski przy każdej pozycji listy; P14: układ wariantu 3 zostaje (Artur). P15 rozstrzygnięte.
 
 ## 8. Wydanie
 **Pierwsza wersja (demo ≤ 2 min):** wczytanie badanego obrazu → wzorzec dobrany → ekran obok siebie z ramkami → klik w najpewniejszą (podwójna podłoga) → powiększenie → „do kontroli” → linia „ile miejsc” i zapis.
