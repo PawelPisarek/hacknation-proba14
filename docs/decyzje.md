@@ -64,3 +64,4 @@ P14 11:40 Artur: Co w wariancie 3 ci się nie podoba lub brakuje na ekranie? Mak
 P15 11:42 Artur: Czy towar w ładunku, który jest inny niż na obrazie wzorcowym, ale zgodny ze zgłoszeniem celnym, ma być zaznaczany? (rekomendacja: nie — zaznaczamy tylko to, czego nie ma ani w konstrukcji, ani w zgłoszonym towarze) — czeka
 11:43 Szef: kto jest kim (Paweł): do Szefa pisze Paweł, w pokoju Produkt odpowiada Artur, nikt trzeci; podpis urządzenia nieważny — docs/zespol.md zamknięty.
 P13 11:43 odpowiedź: A — przyciski „do kontroli” i „odrzuć” przy każdej pozycji listy z boku (Artur w pokoju)
+P14 11:43 odpowiedź: układ wariantu 3 zostaje; do makiety dodać trzy już ustalone rzeczy: powiększenie podejrzanego miejsca (P10), linię „ile miejsc do sprawdzenia” przy aucie (P10), powód z listy przy „odrzuć” (P3) (Artur w pokoju)
