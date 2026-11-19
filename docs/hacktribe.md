@@ -44,7 +44,7 @@ Bez pary. Program sam dobiera wzorzec z katalogu. Gdy jest niepewny, pokazuje ra
 
 Skrytki. Dodatek poza ładownią zawsze jest alarmem. Towar zgodny ze zgłoszeniem nie jest zaznaczany, ale „Pokaż pominięte” pozwala go zlecić do kontroli.
 
-Wynik bazowy (sztuczny zbiór, karta GTX 1050; nie przesądza o jakości na prawdziwych obrazach): na 30 czystych obrazach 2 z alarmem, z 60 dodatków 0 przeoczonych (0 z 33 w konstrukcji); pełny obraz 50,4 MB: 0,49 s. Cele jeszcze niezmierzone: uczenie tylko na czystych obrazach, praca bez internetu, partie.
+Wynik bazowy (sztuczny zbiór, karta GTX 1050; nie przesądza o jakości na prawdziwych obrazach): na 30 czystych obrazach 2 z alarmem, z 60 dodatków 0 przeoczonych (0 z 33 w konstrukcji); pełny obraz 50,4 MB: 0,49 s (źródło: wyniki/bazowy/przebieg.log). Cele jeszcze niezmierzone: uczenie tylko na czystych obrazach, praca bez internetu; przetwarzanie partią z wiersza poleceń — w planie.
 
 Makieta: https://pawelpisarek.github.io/hacknation-proba14/makieta/
 

@@ -2,7 +2,7 @@
 
 **Pokazuje na obrazie RTG naczepy to, czego nie ma we wzorcu — zaczynając od najpewniejszego miejsca.**
 
-Narzędzie dla operatora RTG na granicy: pokazuje obraz kontrolowanej naczepy obok wzorcowego i listę miejsc od najpewniejszego, z opisem różnicy i pewnością. Operator zleca „do kontroli” albo odrzuca z powodem, a zapis kontroli zawiera obraz naczepy z ramkami. Wzorzec można podać (para) albo program dobiera go sam; gdy niepewny, ostrzega. Obrazy .bmp (~50 MB) przetwarzamy partiami, a całość jest budowana tak, by działać bez internetu i chmury (cel — do czasu pomiaru nie jest to zmierzony stan). Decyzję o kontroli fizycznej zawsze podejmuje operator.
+Narzędzie dla operatora RTG na granicy: pokazuje obraz kontrolowanej naczepy obok wzorcowego i listę miejsc od najpewniejszego, z opisem różnicy i pewnością. Operator zleca „do kontroli” albo odrzuca z powodem, a zapis kontroli zawiera obraz naczepy z ramkami. Wzorzec można podać (para) albo program dobiera go sam; gdy niepewny, ostrzega. Obrazy .bmp (~50 MB) mają być przetwarzane partiami (w planie), a całość jest budowana tak, by działać bez internetu i chmury (cel — do czasu pomiaru nie jest to zmierzony stan). Decyzję o kontroli fizycznej zawsze podejmuje operator.
 
 **Dla kogo:** operator RTG (Służba Celno-Skarbowa) przy stanowisku w trakcie kontroli — ma kilka minut na jedno auto (ustalenie z Arturem, `docs/decyzje.md`).
 
@@ -11,7 +11,7 @@ Zadanie: [docs/zadanie.md](docs/zadanie.md). Wersja robocza, tekst do zgłoszeni
 ## Demo
 
 - Makieta R3 (zamknięta; ekran operatora, dane udawane): https://pawelpisarek.github.io/hacknation-proba14/makieta/
-- Wersja na ksefbot.pl: TODO — link wkrótce
+- Wersja na ksefbot.pl: w przygotowaniu (adres dziś nie odpowiada) — link dopiszemy, gdy zwróci 200
 
 ## Jak uruchomić lokalnie
 
@@ -40,7 +40,7 @@ Duże obrazy nie trafiają do repo (`dane/`, `*.bmp` w `.gitignore`).
 
 | metoda | czyste z alarmem | dodatki przeoczone | uwagi |
 |---|---|---|---|
-| A (piksele, para) | 2/30 | 0/60 (konstrukcja 0/33) | 1,3 miejsca na auto; pełny obraz 50,4 MB: 0,49 s |
+| A (piksele, para) | 2/30 | 0/60 (konstrukcja 0/33) | 1,3 miejsca na auto; pełny obraz 50,4 MB: 0,49 s (źródło: `wyniki/bazowy/przebieg.log`) |
 | B (cechy, para) | 0/30 | 23/60 (konstrukcja 15/33) | |
 | C (model typu) | 15/30 | 3/60 (konstrukcja 3/33) | dobór wzorca 60/60 |
 
@@ -48,7 +48,7 @@ Duże obrazy nie trafiają do repo (`dane/`, `*.bmp` w `.gitignore`).
 
 ## Architektura
 
-TODO (uzupełnia Programista): przepływ obraz wzorcowy + badany → różnice → raport (obraz z ramkami, plik ze współrzędnymi, podsumowanie partii); przetwarzanie partiami; praca bez internetu (cel budowy, jeszcze niezmierzony).
+TODO (uzupełnia Programista): przepływ obraz wzorcowy + badany → różnice → raport (obraz z ramkami, plik ze współrzędnymi, podsumowanie partii — przetwarzanie partią z wiersza poleceń w planie, dopóki nie zadziała); praca bez internetu (cel budowy, jeszcze niezmierzony).
 
 ## Użyte narzędzia
 
@@ -65,7 +65,7 @@ Narzędzia przygotowane wcześniej i użyte w projekcie (każde w jednym zdaniu:
 - **dummy-dataset** — skill, z którego Programista ułożył plan sztucznego zbioru; obrazy tworzy nasz generator `anomalie/generator.py` na karcie graficznej.
 - **Biblioteki z `requirements.txt` i kodu:** `numpy` i `scipy` — obliczenia i przetwarzanie obrazów, `pillow` — wczytywanie i zapis obrazów .bmp/.png, `torch` i `torchvision` (z indeksu CUDA) — liczenie na karcie graficznej i cechy ResNet18.
 - **GitHub Pages** — publikacja makiety ekranu (warianty i wersja końcowa) pod publicznym adresem.
-- **Coolify na ksefbot.pl** — hosting aplikacji (wersja pokazowa dostępna w przeglądarce).
+- **Coolify na ksefbot.pl** — hosting aplikacji (w przygotowaniu — adres dziś nie odpowiada).
 - **Orkiestrator i karta graficzna OMENa** (GTX 1050, 4 GB) — całe liczenie (generator, uczenie, ocena) idzie na karcie, uruchamiane przez orkiestrator (`--klasa gpu-tlo`), nigdy na procesorze.
 
 ## Licencja

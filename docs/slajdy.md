@@ -1,6 +1,6 @@
 # Slajdy: Różnica RTG
 
-Prezentacja (9 slajdów, jeden nagłówek `##` = jeden slajd; docelowo PDF). Źródła: `docs/spec.md`, `docs/hacktribe.md`, `README.md`. Dane są sztuczne; liczb skuteczności nie podajemy do czasu pomiaru. Makieta (R3): https://pawelpisarek.github.io/hacknation-proba14/makieta/
+Prezentacja (9 slajdów, jeden nagłówek `##` = jeden slajd; docelowo PDF). Źródła: `docs/spec.md`, `docs/hacktribe.md`, `README.md`. Dane są sztuczne; liczby skuteczności pochodzą z wyniku bazowego (`wyniki/bazowy/`) i nie przesądzają o jakości na prawdziwych obrazach. Makieta (R3): https://pawelpisarek.github.io/hacknation-proba14/makieta/
 
 ## 1. Różnica RTG
 
@@ -52,7 +52,7 @@ Narzędzie dla operatora RTG Służby Celno-Skarbowej. Zespół: Hackathon.
 ## 6. Wyniki
 
 - Wynik bazowy (metoda A, para wzorzec–badany): zbędny alarm na 2 z 30 czystych obrazów; przeoczone 0 z 60 dodatków (0 z 33 w konstrukcji); 1,3 miejsca na auto.
-- Pełny obraz 50,4 MB: 0,49 s na obraz; szczyt pamięci karty 991 MiB.
+- Pełny obraz 50,4 MB: 0,49 s na obraz; szczyt pamięci karty 991 MiB (źródło: `wyniki/bazowy/przebieg.log`).
 - Inne metody: B (cechy) 0/30 zbędnych, ale 23/60 przeoczonych; C (model typu) 15/30 zbędnych, 3/60 przeoczonych.
 - Źródło: wpis Programisty 12:09 w `docs/decyzje.md`, `wyniki/bazowy/tabela.md`. Kolejne pomiary dopiszemy, gdy będą.
 - Zbędne alarmy i przeoczenia liczymy osobno; przeoczenie jest gorsze.
@@ -65,8 +65,8 @@ Narzędzie dla operatora RTG Służby Celno-Skarbowej. Zespół: Hackathon.
 - Zdjęć KAS nie mamy: własny sztuczny zbiór naczep (czyste i z dodatkami, 4 typy dodatków, maski).
 - Cały model liczy na małej karcie graficznej (GTX 1050, 4 GB), nigdy na procesorze.
 - Model uczony tylko na obrazach czystych, bez przykładów przemytu (cel, jeszcze niezmierzony).
-- Skalowanie: pełny obraz (ok. 50 MB) przechodzi w 0,49 s; partia z wiersza poleceń (folder `.bmp` → JSON i PNG na obraz + CSV) — pomiar na większych zbiorach jeszcze przed nami.
-- Cel: praca bez internetu i chmury, jeszcze niezmierzony; pokaz pod linkiem idzie przez sieć (przeglądarka → ksefbot.pl → usługa na OMENie).
+- Skalowanie: pełny obraz (ok. 50 MB) przechodzi w 0,49 s; partia z wiersza poleceń (folder `.bmp` → JSON, PNG, CSV) — **w planie**, dopóki nie zadziała; pomiar na większych zbiorach jeszcze przed nami. Liczby 50,4 MB i 991 MiB: `wyniki/bazowy/przebieg.log`.
+- Cel: praca bez internetu i chmury, jeszcze niezmierzony; pokaz pod linkiem idzie przez sieć (przeglądarka → ksefbot.pl → usługa na OMENie; ksefbot.pl w przygotowaniu).
 
 *Co pokazać:* zrzut z karty OMENa (przebieg na GPU) albo schemat: przeglądarka → ksefbot.pl → usługa na OMENie → JSON + PNG.
 
@@ -76,7 +76,7 @@ Narzędzie dla operatora RTG Służby Celno-Skarbowej. Zespół: Hackathon.
 - **Modele Claude** (Anthropic): kod, specyfikacja, teksty.
 - **pm-skills** (MIT): kroki produktowe, nazwa, value proposition, PRD.
 - Skill `dummy-dataset` (plan sztucznego zbioru) i generator `anomalie/generator.py`; biblioteki `numpy`, `scipy`, `pillow`, `torch`, `torchvision`.
-- GitHub Pages (makieta), Coolify na ksefbot.pl (wersja pokazowa), orkiestrator i karta graficzna OMENa.
+- GitHub Pages (makieta), Coolify na ksefbot.pl (w przygotowaniu — adres dziś nie odpowiada), orkiestrator i karta graficzna OMENa.
 
 *Co pokazać:* zrzut listy botów w OpenMausBot albo sekcja „Użyte narzędzia” z README.
 
