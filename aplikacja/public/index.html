@@ -47,7 +47,8 @@ button:disabled{opacity:.5;cursor:default}
 // MVP (docs/zadania/01-mvp-z-makiety.md): logika makiety R3 + P34–P37, wynik z usługi na karcie OMENa (przez /api).
 const POWODY=["znany element konstrukcji","ładunek zgodny z deklaracją","artefakt obrazu (szum, krawędź)","inny typ naczepy niż wzorzec","inne"]; // P3
 let K={przyklady:[],towary:["nie wiem"],katalog:[]};      // z usługi
-let S={ekran:"start",zrodlo:"",towar:"nie wiem",para:true,plikB:null,plikW:null,R:null,wzorzec:"auto",pokazPom:false,akt:null,stan:{},zapisano:false,blad:"",zapytanie:null};
+// P39: na starcie wariant pokazu (test/d019_B, bez pary, „sprzęt i AGD”); zapisany też w trybie „wynik zapisany”
+let S={ekran:"start",zrodlo:"przyklad:test/d019_B",towar:"sprzęt i AGD",para:false,plikB:null,plikW:null,R:null,wzorzec:"auto",pokazPom:false,akt:null,stan:{},zapisano:false,blad:"",zapytanie:null};
 const api=(u,o)=>fetch("/api"+u,o).then(async r=>{const j=await r.json().catch(()=>({blad:"zła odpowiedź ("+r.status+")"}));if(!r.ok)throw new Error(j.blad||("błąd "+r.status));return j});
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const proc=x=>Math.round(x*100)+"%";

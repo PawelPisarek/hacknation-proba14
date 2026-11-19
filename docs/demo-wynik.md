@@ -61,3 +61,40 @@ Wnioski dla P39:
 - Do „odrzuć” nadają się pominięte 2–5 (inny ładunek, powód „ładunek zgodny z deklaracją”) — po „Pokaż pominięte”.
 - **Ryzyko:** prawdziwy dodatek w ładunku (a) trafia do pominiętych (ramka „inny ładunek” 94% go obejmuje); widać go tylko po „Pokaż pominięte” (kłóci się z A15b: dodatek w ładunku ma być wykryty mimo rodzaju towaru).
 - Z parą (`test/d019_B`, para) ten sam obraz daje 3 miejsca bez pominiętych: Ładownia — środek 95% (a), Ściana przednia — dół 90% (b), Podłoga — środek 85% (c) — tam pierwsze jest w ładowni, nie w konstrukcji.
+
+## Pokaz (P39)
+
+Wariant (Artur, 12:53): `test/d019_B`, **bez pary** (wzorzec dobrany z katalogu: typ B, pewność doboru 48%), towar
+**„sprzęt i AGD”**. Metoda `C_model_typu`, karta GTX 1050, **czas przebiegu na karcie 1,06 s** (od kliknięcia do wyniku
+na ksefbot.pl ok. 1,3–1,6 s). Zapis: `aplikacja/zapisane/analiza-4.json`. Ekran na starcie ma ten wariant już wybrany;
+w trybie „wynik zapisany” pokazuje ten sam wynik.
+
+Linia na ekranie: „5 miejsc do sprawdzenia · zostało 5”; nad listą „pominięto 5 różnic … Pokaż pominięte”.
+
+**Lista (kolejność z ekranu):**
+
+| # | Strefa | Położenie | Pewność | Konstrukcja / ładunek | Prawda generatora |
+|---|---|---|---|---|---|
+| 1 | Ściana przednia | dół | 69% | konstrukcja | mały obiekt przy ścianie od kabiny |
+| 2 | Podłoga | środek | 54% | konstrukcja | obiekt w podwójnej podłodze (fragment) |
+| 3 | Podłoga | środek | 52% | konstrukcja | ten sam obiekt (inny fragment) |
+| 4 | Podłoga | środek | 52% | konstrukcja | ten sam obiekt (inny fragment) |
+| 5 | Podłoga | środek | 51% | konstrukcja | ten sam obiekt (inny fragment) |
+
+(Ściana przednia ma położenie wg wysokości: góra/środek/dół; pozostałe strefy przód/środek/tył.)
+
+**Pominięte (5, po „Pokaż pominięte”):**
+
+| # | Strefa | Położenie | Pewność | Rodzaj | Prawda generatora |
+|---|---|---|---|---|---|
+| 1 | Ładownia | tył | 94% | inny ładunek niż we wzorcu | **zawiera duży obiekt ukryty w ładunku** |
+| 2 | Ładownia | środek | 91% | inny ładunek niż we wzorcu | brak dodatku |
+| 3 | Ładownia | przód | 89% | inny ładunek niż we wzorcu | brak dodatku |
+| 4 | Ładownia | tył | 86% | inny ładunek niż we wzorcu | brak dodatku |
+| 5 | Ładownia | środek | 83% | inny ładunek niż we wzorcu | brak dodatku |
+
+- **Pierwsze miejsce jest w konstrukcji** (Ściana przednia — dół, 69%, skrytka przy kabinie) — pokaz zaczyna się od niej (P4). Kolejności nie zmieniano.
+- **„Odrzuć” (P3, P20):** na liście nie ma fałszywego alarmu — wszystkie 5 miejsc to prawdziwe dodatki. Najmniej szkodliwy kandydat: **#5 Podłoga — środek, 51%**,
+  najniższa pewność, to czwarta ramka na tym samym obiekcie co #2 (zlecone do kontroli). Powód z listy: **„inne”** (to samo miejsce co #2).
+  Odrzucenie #5 nie gubi skrytki, bo #2–#4 wskazują ten sam obiekt. Powód „znany element konstrukcji” byłby nieprawdziwy (tam jest przeróbka podłogi).
+- Ryzyko do pokazu: prawdziwy dodatek w ładunku jest w **pominiętych #1** (ramka „inny ładunek” 94% go obejmuje) — widać go dopiero po „Pokaż pominięte” (A15b).
