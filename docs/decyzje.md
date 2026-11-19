@@ -31,3 +31,5 @@ P4 11:29 Artur: Co boli najbardziej: małe skrytki w konstrukcji pojazdu (rama, 
 11:29 Szef: (1a R1 brak 2) cena i wejście na rynek — nie dotyczy (narzędzie dla urzędu, ocena w konkursie).
 11:29 Szef: (1a R1 brak 4) liczenie tylko na karcie dotyczy też różnicy pikselowej — „bez karty” usunąć.
 11:29 Szef: (1a R1 brak 5) „raport z priorytetem” i „mało czasu operatora” — tylko jeśli potwierdzi Artur (P7); czy zaznaczać też uszkodzenia konstrukcji (p. 2 zadania) — pyta Artura Projektant.
+P4 11:30 odpowiedź: zgoda — oba (skrytki w konstrukcji i towar w ładunku), w demo najpierw skrytka w konstrukcji; najczęściej to podwójna podłoga albo ściana przy kabinie (Artur w pokoju)
+P5 11:30 Artur: Ile obrazów dziennie przechodzi przez stanowisko i ile czasu operator ma na jeden? (rekomendacja: do kilku minut na auto, pokazujemy wynik w sekundach) — czeka
