@@ -11,7 +11,7 @@ Format: „Gdy [sytuacja], chcę [czynność], żeby [skutek]” (skill job-stor
 
 ### H1. Wczytanie obrazu i rodzaju towaru — operator
 Gdy auto wjechało na stanowisko, chcę wczytać obraz `.bmp` i wybrać z listy rodzaj zgłoszonego towaru (lub „nie wiem”), żeby narzędzie wiedziało, co jest zgodne ze zgłoszeniem.
-- K1. Lista: sprzęt i AGD · odzież i tekstylia · żywność i napoje · materiały budowlane · inne · pusta naczepa · „nie wiem” (domyślnie) (P17; spec §2, §6). Test: makieta (pole przed analizą); skutki — K2–K5.
+- K1. Lista: sprzęt i AGD · odzież i tekstylia · żywność i napoje · materiały budowlane · inne · pusta naczepa · „nie wiem” (domyślnie) (P17; spec §2, §6). Test: makieta — **do dodania** (pole rodzaju towaru przed analizą; w wspolne.js jeszcze go nie ma, spec §6); skutki — K2–K5.
 - K2. Przy „nie wiem” narzędzie zaznacza wszystko, co różni się od wzorca (P15, P2). Test: A16.
 - K3. Przy „pusta naczepa” każdy przedmiot w ładowni dostaje ramkę. Test: A17.
 - K4. Przy rodzaju towaru zgodnym z ładunkiem inny ładunek niż we wzorcu nie dostaje ramki, ale dodatek ukryty w ładunku nadal jest wykryty. Testy: A15 (brak alarmu na ładunku), A15b (dodatek w ładunku wykryty).
@@ -21,11 +21,11 @@ Gdy auto wjechało na stanowisko, chcę wczytać obraz `.bmp` i wybrać z listy 
 Gdy nie mam czystego obrazu tego samego typu naczepy (zwykle nie mam, P8), chcę, żeby narzędzie samo dobrało wzorzec i pokazało podpis „dobrany: typ …, podobieństwo …”, żeby nie szukać wzorca ręcznie.
 - K1. Podpis dobranego wzorca widoczny przy obrazach (spec §6: „typ naczepa plandeka 3-osiowa, 13,6 m (podobieństwo 0,93)”). Test: A4.
 - K2. Wynik w kilka sekund (pokaz), obraz pełnowymiarowy < 60 s, pamięć karty < 4 GB. Test: A6.
-- K3. Praca bez internetu (liczenie na karcie, lokalnie). Test: A11.
+- K3. Detektor działa lokalnie bez sieci (CLI i usługa na tej samej maszynie, karta OMENa). Test: A11. Pokaz pod linkiem idzie przez sieć (decyzja Szefa 11:55; spec §4d) i jest mierzony osobno: A10.
 
 ### H3. Dwa obrazy obok siebie — operator
 Gdy analiza się skończyła, chcę widzieć wzorzec i badane auto obok siebie, a na badanym ramki, żeby od razu zobaczyć „jest / nie ma” w tym samym miejscu (P12).
-- K1. Lewy obraz: wzorzec z zaznaczonym odpowiednikiem miejsca; prawy: badane auto z ramkami, numerowanymi wg listy (spec §1, §5). Test: makieta.
+- K1. Wzorzec i badane auto obok siebie, na badanym ramki numerowane wg listy (spec §1, §5). Układ lewy/prawy (wzorzec z zaznaczonym odpowiednikiem miejsca po lewej) to układ makiety wariantu 3, nie wymóg speca. Test: makieta.
 - K2. Na aucie kilka ramek, nie kilkadziesiąt (P2); raportowana średnia i maksimum ramek na obraz. Test: A3.
 - K3. Przeoczenie dodatku liczone osobno i traktowane jako gorsze niż zbędny alarm. Testy: A1 (zbędne alarmy na czystych), A2 (przeoczenia).
 
@@ -57,9 +57,9 @@ Gdy przechodzę po liście, chcę linii „N miejsc do sprawdzenia · zostało M
 
 ### H9. Wzorzec niepewny — operator
 Gdy narzędzie nie jest pewne doboru wzorca (np. typ naczepy spoza katalogu), chcę widzieć ramki z ostrzeżeniem „wzorzec niepewny — wskaż wzorzec”, żeby nic nie zostało po cichu pominięte (P16 A, P2, P8).
-- K1. Flaga i ramki pokazane jednocześnie (ramek nie ukrywamy). Test: A18.
+- K1. Flaga i ramki pokazane jednocześnie (ramek nie ukrywamy). Test: A18. Flagi „wzorzec niepewny” w makiecie jeszcze nie ma — **do dodania** (spec §6).
 - K2. Operator wskazuje wzorzec z listy typów w katalogu albo wgrywa plik wzorca (tryb z parą); po wskazaniu lista przelicza się. Test: A18.
-- K3. Tryb z parą działa też, gdy operator od razu poda czysty obraz. (spec §4) Test: makieta; A4 mierzy tylko trafność doboru wzorca bez pary (H2).
+- K3. Tryb z parą działa też, gdy operator od razu poda czysty obraz. (spec §4) Test: makieta (**do dodania**); A4 mierzy tylko trafność doboru wzorca bez pary (H2).
 
 ### H10. Ocena ekranu przez operatora — operator (Artur)
 Gdy mam kilka minut na auto, chcę z ramek, opisu różnicy i powiększenia podjąć decyzję dla każdej ramki, żeby nie potrzebować nic poza ekranem (P11, punkt 3).
@@ -70,8 +70,8 @@ Gdy mam kilka minut na auto, chcę z ramek, opisu różnicy i powiększenia podj
 
 ### H11. Zapis kontroli i jego odczyt — operator (ostatni krok demo)
 Gdy skończyłem decyzje przy aucie, chcę zapisać kontrolę i pobrać plik „miejsce — do kontroli: przedmiot / odrzucone (powód)”, żeby dało się potem odczytać, co zlecono i dlaczego odrzucono (zadanie p. 9; P3).
-- K1. Zapis: JSON na serwerze aplikacji z możliwością pobrania; zawiera użyty wzorzec, rodzaj towaru, miejsce, przedmiot kontroli, decyzję i powód (spec §2, §4d). Test: A8.
-- K2. Obraz z ramkami (PNG, układ pełnej rozdzielczości) jest częścią wyniku (spec §2). Test: brak w §7 — makieta i A13 (PNG na obraz).
+- K1. Zapis: JSON na serwerze aplikacji z możliwością pobrania (zapisu w makiecie jeszcze nie ma — **do dodania**, spec §6); zawiera użyty wzorzec, rodzaj towaru, miejsce, przedmiot kontroli, decyzję i powód (spec §2, §4d). Test: A8.
+- K2. Obraz z ramkami (PNG, układ pełnej rozdzielczości) jest częścią wyniku (spec §2). Test: brak w §7 (A13 mierzy partię, H12, nie PNG z ekranu); sprawdzenie ręczne w makiecie — **do dodania**.
 - K3. Operator otwiera pobrany zapis i widzi dla każdej pozycji miejsce, decyzję i powód odrzucenia — bez nowych ekranów. Test: A8.
 
 ### H12. Partia obrazów i duże pliki — ścieżka techniczna, bez roli użytkownika (poza makietą)
