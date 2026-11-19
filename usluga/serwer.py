@@ -125,6 +125,27 @@ def skladowe(z, k, min_pole, scal=2):
     return wyn
 
 
+def scal_ramki(sk, odstep):
+    """Łączy składowe, których ramki dzieli ≤ odstep px (dodatek w ładunku rozpada się po wygaszeniu towaru na kawałki)."""
+    sk = [list(s) for s in sk]
+    zm = True
+    while zm:
+        zm = False
+        for i in range(len(sk)):
+            for j in range(i + 1, len(sk)):
+                a, b = sk[i], sk[j]
+                if max(a[0], b[0]) - min(a[2], b[2]) <= odstep and max(a[1], b[1]) - min(a[3], b[3]) <= odstep:
+                    sk[i] = [min(a[0], b[0]), min(a[1], b[1]), max(a[2], b[2]), max(a[3], b[3]), max(a[4], b[4]), a[5] + b[5]]
+                    del sk[j]
+                    zm = True
+                    break
+            if zm:
+                break
+    return [tuple(s) for s in sk]
+
+
+ODSTEP_DODATKU = 24   # px przy szer. 1200: kawałki dodatku w ładunku bliżej niż to = jedno miejsce
+
 # ---------------------------------------------------------------- reguła towaru (spec §4, P15, A15b)
 def regula_towaru(dane_towaru):
     """Reguła towaru z detektora (D.RegulaTowaru, ta sama co w sondzie S3, tryb C): wygasza w ładowni tylko różnicę,
@@ -294,7 +315,12 @@ class Usluga:
             for x0, y0, x1, y1, zm, pole in skladowe(zmap, k, min_pole):
                 dodaj(x0, y0, x1, y1, zm, pole, +1)
         else:   # reguła towaru: ramka dla tego, co wykracza poza zgłoszony towar; reszta ładowni → pominięte
-            for x0, y0, x1, y1, zm, pole in skladowe(torch.where(zost, zmap, torch.zeros_like(zmap)), k, min_pole):
+            lad = torch.from_numpy(strefy == D.LADOWNIA).to(zmap.device)
+            zz = torch.zeros_like(zmap)
+            for x0, y0, x1, y1, zm, pole in skladowe(torch.where(zost & ~lad, zmap, zz), k, min_pole):
+                dodaj(x0, y0, x1, y1, zm, pole, +1)
+            for x0, y0, x1, y1, zm, pole in scal_ramki(skladowe(torch.where(zost & lad, zmap, zz), k, min_pole),
+                                                       ODSTEP_DODATKU * wR / 1200):
                 dodaj(x0, y0, x1, y1, zm, pole, +1, "dodatek")
             for x0, y0, x1, y1, zm, pole in skladowe(torch.where(zost, torch.zeros_like(zmap), zmap), k, min_pole):
                 dodaj(x0, y0, x1, y1, zm, pole, +1, "inny")
