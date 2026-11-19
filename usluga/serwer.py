@@ -319,10 +319,13 @@ class Usluga:
             zz = torch.zeros_like(zmap)
             for x0, y0, x1, y1, zm, pole in skladowe(torch.where(zost & ~lad, zmap, zz), k, min_pole):
                 dodaj(x0, y0, x1, y1, zm, pole, +1)
-            for x0, y0, x1, y1, zm, pole in scal_ramki(skladowe(torch.where(zost & lad, zmap, zz), k, min_pole),
-                                                       ODSTEP_DODATKU * wR / 1200):
+            dod = scal_ramki(skladowe(torch.where(zost & lad, zmap, zz), k, min_pole), ODSTEP_DODATKU * wR / 1200)
+            for x0, y0, x1, y1, zm, pole in dod:
                 dodaj(x0, y0, x1, y1, zm, pole, +1, "dodatek")
             for x0, y0, x1, y1, zm, pole in skladowe(torch.where(zost, torch.zeros_like(zmap), zmap), k, min_pole):
+                # kawałek wygaszony, ale w całości wewnątrz ramki dodatku → należy do dodatku, nie do pominiętych
+                if any(x0 >= a[0] and y0 >= a[1] and x1 <= a[2] and y1 <= a[3] for a in dod):
+                    continue
                 dodaj(x0, y0, x1, y1, zm, pole, +1, "inny")
         if zneg is not None:
             for x0, y0, x1, y1, zm, pole in skladowe(zneg, 2 * k, 0.004 * wR * hR, scal=3):
