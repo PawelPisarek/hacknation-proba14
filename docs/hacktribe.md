@@ -1,6 +1,6 @@
-# Zgłoszenie HackTribe — DRAFT (R2)
+# Zgłoszenie HackTribe — DRAFT 
 
-> DRAFT: do dopasowania do docs/spec.md. Limity znaków sprawdzone skryptem. Poprawiono po recenzji R1.
+> Zgodne ze specyfikacją docs/spec.md (zamkniętą 11:51). Limity liczone `wc -m`. Bez liczb skuteczności do czasu pomiaru.
 
 ## Nazwa projektu (≤ 50 znaków)
 
@@ -18,33 +18,31 @@ Hackathon (do potwierdzenia przez ludzi)
 
 https://github.com/PawelPisarek/hacknation-proba14
 
-## Opis krótki (≤ 300 znaków) [245/300]
+## Opis krótki (≤ 300 znaków) [282/300]
 
-Pomaga operatorowi RTG: porównuje obraz naczepy z wzorcowym albo z wyuczonym obrazem czystej naczepy i zaznacza różnice — możliwe skrytki. Uczy się tylko z czystych obrazów, jest budowane do pracy bez chmury, na małej karcie graficznej.
+Operator RTG widzi obraz badanej naczepy obok wzorcowego i listę miejsc od najpewniejszego, z opisem różnicy; wybiera „do kontroli” albo „odrzuć”. Bez pary sam dobiera wzorzec i ostrzega, gdy jest niepewny. Szuka skrytek w konstrukcji. Dane sztuczne, wyniki po pomiarze.
 
-## Opis średni (≤ 1000 znaków) [857/1000]
+## Opis średni (≤ 1000 znaków) [898/1000]
 
-Pokazuje na obrazie RTG naczepy to, czego nie ma we wzorcu — zaczynając od najpewniejszego miejsca.
+Przemytnicy ukrywają towar w skrytkach w konstrukcji naczepy (podwójna podłoga, ściana przy kabinie), a operator RTG ma kilka minut na auto. Operator wczytuje obraz, wybiera rodzaj zgłoszonego towaru (sprzęt i AGD, odzież, żywność, materiały budowlane, inne, „pusta naczepa” lub „nie wiem”) i widzi obraz badany obok wzorcowego oraz listę miejsc od najpewniejszego, z opisem różnicy i powiększeniem. Decyzja: „do kontroli” albo „odrzuć” z powodem.
 
-Przemytnicy ukrywają towar w drobnych przeróbkach konstrukcji, a operator RTG ma kilka minut na jedno auto. Nasze narzędzie porównuje obraz kontrolowanej naczepy na dwa sposoby: z obrazem wzorcowym (para wzorzec–badany) albo z wyuczonym obrazem czystej naczepy tego typu. Różnice zaznacza na obrazie, a po analizie powstaje raport.
+Wzorzec nie jest konieczny: bez pary program sam dobiera czysty obraz tego typu naczepy, a gdy jest niepewny, pokazuje ramki z ostrzeżeniem „wzorzec niepewny — wskaż wzorzec”. Towar zgodny ze zgłoszeniem nie dostaje ramki; przy „nie wiem” zaznaczamy wszystko.
 
-Wyróżnik: uczy się wyłącznie z obrazów czystych, bez przykładów przemytu. Jest budowane tak, by działać bez internetu i chmury, na małej karcie graficznej, oraz przetwarzać duże pliki .bmp (~50 MB) partiami i skalować się na większe zbiory.
+Sprawdzamy na własnym, sztucznym zbiorze naczep (prawdziwych obrazów nie mamy). Wyniki: [TODO: zbędne alarmy / przeoczenia / czas na obraz].
 
-Sprawdzamy na własnym, sztucznym zbiorze obrazów naczep, bo prawdziwych obrazów nie mamy. Wyniki: [TODO: zbędne alarmy / przeoczenia / czas na obraz].
+## Opis pełny (≤ 2000 znaków) [1907/2000]
 
-## Opis pełny (≤ 2000 znaków) [1495/2000]
+Problem. Operatorzy RTG Służby Celno-Skarbowej oceniają obrazy naczep i decydują o kontroli fizycznej. Towar bywa ukryty w drobnych przeróbkach konstrukcji, np. w podwójnej podłodze albo ścianie przy kabinie, a istniejące narzędzie do wykrywania papierosów słabo radzi sobie z małymi ilościami. Operator przy stanowisku ma kilka minut na auto.
 
-Problem. Operatorzy RTG Służby Celno-Skarbowej oceniają obrazy kontenerów, ciężarówek i wagonów i decydują o kontroli fizycznej. Przemytnicy ukrywają towar w elementach konstrukcji oraz w deklarowanym ładunku; istniejące narzędzie do wykrywania papierosów słabo radzi sobie z małymi ilościami w skrytkach. Operator przy stanowisku ma kilka minut na jedno auto.
+Rozwiązanie. Operator wczytuje obraz badanej naczepy i wybiera z listy rodzaj zgłoszonego towaru: sprzęt i AGD, odzież i tekstylia, żywność i napoje, materiały budowlane, inne, „pusta naczepa” albo „nie wiem”. Na ekranie widzi obraz badany obok wzorcowego i z boku listę miejsc od najpewniejszego, każde z krótkim opisem różnicy. Kliknięcie miejsca przybliża je na obu obrazach. Przy każdej pozycji są przyciski „do kontroli” i „odrzuć” (z powodem z listy); zapis zawiera miejsce i przedmiot kontroli. Decyzja zostaje po stronie operatora.
 
-Rozwiązanie. Aplikacja porównuje analizowany obraz na dwa sposoby: (1) para — obraz wzorcowy i badany, (2) porównanie z wyuczonym obrazem czystej naczepy tego typu. Różnice, które mogą oznaczać skrytkę lub towar niezgłoszony, zaznacza na obrazie i opisuje w raporcie. Decyzja zostaje po stronie operatora.
+Tryb bez pary. Operator zwykle nie ma czystego obrazu tego samego typu, więc program sam dobiera wzorzec z katalogu. Gdy dobór jest niepewny, nie ukrywa różnic: pokazuje ramki z ostrzeżeniem „wzorzec niepewny — wskaż wzorzec”.
 
-Wyróżnik. Model uczy się tylko z obrazów czystych (bez anomalii), więc nie potrzebuje przykładów przemytu. Narzędzie jest budowane do pracy bez chmury i internetu, na małej karcie graficznej.
+Skrytki w konstrukcji. Dodatek poza ładownią (podłoga, ściana przy kabinie, rama, dach) zawsze jest alarmem. Towar w ładowni zgodny z wybranym rodzajem nie jest zaznaczany; dla „pustej naczepy” alarmem jest każdy przedmiot w ładowni; przy „nie wiem” zaznaczamy każdą różnicę.
 
-Cele techniczne (budowane, jeszcze niezmierzone): obsługa obrazów .bmp ~50 MB, przetwarzanie partiami, kompresja i skalowanie na większe zbiory.
+Wyróżnik. Model uczy się tylko z obrazów czystych, bez przykładów przemytu. Budujemy go do pracy bez internetu, na małej karcie graficznej (cel, jeszcze niezmierzony).
 
-Pomiar. Zdjęć KAS nie mamy, więc sprawdzamy na własnym, sztucznym zbiorze obrazów naczep (czyste i z dodatkowym ładunkiem); wyniki na nim nie przesądzają o jakości na prawdziwych obrazach. Na czystych liczymy zbędne alarmy, na obrazach z dodatkami — przeoczenia. Wyniki: [TODO: zbędne alarmy / przeoczenia / czas na obraz].
-
-Kod: https://github.com/PawelPisarek/hacknation-proba14 (makieta i wersja na ksefbot.pl — linki w README).
+Pomiar. Zdjęć KAS nie mamy, więc sprawdzamy na własnym, sztucznym zbiorze naczep; wyniki na nim nie przesądzają o jakości na prawdziwych obrazach. Zbędne alarmy i przeoczenia liczymy osobno. Wyniki: [TODO: zbędne alarmy / przeoczenia / czas na obraz].
 
 ## Narzędzia przygotowane wcześniej
 
