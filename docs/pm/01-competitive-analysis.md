@@ -79,6 +79,7 @@ Oś X: wykrywa tylko znany towar ↔ wykrywa dowolną różnicę od wzorca. Oś 
 2. **Różnica między sztucznym zbiorem a prawdziwym RTG** — wynik na naszych danych może nie przenieść się do KAS. Reakcja: nie obiecywać skuteczności na prawdziwych danych.
 3. **Producenci sprzętu dodają AI porównującą** (Rapiscan już ma porównanie z historią). Reakcja: wejście z repozytorium obu dostawców, praca offline (wymóg zadania) i wskazywanie dowolnej różnicy od wzorca.
 4. **Mała karta (4 GB)** — ograniczy rozmiar modelu i kafelków.
+5. **Przeoczony dodatek (FN)** — wg P2 gorszy od zbędnego alarmu (przemyt = realna szkoda). Reakcja: czułość ustawiona na przeoczenia, a liczbę zaznaczeń ograniczona do kilku na auto.
 
 ## Rekomendacje
 - **Postawić na**: porównanie z wzorcem, wejście z plików .bmp z repozytorium obu dostawców, praca offline (wymóg zadania), czytelny raport.
