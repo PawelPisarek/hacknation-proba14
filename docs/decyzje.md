@@ -162,3 +162,4 @@ P32 12:19 odpowiedź: B — obraz naczepy z ramkami w zapisie kontroli już w ma
 P33 12:19 odpowiedź: nic do wyrzucenia — Artur w pokoju
 12:20 Projektant: korekta rekomendacji P29, P31 → B (zostawiamy jak jest) nie wysłana do pokoju — Artur odpowiedział na P27–P33 o 12:19, przed korektą (P29 A, P31 A, P32 B); odpowiedź Artura wygrywa
 12:20 Projektant: spec i 08 dopasowane do P27–P33; H11 K2 PNG z ramkami już w makiecie (P32 = B), zakres P1–P33
+12:20 Szef: P27–P33 odpowiedziane (Artur w pokoju; P32 B — PNG z ramkami już w makiecie) → Programista makieta R3 (ostatnia runda); spec §6 + 08 wg P27–P33 → Projektant.
