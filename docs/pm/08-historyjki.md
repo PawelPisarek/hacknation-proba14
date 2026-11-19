@@ -1,11 +1,11 @@
-# Krok 4: historyjki (operator, kierownik stanowiska) — Różnica RTG
+# Krok 4: historyjki (operator) — Różnica RTG
 
 Źródła: `docs/spec.md` (§1, §4–§7, testy A1–A18), `docs/decyzje.md` (P1–P17). Kolejność = ścieżka pokazu do 2 minut (P4, P11, A10). Dane i ekrany sztuczne; ekran po polsku. Dla Programisty (makieta R1): historyjki H1–H10 to ekran główny wariantu 3 + lista miejsc z boku (P12); H11 to zapis (ostatni krok demo), H12 to ścieżka techniczna poza makietą.
-Format: „Gdy [sytuacja], chcę [czynność], żeby [skutek]” (job-stories — w zestawie pm-skills nie ma skilla `user-stories`, to jest jego odpowiednik) + kryteria akceptacji (K) z numerem testu A ze spec §7. Pozycja bez testu A w spec jest oznaczona „(makieta)”.
+Format: „Gdy [sytuacja], chcę [czynność], żeby [skutek]” (skill job-stories, przyjęty zamiast `user-stories` decyzją Szefa) + kryteria akceptacji (K) z numerem testu A ze spec §7. Pozycja bez testu A w spec jest oznaczona „(makieta)”.
 
 ## Role
 - **Operator RTG** — przy stanowisku, w trakcie kontroli, kilka minut na auto (P1, P5). Główny użytkownik.
-- **Kierownik stanowiska** — rola z zadania Szefa, *nie z ustaleń Artura* (P1: Artur wybrał operatora, nie „kogoś po fakcie”). Tylko czyta zapis kontroli i powody odrzuceń (P3: „żeby było wiadomo, czemu alarm był zbędny”) — H11 K3. Bez własnych ekranów i funkcji; zakres się nie zmienia. Jeśli Szef uzna rolę za zakres: pytanie do Artura.
+- Jedna rola: operator (P1). Roli „operator stanowiska” nie ma w specu ani u Artura — usunięta decyzją Szefa (wpis w docs/decyzje.md).
 
 ## Ścieżka pokazu (≤ 2 min)
 
@@ -46,7 +46,7 @@ Gdy miejsce wygląda groźnie, chcę jednym kliknięciem przy pozycji listy zlec
 - K2. Po decyzji licznik z H8 maleje. Test: A9. (Wygląd pozycji po decyzji — makieta, bez testu A.)
 
 ### H7. „Odrzuć” z powodem z listy — operator
-Gdy alarm jest zbędny, chcę odrzucić go jednym kliknięciem z powodem z listy, żeby kierownik wiedział, czemu alarm był zbędny (P3).
+Gdy alarm jest zbędny, chcę odrzucić go jednym kliknięciem z powodem z listy, żeby w zapisie było wiadomo, czemu alarm był zbędny (P3).
 - K1. Powody: znany element konstrukcji · ładunek zgodny z deklaracją · artefakt obrazu · inny typ naczepy niż wzorzec · inne (spec §6). Test: A8.
 - K2. Odrzucenie bez powodu niemożliwe; powód trafia do zapisu. Test: A8.
 
@@ -68,14 +68,14 @@ Gdy mam kilka minut na auto, chcę z ramek, opisu różnicy i powiększenia podj
 
 ## Koniec ścieżki pokazu i po kontroli
 
-### H11. Zapis kontroli — operator (ostatni krok demo); kierownik czyta
-Gdy skończyłem decyzje przy aucie, chcę zapisać kontrolę i pobrać plik „miejsce — do kontroli: przedmiot / odrzucone (powód)”, żeby kierownik mógł zobaczyć, co zlecono i dlaczego odrzucono (zadanie p. 9; P3).
+### H11. Zapis kontroli i jego odczyt — operator (ostatni krok demo)
+Gdy skończyłem decyzje przy aucie, chcę zapisać kontrolę i pobrać plik „miejsce — do kontroli: przedmiot / odrzucone (powód)”, żeby dało się potem odczytać, co zlecono i dlaczego odrzucono (zadanie p. 9; P3). 9; P3).
 - K1. Zapis: JSON na serwerze aplikacji z możliwością pobrania; zawiera użyty wzorzec, rodzaj towaru, miejsce, przedmiot kontroli, decyzję i powód (spec §2, §4d). Test: A8.
 - K2. Obraz z ramkami (PNG, układ pełnej rozdzielczości) jest częścią wyniku (spec §2). Test: brak w §7 — makieta i A13 (PNG na obraz).
-- K3. (rola kierownika — założenie) kierownik otwiera zapis i widzi dla każdej pozycji decyzję i powód odrzucenia — bez nowych ekranów (założenie roli).
+- K3. Operator otwiera pobrany zapis i widzi dla każdej pozycji miejsce, decyzję i powód odrzucenia — bez nowych ekranów. Test: A8.
 
 ### H12. Partia obrazów i duże pliki — ścieżka techniczna, bez roli użytkownika (poza makietą)
-Gdy trzeba przeliczyć wiele aut (wiersz poleceń, nie ekran), chcę uruchomić folder `.bmp` i dostać JSON i PNG na obraz plus zbiorczy CSV, żeby sprawdzić, czy narzędzie wytrzymuje duże pliki (wymaganie zadania p. 3, 6; nie funkcja operatora ani kierownika, P1).
+Gdy trzeba przeliczyć wiele aut (wiersz poleceń, nie ekran), chcę uruchomić folder `.bmp` i dostać JSON i PNG na obraz plus zbiorczy CSV, żeby sprawdzić, czy narzędzie wytrzymuje duże pliki (wymaganie zadania p. 3, 6; nie funkcja operatora ani operatora, P1).
 - K1. Pełnowymiarowe obrazy (12000×4200, ~50 MB): czas na obraz, szczytowa pamięć karty, obrazy/min zapisane, bez obietnic. Test: A13.
 - K2. Poza ścieżką pokazu i poza makietą R1 (spec §4d; podsumowanie partii na ekranie — poza zakresem, P10).
 
@@ -83,7 +83,7 @@ Gdy trzeba przeliczyć wiele aut (wiersz poleceń, nie ekran), chcę uruchomić 
 A1, A2, A3 → H3 · A4, A6, A11 → H2 · A5 → H5 · A7 → H4 · A8 → H6, H7, H11 · A9 → H6, H8 · A10 → H10 · A12 → H5 (mierzone: FN po zmniejszeniu do 1200 px, nie widoczność) · A13 → H12 · A14 → H10 · A15, A15b, A16, A17 → H1 · A18 → H9. A4 tylko w H2, A10 tylko w H10.
 
 ## Założenia i otwarte
-- Rola „kierownik stanowiska” nie pochodzi od Artura (P1); H11 K3 nie dodaje funkcji, H12 nie ma roli.
+- Rola operatora usunięta (decyzja Szefa); H12 nie ma roli użytkownika.
 - Wyniki A1–A18 na danych sztucznych nie przenoszą się na dane KAS (spec §8).
 
 <!-- skill: przeplywy-pm -->
