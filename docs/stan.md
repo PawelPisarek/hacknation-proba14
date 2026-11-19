@@ -1,4 +1,4 @@
-# Stan — 11:31 (sob)
+# Stan — 11:32 (sob)
 Kamień: ~11:45 docs/spec.md; potem 20:00 makieta (GitHub Pages) + docs/hacktribe.md.
 
 | zadanie | kto | status |
@@ -8,7 +8,7 @@ Kamień: ~11:45 docs/spec.md; potem 20:00 makieta (GitHub Pages) + docs/hacktrib
 | 1a competitive-analysis (docs/pm/01) | Projektant | zamknięte (R3) + 2 poprawki Szefa |
 | 1b /discover (docs/pm/02) | Projektant | zlecone |
 | przesłuchanie Artura | Projektant | w toku (P1–P4 odp., P5 czeka) |
-| HackTribe DRAFT (cadf2e5) | Prezenter | recenzja 2 (Analityk) |
+| HackTribe DRAFT | Prezenter | zamknięte po R2; liczby + link makiety przed 20:00 |
 | README szkielet + LICENSE MIT | Prezenter | zamknięte (5b5e8b1) |
 
 Ustalenia Artura: operator przy stanowisku, kilka minut/auto (P1); gorsze przeoczenie, ale kilka zaznaczeń na auto (P2); zleca kontrolę miejsc albo odrzuca z powodem z listy (P3); konstrukcja + ładunek, demo od skrytki w konstrukcji (P4).
