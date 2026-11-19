@@ -176,3 +176,4 @@ P34 12:28 odpowiedź: A (pusta naczepa: flaga przy każdym miejscu w ładowni i 
 P35 12:28 odpowiedź: A („Następne miejsce” przechodzi do następnego nierozstrzygniętego, po ostatnim zamyka okno) — Artur w pokoju
 P36 12:28 odpowiedź: A (w zapisie linia „wzorzec: plik <nazwa> (wskazany ręcznie)”) — Artur w pokoju
 P37 12:28 odpowiedź: nic do wyrzucenia — Artur w pokoju
+12:29 Projektant: spec i 08 wg P34–P37 (ustalone, w MVP), zakres P1–P37

@@ -1,6 +1,6 @@
 # Specyfikacja: Różnica RTG (po recenzji przejścia, runda 1)
 
-Źródła: `docs/pm/04-write-prd.md`, `docs/pm/02-discover.md`, `docs/pm/03-warianty-ekranu.md`, `docs/zadanie.md`, `docs/decyzje.md` (P1–P33). Dane i ekrany są **sztuczne** (zdjęć KAS nie mamy). Liczenie wyłącznie na karcie (GTX 1050, 4 GB), nigdy na procesorze. Ekran po polsku.
+Źródła: `docs/pm/04-write-prd.md`, `docs/pm/02-discover.md`, `docs/pm/03-warianty-ekranu.md`, `docs/zadanie.md`, `docs/decyzje.md` (P1–P37). Dane i ekrany są **sztuczne** (zdjęć KAS nie mamy). Liczenie wyłącznie na karcie (GTX 1050, 4 GB), nigdy na procesorze. Ekran po polsku.
 
 ## 1. Co zobaczy i zrobi użytkownik (według Artura)
 Użytkownik: operator RTG przy stanowisku, kilka minut na auto (P1).
@@ -65,7 +65,7 @@ Przedmiot kontroli = strefa + położenie wzdłuż naczepy (przód, środek, ty�
 - Wynik dla partii: ta sama struktura, jeden JSON na obraz; skalowalność mierzona testem A13 (nie obietnica).
 
 ## 6. Udawane dane ekranu (dla Programisty)
-Źródło: `docs/makieta/index.html` (R3, zamknięta), zgodne z P1–P33. Nazwa miejsca = strefa + położenie (P18); opis różnicy bez miar (P19); w pokazie 4 pozycje (P20).
+Źródło: `docs/makieta/index.html` (R3, zamknięta), zgodne z P1–P37. Nazwa miejsca = strefa + położenie (P18); opis różnicy bez miar (P19); w pokazie 4 pozycje (P20).
 Auto: „Ciągnik + naczepa plandeka, nr rej. XX 0000 (dane udawane)”. Wzorzec: „typ naczepa plandeka 3-osiowa, 13,6 m (podobieństwo 0,93)”.
 1. Podłoga — środek, 91% (konstrukcja), „Gęściej niż wzorzec, ok. 1/4 długości naczepy.”, przedmiot: podłoga naczepy, środek.
 2. Ściana przednia — przód, 78% (konstrukcja), „Gęściej niż wzorzec, ściana grubsza na większości wysokości.”, przedmiot: przednia ściana skrzyni ładunkowej (przy kabinie).
@@ -73,9 +73,9 @@ Auto: „Ciągnik + naczepa plandeka, nr rej. XX 0000 (dane udawane)”. Wzorzec
 4. Ładownia — przód, 57% (inny ładunek niż we wzorcu), „Rzadziej niż wzorzec — inny ładunek, ok. 1/4 długości naczepy.”, przedmiot: ładunek w przedniej części ładowni — w pokazie „odrzuć” z powodem; ramka tylko przy „nie wiem” i „pusta naczepa”; przy wybranym rodzaju towaru jest pominięta (P15).
 Powody odrzucenia: znany element konstrukcji · ładunek zgodny z deklaracją · artefakt obrazu · inny typ naczepy niż wzorzec · inne. Przy „nie wiem” powód „ładunek zgodny z deklaracją” zastępuje „ładunek zgodny z dokumentami (sprawdzony ręcznie)” (P21).
 Ekran: pole „Rodzaj zgłoszonego towaru” (lista rozwijana nad obrazami, domyślnie „nie wiem”) jest w makiecie. W powiększeniu miejsca są oba przyciski, „do kontroli” i „odrzuć” z powodem (P22). Pominięta różnica (towar zgodny ze zgłoszeniem): komunikat „pominięto N różnic” i przycisk „Pokaż pominięte” (P23). Przy niepewnym wzorcu pewność jest niższa, a po wskazaniu wzorca ramki i pewność się przeliczają (P24). Numery ramek większe, z białą obwódką; linia „N miejsc” z poprawną odmianą (3 miejsca, 5 miejsc); **czasu analizy na ekranie nie ma** (P25, P26) — zostaje tylko w JSON (§2).
-Układ „pusta naczepa” (A17): każde miejsce w ładowni dostaje ramkę z flagą „ładownia pusta wg zgłoszenia”, a nagłówek listy brzmi „najpierw alarmy z reguły” (kolejność: miejsca w konstrukcji od najpewniejszego, potem ładownia). Założenie = rekomendacja A z P34, do potwierdzenia przez Artura; makieta R3 ma flagę tylko przy „Ładownia — przód”, reszta w aplikacji.
-„Następne miejsce”: przechodzi do następnego jeszcze nierozstrzygniętego miejsca, po ostatnim zamyka okno (założenie = rekomendacja A z P35; makieta chodzi w kółko).
-Wzorzec z pliku: w zapisie osobna linia „wzorzec: plik <nazwa> (wskazany ręcznie)” (założenie = rekomendacja A z P36; makieta R3 ma „wzorzec: para”).
+Układ „pusta naczepa” (A17): każde miejsce w ładowni dostaje ramkę z flagą „ładownia pusta wg zgłoszenia”, a nagłówek listy brzmi „najpierw alarmy z reguły” (kolejność: miejsca w konstrukcji od najpewniejszego, potem ładownia). Ustalone (P34, Artur); w MVP flaga przy każdym miejscu w ładowni.
+„Następne miejsce”: przechodzi do następnego jeszcze nierozstrzygniętego miejsca, po ostatnim zamyka okno (P35, Artur; w MVP).
+Wzorzec z pliku: w zapisie osobna linia „wzorzec: plik <nazwa> (wskazany ręcznie)” (P36, Artur; w MVP).
 (Liczby i opisy to dane udawane makiety, nie wyniki modelu.)
 
 ## 7. Kryteria akceptacji (testy)
