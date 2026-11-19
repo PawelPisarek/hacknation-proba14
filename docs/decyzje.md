@@ -65,3 +65,4 @@ P15 11:42 Artur: Czy towar w ładunku, który jest inny niż na obrazie wzorcowy
 11:43 Szef: kto jest kim (Paweł): do Szefa pisze Paweł, w pokoju Produkt odpowiada Artur, nikt trzeci; podpis urządzenia nieważny — docs/zespol.md zamknięty.
 P13 11:43 odpowiedź: A — przyciski „do kontroli” i „odrzuć” przy każdej pozycji listy z boku (Artur w pokoju)
 P14 11:43 odpowiedź: układ wariantu 3 zostaje; do makiety dodać trzy już ustalone rzeczy: powiększenie podejrzanego miejsca (P10), linię „ile miejsc do sprawdzenia” przy aucie (P10), powód z listy przy „odrzuć” (P3) (Artur w pokoju)
+P15 11:44 odpowiedź: nie zaznaczamy towaru zgodnego ze zgłoszeniem — ale tylko gdy narzędzie zna zgłoszenie (operator wybiera rodzaj towaru z listy); bez tego zaznaczamy wszystko, co różni się od wzorca (P2: woli zbędny alarm) (Artur w pokoju)
