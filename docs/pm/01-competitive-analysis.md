@@ -15,14 +15,25 @@ Rynek skanerów cargo/pojazdów dominują Nuctech, Smiths Detection, Rapiscan i 
 ## Krajobraz konkurencji
 | Rozwiązanie | Kategoria | Kto kupuje | Pozycjonowanie | Mocna strona | Słaba strona |
 |---|---|---|---|---|---|
-| **Nuctech** (Intelligent Inspection Platform, warstwa deep learning) | bezpośredni | służby celne, porty | AI wbudowane w własne skanery | integracja ze sprzętem, który KAS ma | zamknięte; walidacja własna producenta; chmura/licencja zależne od producenta |
+| **Nuctech** (Intelligent Inspection Platform, warstwa deep learning) | bezpośredni | służby celne, porty | AI wbudowane w własne skanery | integracja ze sprzętem, który KAS ma | zamknięte; walidacja własna producenta (deklaracja z wywiadu prasowego); warunki licencji i pracy offline nieznane (założenie) |
 | **Rapiscan** (anomaly detection, cargo characterization, change detection vs historyczne skany) | bezpośredni | służby celne, granice | wykrywanie anomalii z intensywności, tekstury, kształtu + porównanie z historią | porównanie do poprzednich skanów — najbliższe naszemu pomysłowi | reguły/cechy ręczne; ograniczone do własnych skanerów |
-| **Smiths Detection** (algorytmy wykrywania zagrożeń) | bezpośredni | lotniska, granice | certyfikowane algorytmy (ECAC) | certyfikacje, zaufanie | wywodzi się z wykrywania znanych zagrożeń, nie „różnicy od wzorca”; zamknięte |
-| **Multicontrol** | bezpośredni | służby celne (też KAS) | sprzęt RTG z oprogramowaniem analizy | obecny w KAS | brak publicznych danych o AI porównującej do wzorca (do potwierdzenia — założenie) |
+| **Smiths Detection** (algorytmy wykrywania zagrożeń) | bezpośredni | lotniska, granice (założenie: także cargo) | algorytmy poddane certyfikacji ECAC — dotyczy bagażu lotniskowego, nie cargo (wywiad prasowy; do potwierdzenia) | certyfikacje, zaufanie | wywodzi się z wykrywania znanych zagrożeń, nie „różnicy od wzorca”; zamknięte |
+| **Multicontrol** | bezpośredni | służby celne (też KAS) | sprzęt RTG z oprogramowaniem analizy | dostawca urządzeń KAS (zadanie, p. 1) | brak publicznych danych o AI porównującej do wzorca (do potwierdzenia — założenie) |
 | **Obecne narzędzie KAS (detektor papierosów)** | bezpośredni (status quo) | operatorzy KAS | wykrywa konkretny towar | działa produkcyjnie | słabe dla małych ilości w konstrukcji pojazdu (zadanie, p. 1) |
 | Ręczna ocena operatora (bez AI) | pośredni | KAS | doświadczenie | elastyczność | zmęczenie, czas, brak powtarzalności |
 | Akademicki framework wykrywania anomalii na łatkach obrazu (CNN, SPIE) | pośredni | badania | uczenie bez „złych” przykładów | pokazuje, że podejście działa dla cargo | prototyp, nie produkt |
 | Otwarte biblioteki anomalii przemysłowych (PatchCore, PaDiM, EfficientAD) | pośredni | przemysł | wykrywanie wad na produkcie | działają offline, darmowe | trenowane na wadach powierzchni, nie na RTG naczep |
+
+## Cena, ślad rynkowy, ostatnie ruchy (krok 3 skilla)
+Ceny: wszystkie rozwiązania komercyjne są sprzedawane w ofercie z dostawą sprzętu — ceny niepubliczne (w przeszukanych źródłach brak cen). Ślad rynkowy i ruchy — tylko to, co w źródłach.
+
+| Rozwiązanie | Cena | Ślad rynkowy | Ostatnie ruchy |
+|---|---|---|---|
+| Nuctech | niepubliczna | wymieniany wśród liderów rynku cargo (raport rynkowy, źródło komercyjne) | warstwa deep learning w platformie inspekcyjnej (deklaracja producenta) |
+| Rapiscan | niepubliczna | lider rynku cargo (raport rynkowy) | wykrywanie anomalii i porównanie z historycznymi skanami, wykrywanie broni i papierosów (strona producenta) |
+| Smiths Detection | niepubliczna | lider rynku (raport rynkowy) | brak danych o cargo w źródłach |
+| Multicontrol | niepubliczna | dostawca urządzeń KAS (zadanie, p. 1); w raportach rynkowych nie ustalono | brak danych w źródłach (założenie: nie ma publicznie opisanej AI porównującej do wzorca) |
+| Narzędzie KAS | wewnętrzne | używane w kontroli nieinwazyjnej (zadanie, p. 1) | brak danych |
 
 ## Przegląd podejść do porównywania obrazów i wykrywania anomalii (offline, mała karta)
 Wymagania: tylko obrazy czyste do nauki (dane „wzorcowe”), mapa różnic jako zaznaczone obszary, < 1 min na obraz, ~50 MB .bmp, GTX 1050 4 GB.
@@ -31,8 +42,8 @@ Wymagania: tylko obrazy czyste do nauki (dane „wzorcowe”), mapa różnic jak
 |---|---|---|---|---|
 | **Różnica pikselowa po dopasowaniu** (rejestracja pary + odjęcie, progi) | porównuje wzorzec z badanym | tak, nawet bez karty | proste, przejrzyste, dobre dla par „przed/po” | wrażliwe na przesunięcie, skalę, szum; wiele fałszywych alarmów |
 | **Odjęcie od średniego/„czystego” modelu** (statystyka z wielu czystych obrazów, lokalne odchylenie) | uczy rozkład normalny pikseli/łatek | tak | tanie, wyjaśnialne | słabe przy dużej zmienności naczep |
-| **PaDiM** (rozkład cech łatek z sieci pretrenowanej) | model normalnych cech na pozycję | tak; ok. 60 klatek/s w jednym teście, średnia pamięć | szybki, lekki | niższa jakość (obraz AUROC ok. 95% na MVTec) |
-| **PatchCore** (pamięć cech łatek, najbliższy sąsiad) | porównuje łatki z bankiem normalnych | tak, ale pamięć GPU rośnie z liczbą obrazów (rzędu 6–9 GB wg zestawień — nie zmierzone u nas) | najwyższa dokładność w benchmarkach (ok. 99% na MVTec) | ciężki; 4 GB wymaga zmniejszenia banku (coreset) i cięcia na kafelki |
+| **PaDiM** (rozkład cech łatek z sieci pretrenowanej) | model normalnych cech na pozycję | tak; ok. 60 klatek/s w jednym teście na jednej karcie ([IM-IAD, arXiv 2301.13359](https://arxiv.org/pdf/2301.13359) — numer z zestawienia porównawczego wyszukiwarki, do potwierdzenia) | szybki, lekki | niższa jakość (obraz AUROC ok. 95,3% na MVTec wg zestawienia w wynikach wyszukiwania; założenie do sprawdzenia we własnym pomiarze) |
+| **PatchCore** (pamięć cech łatek, najbliższy sąsiad) | porównuje łatki z bankiem normalnych | tak, ale pamięć GPU rośnie z liczbą obrazów (rzędu 6–9 GB wg zewnętrznej strony benchmarkowej o niejasnym źródle — założenie, nie zmierzone u nas) | najwyższa dokładność w benchmarkach (ok. 99% na MVTec, [PatchCore arXiv 2106.08265](https://arxiv.org/pdf/2106.08265)) | ciężki; 4 GB wymaga zmniejszenia banku (coreset) i cięcia na kafelki |
 | **EfficientAD** (uczeń–nauczyciel + autoenkoder) | uczeń uczy się odtwarzać cechy nauczyciela | tak; ok. 2–5 ms/obraz w publikacji (inne karty) | szybki, lekki, dobry kompromis | wymaga treningu; obrazy 50 MB trzeba kafelkować |
 | **Autoenkoder / rekonstrukcja** | błąd odtworzenia = anomalia | tak | proste | rozmywa szczegóły; małe skrytki mogą się „odtworzyć” |
 | **Segmentacja nadzorowana (np. U-Net) na „dodatkach”** | uczy się wskazywać obiekty | tak | wprost mapa obiektów | wymaga oznaczonych przykładów; u nas sztuczne dane — ryzyko, że uczy się artefaktów generatora |
@@ -41,14 +52,14 @@ Wymagania: tylko obrazy czyste do nauki (dane „wzorcowe”), mapa różnic jak
 Wnioski do przeglądu (rekomendacja robocza, do rozstrzygnięcia przez Szefa/Programistę po wyniku bazowym): zaczynamy od różnicy po dopasowaniu (wynik bazowy) i ≥ 2 hipotez uczonych tylko na czystych obrazach (EfficientAD i PatchCore z coresetem, kafelkowanie), mierzymy FP/FN na zbiorze. Dopiero pomiar na karcie OMENa rozstrzyga — nie zakładamy z publikacji.
 
 ## Macierz funkcji
-| Zdolność | Nasz produkt (cel) | Nuctech | Rapiscan | Smiths | Obecne narzędzie KAS |
-|---|---|---|---|---|---|
-| Porównanie z obrazem wzorcowym | tak | częściowo (założenie) | tak (historia) | nie wprost | nie |
-| Wykrywanie nieznanych skrytek | tak | częściowo | częściowo | częściowo | nie |
-| Zaznaczone miejsca na obrazie | tak | tak | tak | tak | tak |
-| Praca offline | tak | zależy od licencji | zależy | zależy | tak |
-| Niezależny od producenta skanera | tak | nie | nie | nie | zależy |
-| Duże pliki .bmp, partie | tak (cel) | ? | ? | ? | ? |
+| Zdolność | Nasz produkt (cel) | Nuctech | Rapiscan | Smiths | Multicontrol | Obecne narzędzie KAS |
+|---|---|---|---|---|---|---|
+| Porównanie z obrazem wzorcowym | tak | częściowo (założenie) | tak (historia, wg strony producenta) | nie wprost (założenie) | nieznane | nie |
+| Wykrywanie nieznanych skrytek | tak | częściowo (założenie) | częściowo (założenie) | częściowo (założenie) | nieznane | nie (zadanie, p. 1) |
+| Zaznaczone miejsca na obrazie | tak | tak (założenie) | tak (założenie) | tak (założenie) | tak (założenie) | nieznane |
+| Praca offline | tak | nieznane | nieznane | nieznane | nieznane | tak (zadanie, p. 9: docelowo bez chmury) |
+| Niezależny od producenta skanera | tak | nie (założenie) | nie (założenie) | nie (założenie) | nie (założenie) | nieznane |
+| Duże pliki .bmp, partie | tak (cel) | nieznane | nieznane | nieznane | nieznane | nieznane |
 
 ## Mapa pozycjonowania (2 osie)
 Oś X: wykrywa tylko znany towar ↔ wykrywa dowolną różnicę od wzorca. Oś Y: zamknięte w sprzęcie producenta ↔ niezależne, offline.
@@ -73,6 +84,13 @@ Oś X: wykrywa tylko znany towar ↔ wykrywa dowolną różnicę od wzorca. Oś 
 - **Postawić na**: porównanie z wzorcem, offline, niezależność od producenta, czytelny raport.
 - **Dogonić**: niski poziom fałszywych alarmów i szybkość (< 1 min na obraz).
 - **Zignorować**: certyfikacje lotniskowe i pełną integrację z wieloma skanerami (poza zakresem hackathonu).
+
+## Założenia do potwierdzenia przez Artura
+- Użytkownik: operator przy stanowisku w trakcie kontroli, kilka minut na auto — **potwierdzone (P1, 11:27)**.
+- Szansa 1 (małe skrytki w konstrukcji jako główny problem) — założenie do potwierdzenia (poz. 3 w docs/pm/00-niewiadome.md).
+- Szansa 3 (raport: miejsca z priorytetem) — założenie do potwierdzenia (poz. 5, kształt raportu).
+- Ocena „porównanie z historią” konkurentów zależy od tego, skąd operator dziś bierze obraz wzorcowy — poz. 6, pytanie do Artura w kolejce.
+- Co gorsze: zbędny alarm czy przeoczenie (poz. 4, P2) i czy zgodny ze zgłoszeniem inny ładunek zaznaczać (poz. 8) — wpływają na priorytet „dogonić”.
 
 ## Czego nie wiem o produkcie
 Lista w `docs/pm/00-niewiadome.md` — pytania do Artura idą po kolei (P1…).
