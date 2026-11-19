@@ -87,6 +87,6 @@ Narzędzie dla operatora RTG Służby Celno-Skarbowej. Zespół: Hackathon.
 - Dane KAS: ich nie mamy; jeśli się pojawią, tylko w ramach zasad z zadania (chronione, bez kopiowania poza hackathon), po decyzji Pawła.
 - Integracja z repozytorium obrazów skanera jako ścieżka wdrożenia.
 
-*Co pokazać:* link do repo https://github.com/PawelPisarek/hacknation-proba14 i do makiety https://pawelpisarek.github.io/hacknation-proba14/makieta/.
+*Co pokazać:* link do repo https://github.com/PawelPisarek/hacknation-proba14 i do makiety https://pawelpisarek.github.io/hacknation-proba14/makieta/ .
 
 <!-- skill: value-prop-statements -->
