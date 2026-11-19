@@ -18,7 +18,7 @@ Kamień: 20:00 makieta (GitHub Pages) + docs/hacktribe.md; spec zamknięty 11:48
 | slajdy szkielet (docs/slajdy.md) | Prezenter | zamknięte (R3) |
 | 5 makieta R3 | Programista | zamknięte — krytyk R3 8/10; braki 1–3 → Artur P34–P37, 4–5 poprawione (spec §6 R3, 08 bez „do dodania”) |
 | MVP z makiety (docs/zadania/01) | Programista | zlecone (po bieżącym przebiegu OMENa) |
-| materiały do stanu faktycznego (link makiety) | Prezenter | recenzja 1 (Analityk): 5 braków → poprawki 1–3 |
+| materiały do stanu faktycznego (link makiety) | Prezenter | recenzja 2 (Analityk) — poprawki 1–3 w 5f0596a; 4–5 zostają |
 | spec §6 + 08 wg P27–P33 | Projektant | zamknięte; „do dodania” w H2, H9, H10 sprawdzi krytyk R3 |
 | spec §6 + 08 H4 K3 wg P18–P26 | Projektant | zamknięte (spójność sprawdzi krytyk R2) |
 | README szkielet + LICENSE MIT | Prezenter | zamknięte (5b5e8b1) |

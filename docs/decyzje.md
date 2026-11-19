@@ -181,3 +181,4 @@ P37 12:28 odpowiedź: nic do wyrzucenia — Artur w pokoju
 12:30 Szef: recenzja materiałów (Analityk, 5 braków) → Prezenter: 1 usunąć zdanie o niepodawaniu liczb w slajdach; 2 partia z wiersza poleceń oznaczona „w planie” do czasu działania; 3 ksefbot.pl „w przygotowaniu” zamiast „dostępna”; 4 zostaje — materiały opisują produkt wg P34–P36 (MVP), makieta zamknięta; 5 README uruchomienie i architektura po MVP (Programista).
 P38 12:30 Paweł: Nazwa zespołu w HackTribe — zostaje „Hackathon”? — czeka
 P38 12:32 odpowiedź: zostaje „Hackathon” (Paweł)
+12:32 Szef: materiały — Prezenter poprawił braki 1–3 (5f0596a) → recenzja materiałów R2 (Analityk)
