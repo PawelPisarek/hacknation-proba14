@@ -16,7 +16,10 @@ Cel: pierwsza prawdziwa wersja pod ksefbot.pl (aplikacja Coolify `hacknation`), 
 | P25, P26 | numery ramek z obwódką 16/22 px, odmiana liczby miejsc, bez czasu analizy na ekranie | — |
 | P31 | „Następne miejsce” w powiększeniu | — |
 | P32 | zapis kontroli: JSON + PNG z ramkami | — |
-| P34–P37 | odpowiedzi Artura na krytyk R3 (dopisze Szef) | — |
+| P34 | pusta naczepa: flaga przy każdym miejscu w ładowni, nagłówek „najpierw alarmy z reguły” | — |
+| P35 | „Następne miejsce” → następne nierozstrzygnięte, po ostatnim zamyka okno | — |
+| P36 | wzorzec z pliku: w zapisie linia „wzorzec: plik <nazwa> (wskazany ręcznie)” | — |
+| P37 | niczego z ekranu nie wyrzucamy | — |
 
 ## Gotowe, gdy
 - https://ksefbot.pl (adres aplikacji) zwraca 200, analizuje prawdziwy obraz z danych przez usługę na karcie OMENa;
