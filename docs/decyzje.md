@@ -20,3 +20,4 @@ P1 11:25 Artur: Kto pierwszy patrzy na wynik: operator RTG przy stanowisku na gr
 P1 11:27 odpowiedź: tak — operator przy stanowisku w trakcie kontroli, ma kilka minut na jedno auto (Artur w pokoju)
 P2 11:27 Artur: Co gorsze dla operatora: zbędny alarm na czystej naczepie czy przeoczony dodatek? (rekomendacja: najpierw mało zbędnych alarmów) — czeka
 P3 11:27 Artur: Co operator robi z wynikiem: zleca kontrolę fizyczną miejsca, zapisuje, czy odrzuca alarm? (rekomendacja: zleca kontrolę tylko zaznaczonych miejsc albo odrzuca jednym kliknięciem) — czeka
+11:27 Analityk: recenzja hacktribe R1 — 5 braków
