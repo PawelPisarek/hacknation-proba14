@@ -1,11 +1,11 @@
-# Stan — 12:42 (sob)
+# Stan — 12:46 (sob)
 Kamień: 20:00 makieta (GitHub Pages) + docs/hacktribe.md; spec zamknięty 11:48.
 
 | zadanie | kto | status |
 |---|---|---|
 | 0 materiały | Analityk | zamknięte |
 | 0P szkielet, generator, ocena FP/FN, wynik bazowy | Programista | zamknięte (68a4eb8): A FN 0/60, FP 2/30; 0,49 s/obraz 50 MB |
-| S1+S2+B1–B3 + kalibracja ≥60 par → S3 (kontrolny, strefy, towar) → S4 → B4–B16 | Programista | zlecone |
+| S1+S2+B1–B3 + kalibracja ≥60 par → S3 (kontrolny, strefy, towar) → S4 → B4–B16 | Programista | w toku — przebieg 1 + S3 na karcie (gen-v3, db6a28f), czeka WYNIK |
 | 1a competitive-analysis (docs/pm/01) | Projektant | zamknięte (R3) + 2 poprawki Szefa |
 | 1b /discover (docs/pm/02) | Projektant | zamknięte |
 | przesłuchanie Artura | Projektant | P1–P17 odp. |
@@ -21,6 +21,7 @@ Kamień: 20:00 makieta (GitHub Pages) + docs/hacktribe.md; spec zamknięty 11:48
 | materiały do stanu faktycznego (link makiety) | Prezenter | zamknięte po R2 (2e13ac2); README uruchomienie po MVP |
 | spec §6 + 08 wg P27–P33 | Projektant | zamknięte; „do dodania” w H2, H9, H10 sprawdzi krytyk R3 |
 | spec §6 + 08 H4 K3 wg P18–P26 | Projektant | zamknięte (spójność sprawdzi krytyk R2) |
+| docs/demo.md szkielet (K1–K6, 120 s, gdy coś padnie) | Prezenter | recenzja 1 (Analityk) — 0e12f75 |
 | README szkielet + LICENSE MIT | Prezenter | zamknięte (5b5e8b1) |
 | 7 pre-mortem (docs/pm/09) | Analityk | zamknięte po R2 (6564be7); R1/R2/tryb zapisu → zadania/01 |
 
