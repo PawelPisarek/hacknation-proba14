@@ -182,3 +182,4 @@ P37 12:28 odpowiedź: nic do wyrzucenia — Artur w pokoju
 P38 12:30 Paweł: Nazwa zespołu w HackTribe — zostaje „Hackathon”? — czeka
 P38 12:32 odpowiedź: zostaje „Hackathon” (Paweł)
 12:32 Szef: materiały — Prezenter poprawił braki 1–3 (5f0596a) → recenzja materiałów R2 (Analityk)
+12:33 Analityk: recenzja materiałów R2 (README, hacktribe, slajdy; po 5f0596a) — 2 braki: (1) hacktribe.md l.15 „Hackathon (do potwierdzenia przez ludzi)” wobec P38 (ustalone); (2) hacktribe.md pełny: „Makieta” + opis „Następne miejsce… bez zamykania okna” OK, ale README „Jak uruchomić lokalnie” bez nagłówka-wprowadzenia i z opisem narzędzia zamiast kroków uruchomienia — po MVP (Programista). Braki 1–3 z R1 usunięte; kody HTTP (curl -L): makieta 200, repo 200, OpenMausBot 200, pm-skills 200, ksefbot.pl 530 (opisane jako „w przygotowaniu”); liczby zgodne z liniami WYNIK
