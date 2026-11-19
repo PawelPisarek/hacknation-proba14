@@ -38,3 +38,4 @@ P6 11:31 Artur: Czy narzędzie ma też zaznaczać uszkodzenia naczepy, czy tylko
 P5 11:31 odpowiedź: zgoda — wynik w kilka sekund; liczby aut dziennie Artur nie zna, zakładamy kilkadziesiąt na stanowisko (założenie) (Artur w pokoju)
 P7 11:31 Artur: Czy raport ma pokazywać miejsca w kolejności ważności (najpewniejszy alarm pierwszy), żeby operator z kilkoma minutami zaczął od najważniejszego? (rekomendacja: tak) — czeka
 11:31 Szef: właściciel praw w LICENSE — „Zespół Hackathon” zostaje.
+11:31 Analityk: recenzja hacktribe R2 — 2 braków
