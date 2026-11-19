@@ -49,3 +49,4 @@ P7 11:32 odpowiedź: tak — od najpewniejszego alarmu; przy każdym miejscu kr�
 P8 11:33 odpowiedź: wybrane pomysły 1, 2, 3, 4, 6 (zamiast 7 bierze 4 — operator zwykle nie ma pary „czysta tego samego typu”, więc bez dobierania wzorca narzędzie nie zadziała); 8 odrzucone — woli zbędny alarm niż ciche pominięcie (P2) (Artur w pokoju)
 P9 11:33 Artur: Co zmienić w wybranych pomysłach 1, 2, 3, 4, 6? (rekomendacja: nic poza dopisaniem do 2 krótkiego opisu różnicy przy każdym miejscu) — czeka
 P10 11:33 Artur: Czy któryś odrzucony pomysł (5, 7, 8, 9, 10) warto wziąć choć w części? (rekomendacja: z 7 tylko jedna linia „ile miejsc do sprawdzenia” na aucie; reszta nie) — czeka
+11:33 Szef: cofnięte przez Szefa — „Generowanie danych na procesorze OMENa” (11:33 Programista): liczenie na OMENie tylko na karcie, także generator (torch na CUDA przez orkiestrator --klasa gpu-tlo); reszta założeń 11:33 przyjęta.
