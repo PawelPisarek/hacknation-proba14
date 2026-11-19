@@ -1,6 +1,6 @@
-# Zgłoszenie HackTribe — DRAFT
+# Zgłoszenie HackTribe — DRAFT (R2)
 
-> DRAFT: tekst do dopasowania do opisu produktu (docs/spec.md). Limity znaków sprawdzone skryptem.
+> DRAFT: do dopasowania do docs/spec.md. Limity znaków sprawdzone skryptem. Poprawiono po recenzji R1.
 
 ## Nazwa projektu (≤ 50 znaków)
 
@@ -19,27 +19,31 @@ Hackathon (do potwierdzenia przez ludzi)
 
 https://github.com/PawelPisarek/hacknation-proba14
 
-## Opis krótki (≤ 300 znaków) [195/300]
+## Opis krótki (≤ 300 znaków) [236/300]
 
-Narzędzie dla operatora RTG: porównuje obraz kontrolowanej naczepy z obrazem wzorcowym i zaznacza miejsca, które się różnią — możliwe skrytki i towar niezgłoszony. Działa lokalnie, bez internetu.
+Pomaga operatorowi RTG: porównuje obraz naczepy z wzorcowym albo z wyuczonym obrazem czystej naczepy i zaznacza różnice — możliwe skrytki. Uczy się tylko z czystych obrazów, jest budowane do pracy bez chmury, na małej karcie graficznej.
 
-## Opis średni (≤ 1000 znaków) [666/1000]
+## Opis średni (≤ 1000 znaków) [725/1000]
 
-Operator RTG na granicy ogląda setki obrazów, a przemytnicy ukrywają towar w drobnych przeróbkach konstrukcji. Nasze narzędzie porównuje obraz kontrolowanego środka przewozowego z obrazem wzorcowym (czystym) i zaznacza na nim miejsca, których we wzorcu nie ma — operator od razu widzi, gdzie spojrzeć dokładniej.
+Przemytnicy ukrywają towar w drobnych przeróbkach konstrukcji, a operator RTG ma kilka minut na jedno auto. Nasze narzędzie porównuje obraz kontrolowanej naczepy na dwa sposoby: z obrazem wzorcowym (para wzorzec–badany) albo z wyuczonym obrazem czystej naczepy tego typu. Różnice zaznacza na obrazie, a po analizie powstaje raport.
 
-Po każdej analizie powstaje raport z zaznaczonymi obszarami. Obrazy .bmp (~50 MB) przetwarzamy partiami, więc ten sam mechanizm obsłuży większy zbiór. Model uczy się na obrazach prawidłowych i działa bez internetu i chmury. Mamy własny, sztuczny zbiór obrazów naczep (czyste i z dodatkami), a skuteczność mierzymy liczbą fałszywych alarmów i przeoczeń.
+Wyróżnik: uczy się wyłącznie z obrazów czystych, bez przykładów przemytu. Jest budowane tak, by działać bez internetu i chmury, na małej karcie graficznej, oraz przetwarzać duże pliki .bmp (~50 MB) partiami i skalować się na większe zbiory.
 
-## Opis pełny (≤ 2000 znaków) [1313/2000]
+Sprawdzamy na własnym, sztucznym zbiorze obrazów naczep, bo prawdziwych obrazów nie mamy. Wyniki: [TODO: zbędne alarmy / przeoczenia / czas na obraz].
 
-Problem. Operatorzy RTG Służby Celno-Skarbowej oceniają obrazy kontenerów, ciężarówek i wagonów i decydują o kontroli fizycznej. Przemytnicy ukrywają towar w elementach konstrukcji oraz w deklarowanym ładunku; istniejące narzędzie do wykrywania papierosów słabo radzi sobie z małymi ilościami w skrytkach.
+## Opis pełny (≤ 2000 znaków) [1439/2000]
 
-Rozwiązanie. Aplikacja porównuje analizowany obraz z obrazem wzorcowym tego samego typu środka przewozowego i wskazuje różnice, które mogą oznaczać skrytkę lub towar niezgłoszony. Operator dostaje obraz z zaznaczonymi miejscami oraz raport z listą wykrytych anomalii — decyzja zostaje po jego stronie, narzędzie tylko kieruje uwagę.
+Problem. Operatorzy RTG Służby Celno-Skarbowej oceniają obrazy kontenerów, ciężarówek i wagonów i decydują o kontroli fizycznej. Przemytnicy ukrywają towar w elementach konstrukcji oraz w deklarowanym ładunku; istniejące narzędzie do wykrywania papierosów słabo radzi sobie z małymi ilościami w skrytkach. Operator przy stanowisku ma kilka minut na jedno auto.
 
-Jak to działa. Model uczy się wyglądu obrazu prawidłowego (bez anomalii) na plikach .bmp. Duże pliki (~50 MB) są przetwarzane partiami, z kompresją, dzięki czemu rozwiązanie skaluje się na kolejne zbiory. Docelowo całość działa bez internetu i silnika AI w chmurze; AI służyła nam do napisania kodu.
+Rozwiązanie. Aplikacja porównuje analizowany obraz na dwa sposoby: (1) para — obraz wzorcowy i badany, (2) porównanie z wyuczonym obrazem czystej naczepy tego typu. Różnice, które mogą oznaczać skrytkę lub towar niezgłoszony, zaznacza na obrazie i opisuje w raporcie. Decyzja zostaje po stronie operatora.
 
-Dane i pomiar. Zdjęć KAS nie mamy, więc przygotowaliśmy własny, sztuczny zbiór obrazów naczep: czyste oraz z dodatkowym ładunkiem. Na czystych liczymy fałszywe alarmy, na obrazach z dodatkami — przeoczenia. Obliczenia idą na karcie graficznej.
+Wyróżnik. Model uczy się tylko z obrazów czystych (bez anomalii), więc nie potrzebuje przykładów przemytu. Narzędzie jest budowane do pracy bez chmury i internetu, na małej karcie graficznej.
 
-Demo i kod: makieta i wersja na ksefbot.pl (linki w README), repozytorium: https://github.com/PawelPisarek/hacknation-proba14.
+Cele techniczne (budowane, jeszcze niezmierzone): obsługa obrazów .bmp ~50 MB, przetwarzanie partiami, kompresja i skalowanie na większe zbiory.
+
+Pomiar. Zdjęć KAS nie mamy, więc sprawdzamy na własnym, sztucznym zbiorze obrazów naczep (czyste i z dodatkowym ładunkiem); wyniki na nim nie przesądzają o jakości na prawdziwych obrazach. Na czystych liczymy zbędne alarmy, na obrazach z dodatkami — przeoczenia. Wyniki: [TODO: zbędne alarmy / przeoczenia / czas na obraz].
+
+Kod: https://github.com/PawelPisarek/hacknation-proba14 (makieta i wersja na ksefbot.pl — linki w README).
 
 ## Narzędzia przygotowane wcześniej
 
