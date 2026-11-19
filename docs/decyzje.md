@@ -37,3 +37,4 @@ P5 11:30 Artur: Ile obrazów dziennie przechodzi przez stanowisko i ile czasu op
 P6 11:31 Artur: Czy narzędzie ma też zaznaczać uszkodzenia naczepy, czy tylko dodatkowe przedmioty i przeróbki? (rekomendacja: tylko dodatkowe przedmioty i przeróbki — tego dotyczy sprawdzanie) — czeka
 P5 11:31 odpowiedź: zgoda — wynik w kilka sekund; liczby aut dziennie Artur nie zna, zakładamy kilkadziesiąt na stanowisko (założenie) (Artur w pokoju)
 P7 11:31 Artur: Czy raport ma pokazywać miejsca w kolejności ważności (najpewniejszy alarm pierwszy), żeby operator z kilkoma minutami zaczął od najważniejszego? (rekomendacja: tak) — czeka
+11:31 Szef: właściciel praw w LICENSE — „Zespół Hackathon” zostaje.
