@@ -11,6 +11,6 @@ G="python -m anomalie.generator --wyjscie $DANE"
 [ -f "$DANE/kalib_pelny/opis.json" ] || $G --km
 df -h ~ | tail -1
 du -sh "$DANE"
-for p in ${PRZEBIEGI:-p1 s3}; do
+for p in ${PRZEBIEGI:-s3 s1s2}; do
   python skrypty/sondy.py --dane "$DANE" --przebieg "$p" --wyniki wyniki/sondy
 done

@@ -122,27 +122,32 @@ def przebieg_p1(a, model, tab):
     dane = a.dane
     # --- kalibracja: 12 vs 60 czystych par; scalanie ramek
     print("\n== KALIBRACJA (H-a) i SCALANIE RAMEK (H-b) ==", flush=True)
-    k12 = {n: mapa_A(os.path.join(dane, "kalib"), n) for n in opis(os.path.join(dane, "kalib"))}
     ok60 = opis(os.path.join(dane, "kalib60"))
-    k60 = {n: mapa_A(os.path.join(dane, "kalib60"), n) for n in ok60}
-    k60_r0 = {n: mapa_A(os.path.join(dane, "kalib60"), n, r=0) for n in ok60}
-    k60_C = {n: mapa_C(model, os.path.join(dane, "kalib60"), n) for n in ok60 if not ok60[n]["ladunek"]}
-    progi = {"A_k12": kalibruj(k12), "A_k60": kalibruj(k60), "A_k60_scal": kalibruj(k60, SCAL),
-             "A0_k60": kalibruj(k60_r0), "C_k60": kalibruj(k60_C), "C_k60_scal": kalibruj(k60_C, SCAL)}
-    print("progi:", progi, f"(C: {len(k60_C)} pustych par kalib60)", flush=True)
     kt = os.path.join(dane, "test")
     ot, pt = opis(kt), prawda(kt)
-    mt = {n: mapa_A(kt, n) for n in ot}
-    mt_r0 = {n: mapa_A(kt, n, r=0) for n in ot}
-    W = {}
-    W["A_k12"] = wynik(f"A para, próg z 12 par k={progi['A_k12']}", predykcje(mt, progi["A_k12"]), pt)
-    W["A_k60"] = wynik(f"A para, próg z 60 par k={progi['A_k60']}", predykcje(mt, progi["A_k60"]), pt,
-                       os.path.join(a.wyniki, "pred_test_A_k60.json"))
-    W["A_k60_scal"] = wynik(f"A para, 60 par + scalanie {SCAL} px k={progi['A_k60_scal']}",
-                            predykcje(mt, progi["A_k60_scal"], SCAL), pt, os.path.join(a.wyniki, "pred_test_A_k60_scal.json"))
-    W["A0_k60"] = wynik(f"A0 para r=0, 60 par k={progi['A0_k60']}", predykcje(mt_r0, progi["A0_k60"]), pt)
-    for key in ("A_k12", "A_k60", "A_k60_scal", "A0_k60"):
-        tab.append(("test", key, progi[key], W[key]))
+    k60 = {n: mapa_A(os.path.join(dane, "kalib60"), n) for n in ok60}
+    k60_C = {n: mapa_C(model, os.path.join(dane, "kalib60"), n) for n in ok60 if not ok60[n]["ladunek"]}
+    progi = {"A_k60": kalibruj(k60), "C_k60": kalibruj(k60_C)}
+    del k60, k60_C
+    if a.przebieg == "s1s2":
+        print("progi (kalib60; ocena kalibracji i scalania przyjęta wcześniej, tu bez powtórki):", progi, flush=True)
+    else:
+        k12 = {n: mapa_A(os.path.join(dane, "kalib"), n) for n in opis(os.path.join(dane, "kalib"))}
+        k60 = {n: mapa_A(os.path.join(dane, "kalib60"), n) for n in ok60}
+        k60_r0 = {n: mapa_A(os.path.join(dane, "kalib60"), n, r=0) for n in ok60}
+        progi.update({"A_k12": kalibruj(k12), "A_k60_scal": kalibruj(k60, SCAL), "A0_k60": kalibruj(k60_r0)})
+        print("progi:", progi, flush=True)
+        mt = {n: mapa_A(kt, n) for n in ot}
+        mt_r0 = {n: mapa_A(kt, n, r=0) for n in ot}
+        W = {}
+        W["A_k12"] = wynik(f"A para, próg z 12 par k={progi['A_k12']}", predykcje(mt, progi["A_k12"]), pt)
+        W["A_k60"] = wynik(f"A para, próg z 60 par k={progi['A_k60']}", predykcje(mt, progi["A_k60"]), pt)
+        W["A_k60_scal"] = wynik(f"A para, 60 par + scalanie {SCAL} px k={progi['A_k60_scal']}",
+                                predykcje(mt, progi["A_k60_scal"], SCAL), pt)
+        W["A0_k60"] = wynik(f"A0 para r=0, 60 par k={progi['A0_k60']}", predykcje(mt_r0, progi["A0_k60"]), pt)
+        for key in ("A_k12", "A_k60", "A_k60_scal", "A0_k60"):
+            tab.append(("test", key, progi[key], W[key]))
+        del mt, mt_r0
 
     # --- S1: dobór wzorca × skrytka × strefa
     print("\n== S1: dobór wzorca (i) właściwy / (ii) wymuszony błędny / (iii) katalog bez typu; KS typ D ==", flush=True)
@@ -190,7 +195,8 @@ def przebieg_p1(a, model, tab):
     wks_A = wynik(f"S1 KS typ D, wzorzec wskazany z pliku (A) k={progi['A_k60']}", predykcje(mks_A, progi["A_k60"]), pks)
     tab.append(("KS", "C_auto", kC, wks_C))
     tab.append(("KS", "A_z_pliku", progi["A_k60"], wks_A))
-    wa = W["A_k60"]
+    wa = wynik(f"S1 A para k={progi['A_k60']} (strefa)", predykcje({n: mapa_A(kt, n) for n in ot}, progi["A_k60"]), pt,
+               os.path.join(a.wyniki, "pred_test_A_k60.json"))
     print(f"S1 strefa trafna: A {wa['strefa_ok']}/{wa['strefa_n']}, C(i) {s1['i']['w']['strefa_ok']}/{s1['i']['w']['strefa_n']}", flush=True)
 
     # --- S2: grubość × szerokość robocza
@@ -264,15 +270,18 @@ def przebieg_s3(a, model, tab):
         mA = {n: mapa_A(kat, n) for n in oz}
         mC = {n: mapa_C(model, kat, n) for n in oz}
         for tryb, mp, k, reg in (("A", mA, kA, regA), ("C", mC, kC, regC)):
-            for rz in ("podany", "nie wiem"):
+            for rz in ("podany", "stara reguła", "nie wiem"):
                 if zb == "test" and rz == "nie wiem":
                     continue
                 zost = None
                 if rz == "podany":
                     zost = lambda n, m, reg=reg, oz=oz: reg.maska_zostaw(oz[n]["rodzaj_towaru"], m["D"], m["strefy"])
+                elif rz == "stara reguła":   # usługa przed 07b7fa1: przy podanym rodzaju cała ładownia pominięta
+                    zost = lambda n, m, reg=reg, oz=oz: (None if oz[n]["rodzaj_towaru"] not in reg.progi else
+                                                         torch.from_numpy(m["strefy"] != D.LADOWNIA).to(D.dev()))
                 pr = predykcje(mp, k, a.scal, f"{tryb}_{zb}_{rz}", zost)
                 rodz = sorted({oz[n]["rodzaj_towaru"] for n in oz})
-                w = wynik(f"S3 {zb} {tryb} rodzaj={rz} {rodz if rz == 'podany' else ''} k={k}", pr, pz,
+                w = wynik(f"S3 {zb} {tryb} rodzaj={rz} {rodz if rz != 'nie wiem' else ''} k={k}", pr, pz,
                           os.path.join(a.wyniki, f"pred_s3_{zb}_{tryb}_{rz.replace(' ', '_')}.json"))
                 if zb == "KS" and tryb == "C":
                     print(f"   KS C: szczyt doboru {[m['szczyt'] for m in mC.values()]}, typ {[m['typ'] for m in mC.values()]}")
@@ -283,6 +292,18 @@ def przebieg_s3(a, model, tab):
                 s3[(zb, tryb, rz)] = w
                 tab.append((zb, f"{tryb} rodzaj {rz}", k, w))
         del mA, mC
+    for tryb in ("A", "C"):
+        kw = {rz: s3[("KW", tryb, rz)] for rz in ("podany", "stara reguła", "nie wiem")}
+        kl = {rz: s3[("KL", tryb, rz)] for rz in ("podany", "stara reguła", "nie wiem")}
+        print(f"WYNIK S3 A15b/KL {tryb}: KW (A15b, 6 par) FN rodzaj podany {kw['podany']['przeoczone']}/{kw['podany']['dodatki']}, "
+              f"stara reguła {kw['stara reguła']['przeoczone']}/{kw['stara reguła']['dodatki']}, „nie wiem” "
+              f"{kw['nie wiem']['przeoczone']}/{kw['nie wiem']['dodatki']} | KL (inny ładunek zgodny) FP czyste z alarmem: "
+              f"nowa {kl['podany']['czyste_z_alarmem']}/{kl['podany']['czyste']}, stara {kl['stara reguła']['czyste_z_alarmem']}/"
+              f"{kl['stara reguła']['czyste']}, „nie wiem” {kl['nie wiem']['czyste_z_alarmem']}/{kl['nie wiem']['czyste']}; "
+              f"alarm na ładunku aut: nowa {kl['podany']['obrazy_z_alarmem_ladowni']}, stara {kl['stara reguła']['obrazy_z_alarmem_ladowni']}, "
+              f"„nie wiem” {kl['nie wiem']['obrazy_z_alarmem_ladowni']} /{kl['podany']['obrazy']}; FN konstrukcja KL: nowa "
+              f"{_fn_k(kl['podany'])[0]}/{_fn_k(kl['podany'])[1]}, stara {_fn_k(kl['stara reguła'])[0]}, „nie wiem” {_fn_k(kl['nie wiem'])[0]}",
+              flush=True)
     json.dump({"|".join(k): {x: v[x] for x in ("czyste_z_alarmem", "czyste", "przeoczone", "dodatki", "alarmy_ladownia",
                                                "obrazy_z_alarmem_ladowni", "obrazy", "kolejnosc_ok", "kolejnosc_n", "p1_ok")}
                for k, v in s3.items()}, open(os.path.join(a.wyniki, "s3.json"), "w"), indent=1)
@@ -306,7 +327,7 @@ def tabela(tab, plik):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dane", required=True)
-    ap.add_argument("--przebieg", choices=["p1", "s3"], required=True)
+    ap.add_argument("--przebieg", choices=["p1", "s1s2", "s3"], required=True)
     ap.add_argument("--wyniki", default="wyniki/sondy")
     ap.add_argument("--scal", type=int, default=SCAL)
     ap.add_argument("--test-cpu", action="store_true", help=argparse.SUPPRESS)
@@ -323,7 +344,7 @@ def main():
     model = D.ModelTypu(os.path.join(a.dane, "nauka"))
     tab = []
     t = time.time()
-    (przebieg_p1 if a.przebieg == "p1" else przebieg_s3)(a, model, tab)
+    (przebieg_s3 if a.przebieg == "s3" else przebieg_p1)(a, model, tab)
     tabela(tab, os.path.join(a.wyniki, f"tabela_{a.przebieg}.md"))
     print(f"czas przebiegu {time.time() - t:.0f} s", flush=True)
 
