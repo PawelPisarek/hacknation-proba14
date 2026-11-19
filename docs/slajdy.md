@@ -6,7 +6,7 @@ Szkielet prezentacji (9 slajdów, jeden nagłówek `##` = jeden slajd; docelowo 
 
 **Pokazuje na obrazie RTG naczepy to, czego nie ma we wzorcu — zaczynając od najpewniejszego miejsca.**
 
-Narzędzie dla operatora RTG Służby Celno-Skarbowej. Zespół: Hackathon (nazwa do potwierdzenia przez ludzi).
+Narzędzie dla operatora RTG Służby Celno-Skarbowej. Zespół: Hackathon.
 
 *Co pokazać:* ekran główny makiety (wariant 3): obraz badany obok wzorcowego, z boku lista miejsc.
 
@@ -26,8 +26,9 @@ Narzędzie dla operatora RTG Służby Celno-Skarbowej. Zespół: Hackathon (nazw
 - Z boku lista miejsc od najpewniejszego, każde z krótkim opisem różnicy i pewnością.
 - Klik w miejsce przybliża je na obu obrazach.
 - Decyzja zostaje po operatorze: „do kontroli” albo „odrzuć” (z powodem z listy).
+- Zapis kontroli: lista „miejsce — do kontroli: przedmiot / odrzucone (powód)”; miejsce to strefa naczepy (np. podwójna podłoga), przedmiot kontroli to strefa i położenie wzdłuż naczepy (przód, środek, tył). Zapis kończy demo.
 
-*Co pokazać:* ekran makiety z listą miejsc; klik w pierwsze miejsce (podwójna podłoga) i powiększenie na obu obrazach.
+*Co pokazać:* ekran makiety z listą miejsc; klik w pierwsze miejsce (podwójna podłoga) i powiększenie na obu obrazach; na końcu zapis kontroli (w makiecie zapis jeszcze do dodania).
 
 ## 4. Tryb bez pary i niepewny wzorzec
 
@@ -52,6 +53,8 @@ Narzędzie dla operatora RTG Służby Celno-Skarbowej. Zespół: Hackathon (nazw
 - Zbędne alarmy na obrazach czystych: **TODO**
 - Przeoczone dodatki: **TODO**
 - Czas na obraz: **TODO**
+- Skalowalność (pełny obraz ok. 50 MB, partia z wiersza poleceń): czas, pamięć i liczba obrazów na minutę — **TODO**
+- Skalowalność mierzymy, nie obiecujemy: partia z wiersza poleceń (folder `.bmp` → JSON i PNG na obraz + CSV zbiorczy) na pełnych obrazach; liczby podamy po pomiarze.
 - Zbędne alarmy i przeoczenia liczymy osobno; przeoczenie jest gorsze.
 - Pomiar na własnym, sztucznym zbiorze: wynik nie przesądza o jakości na prawdziwych obrazach.
 
@@ -62,6 +65,7 @@ Narzędzie dla operatora RTG Służby Celno-Skarbowej. Zespół: Hackathon (nazw
 - Zdjęć KAS nie mamy: własny sztuczny zbiór naczep (czyste i z dodatkami, 4 typy dodatków, maski).
 - Cały model liczy na małej karcie graficznej (GTX 1050, 4 GB), nigdy na procesorze.
 - Model uczony tylko na obrazach czystych, bez przykładów przemytu (cel, jeszcze niezmierzony).
+- Skalowanie: ten sam detektor ma obsłużyć pełny obraz (ok. 50 MB) i partię z wiersza poleceń; cel, jeszcze niezmierzony.
 - Cel: praca bez internetu i chmury, jeszcze niezmierzony; pokaz pod linkiem idzie przez sieć (przeglądarka → ksefbot.pl → usługa na OMENie).
 
 *Co pokazać:* zrzut z karty OMENa (przebieg na GPU) albo schemat: przeglądarka → ksefbot.pl → usługa na OMENie → JSON + PNG.
@@ -78,7 +82,7 @@ Narzędzie dla operatora RTG Służby Celno-Skarbowej. Zespół: Hackathon (nazw
 
 ## 9. Co dalej
 
-- Pomiar na zbiorze testowym i wpisanie wyników (zbędne alarmy, przeoczenia, czas).
+- Pomiar na zbiorze testowym i wpisanie wyników (zbędne alarmy, przeoczenia, czas, skalowalność na pełnych obrazach i w partii).
 - Próba ręczna na makiecie z Arturem: czy z ramek, opisu i powiększenia da się podjąć decyzję w kilka minut.
 - Dane KAS: ich nie mamy; jeśli się pojawią, tylko w ramach zasad z zadania (chronione, bez kopiowania poza hackathon), po decyzji Pawła.
 - Integracja z repozytorium obrazów skanera jako ścieżka wdrożenia.
