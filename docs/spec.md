@@ -20,7 +20,7 @@ Poza zakresem: podsumowanie partii poza linią „ile miejsc” (z 7 Artur wzią
 **Wejście:** rodzaj zgłoszonego towaru z listy (domyślnie „nie wiem”; lista wstępna — założenie = rekomendacja P17: sprzęt i AGD · odzież i tekstylia · żywność i napoje · materiały budowlane · inne · pusta naczepa); plik `.bmp` badanego auta (8 bit, skala szarości; docelowo ~50 MB, zadanie p. 3/7); opcjonalnie drugi `.bmp` jako wzorzec (tryb z parą); katalog czystych wzorców (do nauki i doboru).
 **Wyjście na plik wynikowy:**
 - obraz z ramkami (PNG, układ obrazu badanego w pełnej rozdzielczości);
-- JSON: lista miejsc `{id, nazwa, ramka {x,y,w,h}, pewność, opis różnicy, przedmiot kontroli, decyzja, powód}` + wzorzec użyty + czas analizy;
+- JSON: lista miejsc `{id, nazwa, ramka {x,y,w,h}, pewność, opis różnicy, przedmiot kontroli, decyzja, powód}` + wzorzec użyty (czas analizy tylko w danych, nie na ekranie — P25/P26);
 - linia „N miejsc do sprawdzenia”.
 Wynik zapisuje **miejsce i przedmiot kontroli** (zadanie p. 9); integracja z repozytorium obrazów Nuctech/Multicontrol — poza pierwszą wersją, jako ścieżka wdrożenia.
 
@@ -110,3 +110,11 @@ Liczby progowe ustala Szef po pierwszym przebiegu (E1+E2); do tego czasu kryteri
 
 <!-- skill: przeplywy-pm -->
 <!-- skill: create-prd -->
+
+## Ustalenia po przeglądzie makiety (P18–P26, Artur)
+- Nazwa miejsca wg strefy i położenia („Podłoga — środek”); opis różnicy bez miar (P18, P19).
+- Pokaz: 4 pozycje, „paleta 5” do kontroli, czwarta „odrzuć” (P20).
+- Przy „nie wiem” powód „ładunek zgodny z dokumentami (sprawdzony ręcznie)” (P21).
+- W powiększeniu „do kontroli” i „odrzuć” z powodem (P22); przycisk „Pokaż pominięte” (P23).
+- Niepewny wzorzec: niższa pewność przy ramkach, po wskazaniu wzorca przeliczenie (P24).
+- Czytelność: większe numery ramek z białą obwódką, „3 miejsca / 5 miejsc”, zrzut powiększenia; **czasu analizy na ekranie nie pokazujemy** (P25, P26).
