@@ -186,3 +186,4 @@ P38 12:32 odpowiedź: zostaje „Hackathon” (Paweł)
 12:33 Szef: materiały R2 (Analityk, 2 braki) → Prezenter: 1 usunąć „do potwierdzenia” przy nazwie zespołu (P38); 2 zostaje — README uruchomienie po MVP (= brak 5 z R1)
 12:34 Szef: materiały — brak R2/1 poprawiony (2e13ac2); pętla zamknięta po R2, zostaje tylko README uruchomienie po MVP
 12:35 Szef: krok 7 pre-mortem → Analityk (docs/pm/09)
+12:35 Analityk: docs/pm/09-pre-mortem.md — 10 ryzyk (właściciel, sygnał, działanie) + sekcja „wersja działa na pewno” (karta / sieć / ksefbot.pl → zapisany wynik, makieta, zrzuty); najpilniejsze: R2 osiągalność usługi na OMENie z ksefbot.pl, R1 ksefbot.pl 530, R5/R6 obietnice i liczby w tekstach
