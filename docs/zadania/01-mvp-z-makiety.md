@@ -32,3 +32,6 @@ Cel: pierwsza prawdziwa wersja pod ksefbot.pl (aplikacja Coolify `hacknation`), 
 | R2: test, że usługa na OMENie odpowiada z ksefbot.pl (jeśli nie — tunel), przed resztą | — |
 | R1: pierwsze wdrożenie od razu (choćby statyczna strona), żeby ksefbot.pl dawał 200 | — |
 | tryb „wynik zapisany”: ksefbot.pl pokazuje ścieżkę pokazu z zapisanego wyniku karty, gdy karta albo sieć nie odpowiada | — |
+| R10: obraz demo wybrany i jego prawdziwy wynik spisany (docs/demo-wynik.md) — teksty i pokaz idą za nim | — |
+| tryb „wynik zapisany”: zapisane przebiegi zwykły, pusta naczepa, wzorzec z pliku — z polami P29, P32, P36 | — |
+| zrzuty docs/zrzuty/mvp-*.png wg listy w docs/pm/09 (warstwa 4) | — |
