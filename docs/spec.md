@@ -130,3 +130,9 @@ Liczby progowe ustala Szef po pierwszym przebiegu (E1+E2); do tego czasu kryteri
 - Pominięte różnice (towar zgodny ze zgłoszeniem) trafiają do zapisu jako „pominięte (towar zgodny ze zgłoszeniem): N”; po „Pokaż pominięte” można je zlecić do kontroli i liczą się do „zostało” (P29). Odmiana „1 różnicę / 2 różnice / 5 różnic” (P30).
 - W powiększeniu przycisk „Następne miejsce” (P31).
 - **Obraz naczepy z ramkami w zapisie kontroli jest już w makiecie** (P32 = B, dowód dla kontroli fizycznej). Nic do wyrzucenia z ekranu (P33).
+
+## Ustalenia do gotowej aplikacji (P34–P37, Artur; makieta zamknięta)
+- „Pusta naczepa”: flaga „alarm z reguły” przy każdym miejscu w ładowni, nagłówek „najpierw alarmy z reguły” (P34).
+- „Następne miejsce” w powiększeniu przechodzi do następnego nierozstrzygniętego miejsca; po ostatnim zamyka okno (P35).
+- Wzorzec wgrany z pliku: w zapisie osobna linia „wzorzec: plik <nazwa> (wskazany ręcznie)” (P36).
+- Nic do wyrzucenia z ekranu (P37).

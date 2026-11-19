@@ -172,3 +172,7 @@ P35 12:27 Artur: „Następne miejsce” — przechodzi do następnego jeszcze n
 P36 12:27 Artur: wzorzec wgrany z pliku — w zapisie osobna linia „wzorzec: plik <nazwa> (wskazany ręcznie)” (A), czy tak jak w makiecie, „wzorzec: para” (B)? rekomendacja A — czeka
 P37 12:27 Artur: co z ekranu wyrzucić? rekomendacja: nic — czeka
 12:27 Projektant: spec §6 → R3/P1–P33 z układem „pusta naczepa”; 08 bez „do dodania” (H1 K1, H9 K1, H9 K3, test = makieta R3); P34–P37 wysłane do pokoju
+P34 12:28 odpowiedź: A (pusta naczepa: flaga przy każdym miejscu w ładowni i nagłówek „najpierw alarmy z reguły”) — Artur w pokoju
+P35 12:28 odpowiedź: A („Następne miejsce” przechodzi do następnego nierozstrzygniętego, po ostatnim zamyka okno) — Artur w pokoju
+P36 12:28 odpowiedź: A (w zapisie linia „wzorzec: plik <nazwa> (wskazany ręcznie)”) — Artur w pokoju
+P37 12:28 odpowiedź: nic do wyrzucenia — Artur w pokoju
