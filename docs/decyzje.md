@@ -27,3 +27,7 @@ P2 11:28 odpowiedź: odwrotnie niż rekomendacja — gorszy jest przeoczony doda
 11:29 Szef: licencja kodu MIT (repo publiczne) — plik LICENSE dodaje Prezenter razem z README. Tytuł „Różnica RTG” roboczy do kroku 6 (nazwa).
 P3 11:29 odpowiedź: tak — operator zleca kontrolę zaznaczonych miejsc albo odrzuca jednym kliknięciem; przy odrzuceniu krótki powód z listy (np. znany element konstrukcji), żeby było wiadomo, czemu alarm był zbędny (Artur w pokoju)
 P4 11:29 Artur: Co boli najbardziej: małe skrytki w konstrukcji pojazdu (rama, podłoga, ściana) czy towar ukryty w ładunku? (rekomendacja: oba, w demo najpierw skrytka w konstrukcji) — czeka
+11:29 Szef: (1a R1 brak 1) z zadania p. 9: każdy wynik zapisuje miejsce i przedmiot kontroli (pola w raporcie); integracja z repozytorium obrazów Nuctech/Multicontrol — poza MVP, opisana jako ścieżka wdrożenia; produkt nie zależy od producenta urządzenia.
+11:29 Szef: (1a R1 brak 2) cena i wejście na rynek — nie dotyczy (narzędzie dla urzędu, ocena w konkursie).
+11:29 Szef: (1a R1 brak 4) liczenie tylko na karcie dotyczy też różnicy pikselowej — „bez karty” usunąć.
+11:29 Szef: (1a R1 brak 5) „raport z priorytetem” i „mało czasu operatora” — tylko jeśli potwierdzi Artur (P7); czy zaznaczać też uszkodzenia konstrukcji (p. 2 zadania) — pyta Artura Projektant.
