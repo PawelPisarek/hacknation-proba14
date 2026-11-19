@@ -118,7 +118,7 @@ Liczby progowe ustala Szef po pierwszym przebiegu (E1+E2); do tego czasu kryteri
 
 ## Ustalenia po przeglądzie makiety (P18–P26, Artur)
 - Nazwa miejsca wg strefy i położenia („Podłoga — środek”); opis różnicy bez miar (P18, P19).
-- Pokaz: 4 pozycje, „paleta 5” do kontroli, czwarta „odrzuć” (P20).
+- Pokaz: prawdziwy wynik d019_B bez pary, towar „sprzęt i AGD”: 5 miejsc na liście, 5 pominiętych (reguła o zgłoszonym towarze widoczna od razu); operator odrzuca jedno z 5 miejsc z powodem z listy, reszta do kontroli (P39 B, doprecyzowuje P20; „4 pozycje” z makiety to udawane dane).
 - Przy „nie wiem” powód „ładunek zgodny z dokumentami (sprawdzony ręcznie)” (P21).
 - W powiększeniu „do kontroli” i „odrzuć” z powodem (P22); przycisk „Pokaż pominięte” (P23).
 - Niepewny wzorzec: niższa pewność przy ramkach, po wskazaniu wzorca przeliczenie (P24).
