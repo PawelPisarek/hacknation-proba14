@@ -34,7 +34,8 @@ def wczytaj_prawde(badane, maski=None, opis=None):
     typy = {}
     if opis and os.path.exists(opis):
         for nazwa, o in json.load(open(opis))["obrazy"].items():
-            typy[nazwa] = {d["etykieta"]: (d["typ"], d.get("miejsce", "?")) for d in o.get("dodatki", []) if "etykieta" in d}
+            typy[nazwa] = {d["etykieta"]: (d["typ"], d.get("miejsce", "?"), d.get("strefa"), d.get("grubosc"))
+                           for d in o.get("dodatki", []) if "etykieta" in d}
     prawda = {}
     for p in sorted(glob.glob(os.path.join(badane, "*.bmp"))):
         nazwa = os.path.splitext(os.path.basename(p))[0]
@@ -55,10 +56,9 @@ def wczytaj_prawde(badane, maski=None, opis=None):
                 ys, xs = np.nonzero(lok)
                 ys, xs = ys + sl[0].start, xs + sl[1].start
                 y0, y1, x0, x1 = ys.min(), ys.max() + 1, xs.min(), xs.max() + 1
+                t = typy.get(nazwa, {}).get(int(v), ("?", "?", None, None))
                 dodatki.append(dict(ramka=(int(x0), int(y0), int(x1), int(y1)), ys=ys, xs=xs,
-                                    srodek=((x0 + x1) / 2, (y0 + y1) / 2),
-                                    typ=typy.get(nazwa, {}).get(int(v), ("?", "?"))[0],
-                                    miejsce=typy.get(nazwa, {}).get(int(v), ("?", "?"))[1]))
+                                    srodek=((x0 + x1) / 2, (y0 + y1) / 2), typ=t[0], miejsce=t[1], strefa=t[2], grubosc=t[3]))
         prawda[nazwa] = dodatki
     return prawda
 
@@ -75,36 +75,55 @@ def wskazuje(ramka, d):
 
 
 def ocen(prawda, predykcje):
+    """Predykcja obrazu: {"ramki": [...], opcjonalnie "strefy": [...] (strefa każdej ramki), "czas_s"}.
+    Dodatkowo (gdy są strefy): alarmy w ładowni niewskazujące dodatku (B4), trafność strefy (B8);
+    kolejność (Z10): czy ramki wskazujące dodatek stoją przed zbędnymi; dodatki z > 1 ramką."""
     obrazy = predykcje["obrazy"]
     w = dict(czyste=0, czyste_z_alarmem=0, obszary_na_czystych=0, z_dodatkami=0, dodatki=0,
-             przeoczone=0, obrazy_z_przeoczeniem=0, zbedne_obszary=0, fn_typ={}, n_typ={}, fn_miejsce={}, n_miejsce={}, czasy=[], ramki_na_auto=[])
+             przeoczone=0, obrazy_z_przeoczeniem=0, zbedne_obszary=0, fn_typ={}, n_typ={}, fn_miejsce={}, n_miejsce={},
+             czasy=[], ramki_na_auto=[], alarmy_ladownia=0, obrazy_z_alarmem_ladowni=0, obrazy=0,
+             strefa_ok=0, strefa_n=0, podzielone=0, kolejnosc_ok=0, kolejnosc_n=0, p1_ok=0)
     for nazwa, dodatki in prawda.items():
         p = obrazy.get(nazwa)
         ramki = p["ramki"] if p else []
+        strefy = (p.get("strefy") if p else None) or [None] * len(ramki)
+        w["obrazy"] += 1
         w["ramki_na_auto"].append(len(ramki))
         if p and "czas_s" in p:
             w["czasy"].append(p["czas_s"])
+        uzyte = set()
         if not dodatki:
             w["czyste"] += 1
             w["obszary_na_czystych"] += len(ramki)
             w["czyste_z_alarmem"] += bool(ramki)
-            continue
-        w["z_dodatkami"] += 1
-        uzyte = set()
-        przeocz = 0
-        for d in dodatki:
-            w["dodatki"] += 1
-            w["n_typ"][d["typ"]] = w["n_typ"].get(d["typ"], 0) + 1
-            w["n_miejsce"][d["miejsce"]] = w["n_miejsce"].get(d["miejsce"], 0) + 1
-            traf = [i for i, r in enumerate(ramki) if wskazuje(r, d)]
-            uzyte.update(traf)
-            if not traf:
-                przeocz += 1
-                w["fn_typ"][d["typ"]] = w["fn_typ"].get(d["typ"], 0) + 1
-                w["fn_miejsce"][d["miejsce"]] = w["fn_miejsce"].get(d["miejsce"], 0) + 1
-        w["przeoczone"] += przeocz
-        w["obrazy_z_przeoczeniem"] += przeocz > 0
-        w["zbedne_obszary"] += len(ramki) - len(uzyte)
+        else:
+            w["z_dodatkami"] += 1
+            przeocz = 0
+            for d in dodatki:
+                w["dodatki"] += 1
+                w["n_typ"][d["typ"]] = w["n_typ"].get(d["typ"], 0) + 1
+                w["n_miejsce"][d["miejsce"]] = w["n_miejsce"].get(d["miejsce"], 0) + 1
+                traf = [i for i, r in enumerate(ramki) if wskazuje(r, d)]
+                uzyte.update(traf)
+                if not traf:
+                    przeocz += 1
+                    w["fn_typ"][d["typ"]] = w["fn_typ"].get(d["typ"], 0) + 1
+                    w["fn_miejsce"][d["miejsce"]] = w["fn_miejsce"].get(d["miejsce"], 0) + 1
+                    continue
+                w["podzielone"] += len(traf) > 1
+                if d.get("strefa") and strefy[traf[0]] is not None:
+                    w["strefa_n"] += 1
+                    w["strefa_ok"] += strefy[traf[0]] == d["strefa"]
+            w["przeoczone"] += przeocz
+            w["obrazy_z_przeoczeniem"] += przeocz > 0
+            w["zbedne_obszary"] += len(ramki) - len(uzyte)
+            if uzyte:
+                w["kolejnosc_n"] += 1
+                w["p1_ok"] += 0 in uzyte
+                w["kolejnosc_ok"] += max(uzyte) < len(uzyte)   # wszystkie trafne przed pierwszą zbędną
+        lad = sum(1 for i, s in enumerate(strefy) if s == "ładownia" and i not in uzyte)
+        w["alarmy_ladownia"] += lad
+        w["obrazy_z_alarmem_ladowni"] += lad > 0
     return w
 
 
@@ -117,10 +136,15 @@ def linia(metoda, w):
     miejsca = ", ".join(f"{m} {w['fn_miejsce'].get(m, 0)}/{n}" for m, n in sorted(w["n_miejsce"].items()) if m != "ladunek")
     ra = w["ramki_na_auto"]
     na_auto = f"{np.mean(ra):.1f} (maks {max(ra)})" if ra else "—"
-    return (f"WYNIK {metoda}: FP = {w['czyste_z_alarmem']}/{w['czyste']} czystych z alarmem "
-            f"({w['obszary_na_czystych']} obszarów) | FN konstrukcja = {fn_k}/{n_k} [{miejsca}] | "
-            f"FN wszystkie = {w['przeoczone']}/{w['dodatki']} [{typy}] | zbędne obszary: {w['zbedne_obszary']} | "
-            f"miejsc do sprawdzenia na auto {na_auto} | czas/obraz {czas}")
+    s = (f"WYNIK {metoda}: FP = {w['czyste_z_alarmem']}/{w['czyste']} czystych z alarmem "
+         f"({w['obszary_na_czystych']} obszarów) | FN konstrukcja = {fn_k}/{n_k} [{miejsca}] | "
+         f"FN wszystkie = {w['przeoczone']}/{w['dodatki']} [{typy}] | zbędne obszary: {w['zbedne_obszary']} | "
+         f"miejsc do sprawdzenia na auto {na_auto} | czas/obraz {czas}")
+    if w.get("strefa_n") or w.get("alarmy_ladownia") or w.get("kolejnosc_n"):
+        s += (f" | alarm na ładunku (bez dodatku): {w['obrazy_z_alarmem_ladowni']}/{w['obrazy']} aut, {w['alarmy_ladownia']} ramek"
+              f" | strefa trafna {w['strefa_ok']}/{w['strefa_n']} | dodatek w >1 ramce {w['podzielone']}"
+              f" | kolejność trafne przed zbędnymi {w['kolejnosc_ok']}/{w['kolejnosc_n']}, P@1 {w['p1_ok']}/{w['kolejnosc_n']}")
+    return s
 
 
 def linia_dluga(metoda, w):

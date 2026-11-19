@@ -26,10 +26,12 @@ import torch
 import torch.nn.functional as F
 from PIL import Image
 
-WERSJA = "gen-v2"
+WERSJA = "gen-v3"
 ROZMIAR_MALY = (1200, 420)      # szer., wys.
 ROZMIAR_PELNY = (12000, 4200)   # 8-bit → ~50,4 MB .bmp
-TYPY_NACZEP = ["A", "B", "C"]
+TYPY_NACZEP = ["A", "B", "C"]          # w katalogu wzorców (nauka)
+TYPY_SPOZA = ["D"]                     # typ spoza katalogu (A18) — tylko w zbiorze kontrolnym KS
+TYPY_WSZYSTKIE = TYPY_NACZEP + TYPY_SPOZA
 TYPY_DODATKOW = ["maly_konstrukcja", "sredni_konstrukcja", "w_ladunku", "duzy_w_ladunku"]
 MIEJSCA_KONSTR = ["podwojna_podloga", "sciana_przy_kabinie", "belka", "skrzynka"]
 WAGI_MIEJSC = [0.4, 0.4, 0.1, 0.1]
@@ -78,7 +80,7 @@ def dodaj_kolo(A, cx, cy, r, wartosc, r_wew=0.0):
 # ---------------------------------------------------------------- konstrukcja
 def geometria_typu(typ: str):
     """Stała geometria typu naczepy (wartości względne: x w jednostkach W, y w jednostkach H)."""
-    rng = np.random.default_rng(1000 + TYPY_NACZEP.index(typ))
+    rng = np.random.default_rng(1000 + TYPY_WSZYSTKIE.index(typ))
     return dict(
         x0=rng.uniform(0.04, 0.07), x1=rng.uniform(0.92, 0.96),
         gora=rng.uniform(0.09, 0.14), podloga=rng.uniform(0.66, 0.70),
@@ -164,9 +166,100 @@ def rysuj_ladunek(A, rng, obszar):
         x += pw + rng.uniform(0.003, 0.03) * W
 
 
-def rysuj_dodatek(A, etykiety, rng, typ, obszary_k, obszar_l, nr):
-    """Rysuje dodatek; zwraca opis (typ, miejsce, mu)."""
+# ---------------------------------------------------------------- strefy naczepy (spec §4a)
+STREFY = ["poza naczepą", "ładownia", "podłoga", "ściana przednia", "rama/osie", "dach"]
+STREFA_MIEJSCA = {"podwojna_podloga": "podłoga", "sciana_przy_kabinie": "ściana przednia",
+                  "belka": "rama/osie", "skrzynka": "rama/osie", "ladunek": "ładownia"}
+
+
+def mapa_stref(g, W, H):
+    """Mapa stref typu naczepy w układzie sceny (uint8, indeks w STREFY) — z tej samej geometrii co rysunek."""
+    m = torch.zeros((H, W), dtype=torch.uint8, device=DEV)
+    X0, X1 = _r(g["x0"] * W), _r(g["x1"] * W)
+    Yg, Yp = _r(g["gora"] * H), _r(g["podloga"] * H)
+    Yd = _r(g["gora"] * H + 0.012 * H)
+    P = _r(g["x0"] * W + g["przod_sz"] * W)
+    Yb0 = _r(g["podloga"] * H + g["podloga_h"] * H)
+    m[Yd:Yp, P:X1] = 1
+    m[Yp:Yb0, X0:X1] = 2
+    m[Yd:Yp, X0:P] = 3
+    m[Yb0:, X0:X1] = 4
+    m[Yg:Yd, X0:X1] = 5
+    return m
+
+
+def zapisz_strefy(sciezka, m):
+    Image.fromarray(m.cpu().numpy()).save(sciezka)
+
+
+# ---------------------------------------------------------------- rodzaje towaru (P17, spec §4b)
+RODZAJE_TOWARU = ["sprzęt i AGD", "odzież i tekstylia", "żywność i napoje", "materiały budowlane", "inne"]
+PUSTA = "pusta naczepa"
+
+
+def _wzor_okresowy(h, w, okres_x, okres_y, wyp_x, wyp_y):
+    yy = torch.arange(h, device=DEV, dtype=torch.float32)[:, None]
+    xx = torch.arange(w, device=DEV, dtype=torch.float32)[None, :]
+    return (((xx % okres_x) < wyp_x * okres_x) & ((yy % okres_y) < wyp_y * okres_y)).float()
+
+
+def _paleta(A, rng, x, y_dol, pw, ph, styl):
     H, W = A.shape
+    y0 = y_dol - ph
+    dodaj_prostokat(A, x, y_dol, x + pw, y_dol + 0.02 * H, 0.35)  # paleta (deska)
+    x0, yy0, x1, yy1 = _przytnij(A, x, y0, x + pw, y_dol)
+    if x1 - x0 < 2 or yy1 - yy0 < 2:
+        return
+    h, w = yy1 - yy0, x1 - x0
+    if styl == "odzież i tekstylia":       # jednolita średnia gęstość, miękkie bele
+        A[yy0:yy1, x0:x1] += (rng.uniform(0.12, 0.25) + tekstura(rng, h, w, 3, 0.015)).clamp(min=0)
+    elif styl == "żywność i napoje":       # wiele małych równych kształtów (puszki, butelki)
+        ok = max(3.0, rng.uniform(0.005, 0.008) * W)
+        A[yy0:yy1, x0:x1] += rng.uniform(0.08, 0.15) * _wzor_okresowy(h, w, ok, ok * rng.uniform(0.9, 1.4), 0.75, 0.8)
+    elif styl == "materiały budowlane":    # długie, gęste elementy (pręty, płyty) warstwami
+        ok = max(3.0, rng.uniform(0.012, 0.024) * H)
+        A[yy0:yy1, x0:x1] += rng.uniform(0.3, 0.6) * _wzor_okresowy(h, w, 10 * W, ok, 1.0, 0.55)
+    else:                                  # sprzęt i AGD: gęste prostokątne bryły z teksturą
+        A[yy0:yy1, x0:x1] += (rng.uniform(0.15, 0.7) + tekstura(rng, h, w, int(rng.integers(3, 10)), 0.06)).clamp(min=0)
+        n = int(rng.integers(2, 6))
+        for k in range(1, n):
+            yk = y_dol - ph * k / n
+            dodaj_prostokat(A, x, yk, x + pw, yk + 0.003 * H, 0.08)
+
+
+def rysuj_towar(A, rng, obszar, rodzaj):
+    """Ładunek danego rodzaju (stałe przypisanie wyglądu, spec §4b). „sprzęt i AGD” = palety gen-v2 (ten sam strumień losowy)."""
+    if rodzaj == PUSTA or rodzaj is None:
+        return
+    if rodzaj == "sprzęt i AGD":
+        rysuj_ladunek(A, rng, obszar)
+        return
+    H, W = A.shape
+    x0, y0, x1, y1 = obszar
+    dl = rodzaj == "materiały budowlane"
+    x = x0 + rng.uniform(0.005, 0.02) * W
+    while x < x1 - 0.06 * W:
+        pw = min(rng.uniform(0.15, 0.35) if dl else rng.uniform(0.05, 0.12), (x1 - x) / W) * W
+        ph = rng.uniform(0.25, 0.6 if dl else 0.85) * (y1 - y0)
+        styl = str(rng.choice(RODZAJE_TOWARU[:4])) if rodzaj == "inne" else rodzaj
+        if rng.random() < 0.85:
+            _paleta(A, rng, x, y1 - 0.02 * H, pw, ph, styl)
+        x += pw + rng.uniform(0.003, 0.03) * W
+
+
+def rysuj_dodatek(A, etykiety, rng, typ, obszary_k, obszar_l, nr, grubosc=None, x_wzgl=0.5):
+    """Rysuje dodatek; zwraca opis (typ, miejsce, mu). grubosc (ułamek H) — sonda S2: cienka warstwa
+    „mały w konstrukcji” w podwójnej podłodze, szer. 0,01 W, mu 0,25, położenie x_wzgl wzdłuż podłogi."""
+    H, W = A.shape
+    if grubosc is not None:
+        ox0, oy0, ox1, oy1 = obszary_k["podwojna_podloga"]
+        w, h, mu = 0.01 * W, max(1.0, grubosc * H), 0.25
+        x = ox0 + x_wzgl * (ox1 - ox0 - w)
+        y = oy0 + 0.5 * (oy1 - oy0 - h)
+        rx0, ry0, rx1, ry1 = _przytnij(A, x, y, x + w, y + h)
+        A[ry0:ry1, rx0:rx1] += mu
+        etykiety[ry0:ry1, rx0:rx1] = nr
+        return dict(typ="maly_konstrukcja", miejsce="podwojna_podloga", mu=mu, grubosc=grubosc, grubosc_px=ry1 - ry0)
     ksztalt_owal = rng.random() < 0.3
     if typ in ("maly_konstrukcja", "sredni_konstrukcja"):
         miejsce = str(rng.choice(MIEJSCA_KONSTR, p=WAGI_MIEJSC))
@@ -239,7 +332,7 @@ def rozmyj(I, sigma):
 
 def wzmocnienia_wierszy(H, typ):
     """Stała nierówność czułości detektorów (wiersze) — wspólna dla skanera."""
-    g = torch.Generator(device=DEV).manual_seed(77 + TYPY_NACZEP.index(typ))
+    g = torch.Generator(device=DEV).manual_seed(77 + TYPY_WSZYSTKIE.index(typ))
     s = torch.randn(H, device=DEV, generator=g)
     s = rozmyj(s[None, :].expand(1, H).contiguous(), max(1.0, H / 400))[0] if H > 1 else s
     return (1 + 0.01 * s)[:, None]
@@ -252,6 +345,14 @@ def do_obrazu(A, gen, jasnosc, przesuniecie, typ):
     I = I + przesuniecie
     I = I + torch.randn(A.shape, device=DEV, generator=gen) * (1.5 + 0.18 * I.clamp(min=0).sqrt())
     return I.clamp(0, 255).round().to(torch.uint8)
+
+
+def zapisz_bmp(sciezka, img):
+    Image.fromarray(img.cpu().numpy()).save(sciezka, format="BMP")
+
+
+def _gen(rng):
+    return torch.Generator(device=DEV).manual_seed(int(rng.integers(0, 2**62)))
 
 
 def przeksztalc(arr, sx, sy, tx, ty, najblizszy=False):
@@ -269,57 +370,83 @@ def przeksztalc(arr, sx, sy, tx, ty, najblizszy=False):
     del siatka
     return wyn.round().to(arr.dtype) if najblizszy else wyn
 
-
-def zapisz_bmp(sciezka, img):
-    Image.fromarray(img.cpu().numpy()).save(sciezka, format="BMP")
-
-
-def _gen(rng):
-    return torch.Generator(device=DEV).manual_seed(int(rng.integers(0, 2**62)))
+def _strefa_dodatku(strefy, etykiety, nr):
+    v = strefy[etykiety == nr]
+    return STREFY[int(torch.bincount(v.long(), minlength=len(STREFY)).argmax())] if v.numel() else "?"
 
 
-# ---------------------------------------------------------------- zbiory
-def generuj_pare(katalog, ident, rng, W, H, typ, ladunek, typy_dodatkow, opis):
+def generuj_pare(katalog, ident, rng, W, H, typ, ladunek, typy_dodatkow, opis, rodzaj_wz=None, rodzaj_bad=None,
+                 grubosci=None, x_wzgl=0.5):
+    """Para wzorzec–badany. rodzaj_wz / rodzaj_bad: rodzaj towaru we wzorcu i w badanym (spec §4b);
+    domyślnie (gen-v2) ten sam ładunek „sprzęt i AGD” albo pusta naczepa. grubosci: lista grubości
+    dla sondy S2 — jeden wzorzec, po jednym badanym na grubość (<ident>_g<i>)."""
+    if rodzaj_wz is None:
+        rodzaj_wz = rodzaj_bad = "sprzęt i AGD" if ladunek else PUSTA
     g = geometria_typu(typ)
     gen = _gen(rng)
     scena = torch.zeros((H, W), device=DEV)
     obszary_k, obszar_l = rysuj_konstrukcje(scena, g)
-    if ladunek:
-        rysuj_ladunek(scena, rng, obszar_l)
+    strefy = mapa_stref(g, W, H)
+    if rodzaj_wz == rodzaj_bad:
+        rysuj_towar(scena, rng, obszar_l, rodzaj_wz)
+    else:
+        baza = scena.clone()
+        rysuj_towar(scena, rng, obszar_l, rodzaj_wz)
     wz = do_obrazu(scena, gen, rng.uniform(0.95, 1.05), rng.uniform(-3, 3), typ)
     for k in ("wzorce", "badane", "maski"):
         os.makedirs(os.path.join(katalog, k), exist_ok=True)
     zapisz_bmp(os.path.join(katalog, "wzorce", ident + ".bmp"), wz)
+    zapisz_strefy(os.path.join(katalog, "wzorce", ident + ".strefy.png"), strefy)
     del wz
-    etykiety = torch.zeros((H, W), dtype=torch.uint8, device=DEV)
-    dodatki = []
-    for typ_d in typy_dodatkow:
-        d = rysuj_dodatek(scena, etykiety, rng, typ_d, obszary_k, obszar_l, len(dodatki) + 1)
-        if d:
-            dodatki.append(d)
-    sx, sy = rng.uniform(0.985, 1.015), rng.uniform(0.997, 1.003)
-    tx, ty = rng.uniform(-0.01, 0.01) * W, rng.uniform(-0.01, 0.01) * H
-    badana = przeksztalc(scena, sx, sy, tx, ty)
-    del scena
-    bad = do_obrazu(badana, gen, rng.uniform(0.85, 1.15), rng.uniform(-6, 6), typ)
-    del badana
-    zapisz_bmp(os.path.join(katalog, "badane", ident + ".bmp"), bad)
-    del bad
-    if dodatki:
-        et = przeksztalc(etykiety, sx, sy, tx, ty, najblizszy=True)
-        Image.fromarray(et.cpu().numpy()).save(os.path.join(katalog, "maski", ident + ".png"))
+    if rodzaj_wz != rodzaj_bad:
+        scena = baza
+        rysuj_towar(scena, rng, obszar_l, rodzaj_bad)
+    warianty = [(ident, None)] if grubosci is None else [(f"{ident}_g{i}", t) for i, t in enumerate(grubosci)]
+    scena0 = scena if grubosci is None else scena.clone()
+    for nazwa, grub in warianty:
+        scena = scena0 if grubosci is None else scena0.clone()
+        etykiety = torch.zeros((H, W), dtype=torch.uint8, device=DEV)
+        dodatki = []
+        for typ_d in ([] if grub is not None else typy_dodatkow):
+            d = rysuj_dodatek(scena, etykiety, rng, typ_d, obszary_k, obszar_l, len(dodatki) + 1)
+            if d:
+                dodatki.append(d)
+        if grub is not None:
+            dodatki.append(rysuj_dodatek(scena, etykiety, rng, "maly_konstrukcja", obszary_k, obszar_l, 1, grub, x_wzgl))
+            if nazwa != ident:
+                for suf in (".bmp", ".strefy.png"):
+                    cel = os.path.join(katalog, "wzorce", nazwa + suf)
+                    if not os.path.exists(cel):
+                        os.symlink(ident + suf, cel)
         for k, d in enumerate(dodatki, 1):
-            m = et == k
-            rows, cols = m.any(1).nonzero().flatten(), m.any(0).nonzero().flatten()
-            d["ramka"] = ([int(cols[0]), int(rows[0]), int(cols[-1]) + 1, int(rows[-1]) + 1]
-                          if len(rows) else None)
-            d["etykieta"] = k
-    opis[ident] = dict(typ_naczepy=typ, ladunek=bool(ladunek), czysty=not dodatki, dodatki=dodatki,
-                       przeksztalcenie=dict(sx=round(sx, 5), sy=round(sy, 5), tx=round(tx, 2), ty=round(ty, 2)))
+            d["strefa"] = _strefa_dodatku(strefy, etykiety, k)
+        sx, sy = rng.uniform(0.985, 1.015), rng.uniform(0.997, 1.003)
+        tx, ty = rng.uniform(-0.01, 0.01) * W, rng.uniform(-0.01, 0.01) * H
+        badana = przeksztalc(scena, sx, sy, tx, ty)
+        del scena
+        bad = do_obrazu(badana, gen, rng.uniform(0.85, 1.15), rng.uniform(-6, 6), typ)
+        del badana
+        zapisz_bmp(os.path.join(katalog, "badane", nazwa + ".bmp"), bad)
+        del bad
+        if dodatki:
+            et = przeksztalc(etykiety, sx, sy, tx, ty, najblizszy=True)
+            Image.fromarray(et.cpu().numpy()).save(os.path.join(katalog, "maski", nazwa + ".png"))
+            for k, d in enumerate(dodatki, 1):
+                m = et == k
+                rows, cols = m.any(1).nonzero().flatten(), m.any(0).nonzero().flatten()
+                d["ramka"] = ([int(cols[0]), int(rows[0]), int(cols[-1]) + 1, int(rows[-1]) + 1]
+                              if len(rows) else None)
+                d["etykieta"] = k
+            del et
+        opis[nazwa] = dict(typ_naczepy=typ, w_katalogu=typ in TYPY_NACZEP, ladunek=rodzaj_bad != PUSTA,
+                           rodzaj_towaru=rodzaj_bad, rodzaj_wzorca=rodzaj_wz,
+                           ladunek_inny_niz_wzorzec=rodzaj_wz != rodzaj_bad, czysty=not dodatki, dodatki=dodatki,
+                           przeksztalcenie=dict(sx=round(sx, 5), sy=round(sy, 5), tx=round(tx, 2), ty=round(ty, 2)))
 
 
 def generuj_nauke(katalog, rng, W, H, n_na_typ):
-    """Czyste obrazy wzorcowe (pusta naczepa) każdego typu — biblioteka wzorców dla trybu bez pary."""
+    """Czyste obrazy wzorcowe (pusta naczepa) każdego typu — biblioteka wzorców dla trybu bez pary.
+    Przy każdym obrazie mapa stref <nazwa>.strefy.png (w układzie tego obrazu)."""
     for typ in TYPY_NACZEP:
         d = os.path.join(katalog, typ)
         os.makedirs(d, exist_ok=True)
@@ -329,9 +456,17 @@ def generuj_nauke(katalog, rng, W, H, n_na_typ):
             scena = torch.zeros((H, W), device=DEV)
             rysuj_konstrukcje(scena, g)
             sx, sy = rng.uniform(0.985, 1.015), rng.uniform(0.997, 1.003)
-            scena = przeksztalc(scena, sx, sy, rng.uniform(-0.01, 0.01) * W, rng.uniform(-0.01, 0.01) * H)
+            tx, ty = rng.uniform(-0.01, 0.01) * W, rng.uniform(-0.01, 0.01) * H
+            scena = przeksztalc(scena, sx, sy, tx, ty)
+            zapisz_strefy(os.path.join(d, f"{typ}_{i:02d}.strefy.png"),
+                          przeksztalc(mapa_stref(g, W, H), sx, sy, tx, ty, najblizszy=True))
             zapisz_bmp(os.path.join(d, f"{typ}_{i:02d}.bmp"),
                        do_obrazu(scena, gen, rng.uniform(0.85, 1.15), rng.uniform(-6, 6), typ))
+
+
+def _zapisz_opis(katalog, ziarno, W, H, opis, nazwa="opis.json"):
+    with open(os.path.join(katalog, nazwa), "w") as f:
+        json.dump(dict(wersja=WERSJA, ziarno=ziarno, rozmiar=[W, H], obrazy=opis), f, indent=1, ensure_ascii=False)
 
 
 def generuj_zbior(katalog, ziarno, W, H, n_czystych, n_z_dodatkami, opis_nazwa="opis.json"):
@@ -350,8 +485,61 @@ def generuj_zbior(katalog, ziarno, W, H, n_czystych, n_z_dodatkami, opis_nazwa="
             ident = f"{'c' if czyste else 'd'}{j:03d}_{typ}"
             generuj_pare(katalog, ident, rng, W, H, typ, ladunek, dod, opis)
             i += 1
-    with open(os.path.join(katalog, opis_nazwa), "w") as f:
-        json.dump(dict(wersja=WERSJA, ziarno=ziarno, rozmiar=[W, H], obrazy=opis), f, indent=1, ensure_ascii=False)
+    _zapisz_opis(katalog, ziarno, W, H, opis, opis_nazwa)
+
+
+def generuj_kontrolne(katalog, ziarno, W, H):
+    """Zbiory kontrolne (spec §3, §7; docs/pm/07): KL, KW, KP, KS + katalog wyglądu towaru.
+    Wzorzec w KL/KW: ta sama naczepa z pustą ładownią (jak katalog trybu bez pary) — założenie, decyzje.md."""
+    rng = np.random.default_rng(ziarno)
+    R = RODZAJE_TOWARU
+    # KL: inny ładunek niż we wzorcu, rodzaj towaru zgodny z ładunkiem; w 3 parach mały dodatek w konstrukcji (A15/A16)
+    opis = {}
+    for j in range(6):
+        typ = TYPY_NACZEP[j % 3]
+        generuj_pare(os.path.join(katalog, "KL"), f"kl{j:02d}_{typ}", rng, W, H, typ, True,
+                     ["maly_konstrukcja"] if j % 2 else [], opis, PUSTA, R[j % 5])
+    _zapisz_opis(os.path.join(katalog, "KL"), ziarno, W, H, opis)
+    # KW: ładunek zgodny ze zgłoszeniem + dodatek ukryty w ładunku (A15b)
+    opis = {}
+    for j in range(6):
+        typ = TYPY_NACZEP[j % 3]
+        generuj_pare(os.path.join(katalog, "KW"), f"kw{j:02d}_{typ}", rng, W, H, typ, True,
+                     ["w_ladunku" if j % 2 == 0 else "duzy_w_ladunku"], opis, PUSTA, R[(j + 2) % 5])
+    _zapisz_opis(os.path.join(katalog, "KW"), ziarno, W, H, opis)
+    # KP: pusta naczepa we wzorcu i w badanym; 3 z jednym przedmiotem w ładowni, 3 bez (A17)
+    opis = {}
+    for j in range(6):
+        typ = TYPY_NACZEP[j % 3]
+        generuj_pare(os.path.join(katalog, "KP"), f"kp{j:02d}_{typ}", rng, W, H, typ, False,
+                     (["w_ladunku"] if j % 4 == 0 else ["duzy_w_ladunku"]) if j < 3 else [], opis, PUSTA, PUSTA)
+    _zapisz_opis(os.path.join(katalog, "KP"), ziarno, W, H, opis)
+    # KS: 2 pary typu spoza katalogu (D), pusta ładownia, dodatek w konstrukcji (A18)
+    opis = {}
+    for j, dod in enumerate((["maly_konstrukcja"], ["sredni_konstrukcja"])):
+        generuj_pare(os.path.join(katalog, "KS"), f"ks{j:02d}_D", rng, W, H, "D", False, dod, opis, PUSTA, PUSTA)
+    _zapisz_opis(os.path.join(katalog, "KS"), ziarno, W, H, opis)
+    # katalog wyglądu towaru: pusta naczepa (wzorzec) → załadowana rodzajem (badany), bez dodatków — do kalibracji reguły
+    opis = {}
+    for r_i, rodzaj in enumerate(R):
+        for j in range(6):
+            typ = TYPY_NACZEP[j % 3]
+            generuj_pare(os.path.join(katalog, "towar"), f"t{r_i}{j:02d}_{typ}", rng, W, H, typ, True, [], opis, PUSTA, rodzaj)
+    _zapisz_opis(os.path.join(katalog, "towar"), ziarno, W, H, opis)
+
+
+GRUBOSCI = [0.001, 0.002, 0.004, 0.008, 0.012]   # ułamek H: przy 4200 px ≈ 4, 8, 17, 34, 50 px
+
+
+def generuj_km(katalog, ziarno, W, H, n_scen=6):
+    """Sonda S2 (A12): te same sceny, mały dodatek w podwójnej podłodze o grubości z GRUBOSCI."""
+    rng = np.random.default_rng(ziarno)
+    opis = {}
+    for j in range(n_scen):
+        typ = TYPY_NACZEP[j % 3]
+        generuj_pare(katalog, f"s{j:02d}_{typ}", rng, W, H, typ, j % 2 == 0, [], opis,
+                     grubosci=GRUBOSCI, x_wzgl=0.15 + 0.7 * j / max(1, n_scen - 1))
+    _zapisz_opis(katalog, ziarno, W, H, opis)
 
 
 def main():
@@ -359,8 +547,10 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--wyjscie", required=True)
     ap.add_argument("--ziarno", type=int, default=14)
-    ap.add_argument("--maly", action="store_true", help="zbiory małe: nauka, kalib, test")
+    ap.add_argument("--maly", action="store_true", help="zbiory małe: nauka, kalib (12), kalib60, test")
     ap.add_argument("--pelny", action="store_true", help="zbiór pełnowymiarowy (~50 MB .bmp)")
+    ap.add_argument("--kontrolne", action="store_true", help="zbiory kontrolne KL, KW, KP, KS + katalog towaru (małe)")
+    ap.add_argument("--km", action="store_true", help="S2: KM (6 scen × 5 grubości, pełna rozdz.) + kalib_pelny (6 czystych)")
     ap.add_argument("--urzadzenie", default="cuda", help="cuda (OMEN); cpu tylko w teście dymnym kodu")
     a = ap.parse_args()
     DEV = torch.device(a.urzadzenie)
@@ -372,11 +562,21 @@ def main():
         generuj_nauke(os.path.join(a.wyjscie, "nauka"), np.random.default_rng(a.ziarno + 1), W, H, 6)
         generuj_zbior(os.path.join(a.wyjscie, "kalib"), a.ziarno + 2, W, H, 12, 0)
         generuj_zbior(os.path.join(a.wyjscie, "test"), a.ziarno + 3, W, H, 30, 30)
+        generuj_zbior(os.path.join(a.wyjscie, "kalib60"), a.ziarno + 5, W, H, 60, 0)
         print(f"zbiory małe gotowe ({time.time() - t:.1f} s, {DEV})", flush=True)
+    if a.kontrolne:
+        W, H = ROZMIAR_MALY
+        generuj_kontrolne(a.wyjscie, a.ziarno + 6, W, H)
+        print(f"zbiory kontrolne gotowe ({time.time() - t:.1f} s, {DEV})", flush=True)
     if a.pelny:
         W, H = ROZMIAR_PELNY
         generuj_zbior(os.path.join(a.wyjscie, "pelny"), a.ziarno + 4, W, H, 3, 3)
         print(f"zbiór pełnowymiarowy gotowy ({time.time() - t:.1f} s, {DEV})", flush=True)
+    if a.km:
+        W, H = ROZMIAR_PELNY
+        generuj_km(os.path.join(a.wyjscie, "km"), a.ziarno + 7, W, H)
+        generuj_zbior(os.path.join(a.wyjscie, "kalib_pelny"), a.ziarno + 8, W, H, 6, 0)
+        print(f"KM i kalib_pelny gotowe ({time.time() - t:.1f} s, {DEV})", flush=True)
 
 
 if __name__ == "__main__":
