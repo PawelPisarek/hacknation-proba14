@@ -17,7 +17,7 @@ Dane i ekrany są sztuczne (spec §8 p. 2): wyniki FP/FN nie przenoszą się na 
 
 Gdzie w kolumnie „Tryb” stoi „para” — wzorzec podany (metody A, A0, B); „bez pary” — dobór wzorca z `nauka` (metoda C). Wg Szefa 11:46 zbiory kontrolne ocenia się w obu trybach.
 
-**Miary — nazwy.** `FP` = liczba obrazów czystych (bez dodatku) z jakimkolwiek alarmem + liczba obszarów na nich; `FN` = dodatki bez ramki (IoU ≥ 0,1 z maską lub środek dodatku w ramce — `ocena.PROG_IOU`); **FP i FN podawane zawsze osobno, nigdy jedną liczbą (P2: przeoczenie gorsze).** `alarm na ładunku` = ramka w strefie „ładownia” niewskazująca żadnego dodatku (dla par z dodatkiem w konstrukcji obraz nie jest „czysty”, więc zwykłe FP go nie złapie — B4). Czas = od odczytu `.bmp` do ramek (`bazowy.mapy_zbioru`), pamięć = szczyt pamięci karty (`torch.cuda.max_memory_allocated`).
+**Miary — nazwy.** `FP` = liczba obrazów czystych (bez dodatku) z jakimkolwiek alarmem (`czyste_z_alarmem`); osobna, druga miara: liczba obszarów na czystych (`obszary_na_czystych`) — dwie jednostki, nie sumowane; `FN` = dodatki bez ramki (IoU ≥ 0,1 z maską lub środek dodatku w ramce — `ocena.PROG_IOU`); **FP i FN podawane zawsze osobno, nigdy jedną liczbą (P2: przeoczenie gorsze).** `alarm na ładunku` = ramka w strefie „ładownia” niewskazująca żadnego dodatku (dla par z dodatkiem w konstrukcji obraz nie jest „czysty”, więc zwykłe FP go nie złapie — B4). Czas = od odczytu `.bmp` do ramek (`bazowy.mapy_zbioru`), pamięć = szczyt pamięci karty (`torch.cuda.max_memory_allocated`).
 
 **Pewność wyniku.** Każdy scenariusz kończy się wpisem: komenda, zbiór, liczby (FP, FN, czas, pamięć), linia wyniku ze skryptu. Brak wyniku = nie wykonany, nie „przeszedł”.
 
@@ -48,16 +48,16 @@ Gdzie w kolumnie „Tryb” stoi „para” — wzorzec podany (metody A, A0, B)
 
 ### A4 — Dobór wzorca bez pary
 - **Zbiór:** `test` (60) i `pelny` (6), tryb bez pary (metoda C); katalog `nauka`.
-- **Kroki:** 1) analiza bez wzorca; 2) odczyt typu rozpoznanego i pewności doboru (`typ_rozpoznany`, `pewnosc_wzorca`); 3) porównanie z `typ_naczepy` w `opis.json`.
-- **Oczekiwany wynik:** typ rozpoznany = właściwy typ; odsetek trafień zmierzony (E1, H4).
-- **Miara:** trafione/wszystkie (test i pełny osobno); pewność doboru min/mediana; liczba flag „wzorzec niepewny” wśród trafnych i wśród błędnych. FP/FN przy tym doborze — osobno wg A1/A2 (metoda C).
-- **Nie przechodzi:** odsetek trafień niepodany; pewność doboru niezapisana; błędny dobór bez flagi „wzorzec niepewny” (ramki ma pokazać z ostrzeżeniem — P16; ciche błędne ramki to wada).
+- **Kroki:** 1) analiza bez wzorca; 2) odczyt typu rozpoznanego i pewności doboru (`typ_rozpoznany`, `pewnosc_wzorca`); 3) porównanie z `typ_naczepy` w `opis.json`; 4) rozkład podobieństwa (pewności) w trzech grupach, wg S1 z `docs/pm/05`: (i) dobór właściwego typu, (ii) wymuszony inny typ z katalogu, (iii) typ spoza katalogu (pary KS z A18); 5) A4 i A5 w **jednym przebiegu** (P11: „1 i 2 jednym przebiegiem”): najpierw dobór (A4), potem skrytka (A5) — w tej kolejności.
+- **Oczekiwany wynik:** typ rozpoznany = właściwy typ; odsetek trafień zmierzony (E1, H4); podobieństwo rozdziela grupę (i) od (ii) i (iii).
+- **Miara:** trafione/wszystkie (test i pełny osobno); rozkład pewności w (i), (ii), (iii): min, mediana, maks, i czy istnieje próg rozdzielający (i) od (ii)+(iii); liczba flag „wzorzec niepewny” wśród trafnych i wśród błędnych. FP/FN przy tym doborze — osobno wg A1/A2 (metoda C).
+- **Nie przechodzi:** odsetek trafień niepodany; pewność doboru niezapisana; rozkład (i)/(ii)/(iii) niepodany; błędny dobór bez flagi „wzorzec niepewny” (ramki ma pokazać z ostrzeżeniem — P16; ciche błędne ramki to wada); podobieństwo nie rozdziela (i) od (ii)+(iii) — wtedy tryb pary jest domyślnym, a „bez pary” w README tylko celem (kryterium zabicia z `docs/pm/05`, atak 2).
 
 ### A5 — Skrytka w konstrukcji
-- **Zbiór:** `test` i `pelny`, dodatki w miejscach `podwojna_podloga` i `sciana_przy_kabinie` (P4; wagi 0,4/0,4), oba tryby.
-- **Kroki:** 1) analiza; 2) dla każdego takiego dodatku sprawdzić ramkę (IoU/środek); 3) sprawdzić, że raport ma powiększenie wokół ramki na obu obrazach (wzorzec i badany); 4) zapisać nazwę strefy ramki.
+- **Zbiór:** `test` i `pelny`, dodatki w miejscach `podwojna_podloga` i `sciana_przy_kabinie` (P4; wagi 0,4/0,4), oba tryby; dodatkowo wariant z **błędnym wzorcem** (Z2 z `docs/pm/05`: ramka na skrytce „także przy błędnym wzorcu”): te same obrazy ze wzorcem wymuszonym innego typu z katalogu (grupa (ii) z A4).
+- **Kroki:** 0) kolejność przebiegu jak w A4 (dobór, potem skrytka; P11); 1) analiza także z błędnym wzorcem; 2) dla każdego takiego dodatku sprawdzić ramkę (IoU/środek); 3) sprawdzić, że raport ma powiększenie wokół ramki na obu obrazach (wzorzec i badany); 4) zapisać nazwę strefy ramki.
 - **Oczekiwany wynik:** każda skrytka w konstrukcji wskazana ramką, z powiększeniem; strefa = „podłoga” albo „ściana przednia” (spec §4a).
-- **Miara:** FN konstrukcja (`fn_miejsce` dla `podwojna_podloga`, `sciana_przy_kabinie`) osobno od FP; trafność nazwy strefy (ramka z dodatkiem w strefie X nazwana X); liczba powiększeń = liczbie ramek.
+- **Miara:** FN konstrukcja (`fn_miejsce` dla `podwojna_podloga`, `sciana_przy_kabinie`) osobno od FP, osobno dla wzorca właściwego i błędnego; trafność nazwy strefy (ramka z dodatkiem w strefie X nazwana X); liczba powiększeń = liczbie ramek.
 - **Nie przechodzi:** jakakolwiek skrytka w podłodze lub ścianie przy kabinie bez ramki i bez wpisu do wyniku (demo P4/P11 opiera się na tym); brak powiększenia; strefa ramki inna niż strefa dodatku w większości trafionych ramek (kryterium zabicia z `docs/pm/05`, atak 6).
 
 ### A12 — Zmniejszenie obrazu
@@ -65,7 +65,7 @@ Gdzie w kolumnie „Tryb” stoi „para” — wzorzec podany (metody A, A0, B)
 - **Kroki:** 1) analiza po zmniejszeniu do 1200 px (domyślnie: `SZER_ROBOCZA`); 2) analiza tych samych scen bez zmniejszenia (pełny obraz); 3) FN i FP w obu wariantach, ten sam próg.
 - **Oczekiwany wynik:** mały dodatek w konstrukcji wykrywany po zmniejszeniu; porównanie FN: zmniejszenie vs pełny obraz (decyzja Q7).
 - **Miara:** FN(zmniejszony) i FN(pełny) na tych samych dodatkach; FP osobno w obu; czas i pamięć w obu (z A6).
-- **Nie przechodzi:** FN(zmniejszony) > FN(pełny) i różnica nie zapisana jako wynik; porównanie na różnych scenach (nie ta sama para); FN i FP zsumowane.
+- **Nie przechodzi:** żaden z dodatków KM niewykryty po zmniejszeniu (FN(zmniejszony) = 6/6: wymóg „wykrywany po zmniejszeniu” niespełniony); FN(zmniejszony) > 0 — wynik zapisany, liczbę graniczną (ile z 6) ustala Szef po pierwszym przebiegu (spec §7); FN(zmniejszony) > FN(pełny) i różnica nie zapisana jako wynik; porównanie na różnych scenach (nie ta sama para); FN i FP zsumowane.
 
 ## Zbiór B: kolejność, decyzje, ścieżka (A7–A11, A14)
 
@@ -78,10 +78,10 @@ Gdzie w kolumnie „Tryb” stoi „para” — wzorzec podany (metody A, A0, B)
 
 ### A8 — Decyzja i zapis kontroli
 - **Zbiór:** 1 obraz z `test` z ≥ 3 ramkami (albo obraz z makiety z danymi udawanymi do czasu usługi); makieta/aplikacja + zapis JSON na serwerze (spec §4d).
-- **Kroki:** 1) wczytać obraz; 2) przy pozycji 1: „do kontroli”; 3) przy pozycji 2: „odrzuć” z powodem z listy (np. „znany element konstrukcji”); 4) przy pozycji 3: „odrzuć” bez powodu (próba negatywna); 5) zapisać kontrolę; 6) pobrać plik zapisu i odczytać.
-- **Oczekiwany wynik:** zapis zawiera dla każdej pozycji: miejsce (strefa), przedmiot kontroli (strefa + przód/środek/tył), decyzję i powód; „odrzuć” bez powodu nie zapisuje się albo prosi o powód (P3).
+- **Kroki:** 1) wczytać obraz; 2) przy pozycji 1: „do kontroli”; 3) przy pozycji 2: „odrzuć” z powodem z listy (np. „znany element konstrukcji”); 4) przy pozycji 3: „odrzuć” bez wybranego powodu (próba negatywna); 5) sprawdzić, że powód wybiera się z listy (znany element konstrukcji · ładunek zgodny z deklaracją · artefakt obrazu · inny typ naczepy niż wzorzec · inne), nie wolnym tekstem; 6) zapisać kontrolę; 7) pobrać plik zapisu i odczytać.
+- **Oczekiwany wynik:** zapis zawiera dla każdej pozycji: miejsce (strefa), przedmiot kontroli (strefa + przód/środek/tył), decyzję i powód z listy; „odrzuć” bez powodu **nie jest przyjęte** — ekran prosi o powód i pozycja pozostaje „do decyzji” (P3: „odrzuć” jednym kliknięciem z powodem z listy; Szef rozstrzyga tylko, gdyby zachowanie miało być inne).
 - **Miara:** liczba pozycji w zapisie = liczbie ramek; wszystkie pola wypełnione; liczba odrzuceń bez powodu w zapisie (powinno 0). Czas zapisu. FP/FN — nie dotyczy (ten test nie mierzy detekcji).
-- **Nie przechodzi:** brak miejsca lub przedmiotu kontroli w którejkolwiek pozycji; „odrzuć” zapisane bez powodu; zapis niepobieralny; zapis różni się od decyzji na ekranie.
+- **Nie przechodzi:** brak miejsca lub przedmiotu kontroli w którejkolwiek pozycji; „odrzuć” zapisane bez powodu albo z powodem spoza listy; ekran przyjmuje „odrzuć” bez powodu; zapis niepobieralny; zapis różni się od decyzji na ekranie.
 
 ### A9 — Linia „N miejsc do sprawdzenia”
 - **Zbiór:** jak A8.
@@ -92,10 +92,10 @@ Gdzie w kolumnie „Tryb” stoi „para” — wzorzec podany (metody A, A0, B)
 
 ### A10 — Demo ≤ 2 min
 - **Zbiór:** auto demonstracyjne (z S1/S3; do czasu wyniku detektora dane udawane z makiety — oznaczone); przepływ przeglądarka → ksefbot.pl → usługa na OMENie (spec §4d).
-- **Kroki:** wg §1 „Demo ≤ 2 min”: wczytanie → wzorzec dobrany → ramka na podwójnej podłodze pierwsza → klik → powiększenie na obu obrazach → „do kontroli” → ściana przy kabinie → „do kontroli” → trzecie (ładunek) → „odrzuć” z powodem → zapis → „zostało 0”.
+- **Kroki:** wg §1 „Demo ≤ 2 min”: wczytanie → **pole „Rodzaj zgłoszonego towaru”: jest, ma 7 pozycji (sprzęt i AGD · odzież i tekstylia · żywność i napoje · materiały budowlane · inne · pusta naczepa · „nie wiem”), domyślnie „nie wiem”, wybór trafia do JSON wyniku (P15, P17)** → wzorzec dobrany → ramka na podwójnej podłodze pierwsza → klik → powiększenie na obu obrazach → „do kontroli” → ściana przy kabinie → „do kontroli” → trzecie (ładunek) → „odrzuć” z powodem → zapis → „zostało 0”.
 - **Oczekiwany wynik:** cała ścieżka wykonalna w ≤ 2 min (P4, P11); wynik analizy w kilka sekund (P5).
 - **Miara:** czas całej ścieżki (stoper, 3 powtórzenia, osoba, która nie zna makiety, i autor), czas od wysłania pliku do wyniku (z A6). FP/FN: z użytego auta — podane obok.
-- **Nie przechodzi:** czas ścieżki > 2 min w którymkolwiek powtórzeniu; krok ścieżki niewykonalny (np. brak pola rodzaju towaru, którego makieta wariantu 3 jeszcze nie ma — spec §6); wynik analizy nie w kilka sekund bez planu B (nagrany wynik, spec §8 p. 5).
+- **Nie przechodzi:** czas ścieżki > 2 min w którymkolwiek powtórzeniu; pole rodzaju towaru nieobecne, z inną liczbą pozycji niż 7 albo wybór nie w JSON (makieta wariantu 3 pola jeszcze nie ma — spec §6); inny krok ścieżki niewykonalny; wynik analizy nie w kilka sekund bez planu B (nagrany wynik, spec §8 p. 5).
 
 ### A11 — Praca bez internetu
 - **Zbiór:** `test` (próbka 6 obrazów: 3 czyste, 3 z dodatkami) i jeden z `pelny`; detektor lokalnie na OMENie (CLI i usługa na tej samej maszynie), bez sieci (rozstrzygnięcie Szefa, krok 3).
@@ -125,7 +125,7 @@ Gdzie w kolumnie „Tryb” stoi „para” — wzorzec podany (metody A, A0, B)
 - **Kroki:** 1) uruchomić partię na wszystkich 6 obrazach (i na kopii powtórzonej do 12, dla przepustowości); 2) zmierzyć czas na obraz i całkowity; 3) szczytowa pamięć karty; 4) otworzyć CSV zbiorczy.
 - **Oczekiwany wynik:** wynik zapisany (czas na obraz, szczytowa pamięć, obrazy/min), „bez obietnic” (spec §7 A13).
 - **Miara:** czas/obraz (średnia, maksimum), obrazy/min, szczyt pamięci karty (MiB); liczba plików JSON/PNG = liczbie obrazów; wiersze CSV = liczbie obrazów. FP/FN na `pelny` — osobno.
-- **Nie przechodzi:** partia przerwana (błąd pamięci, `kod 75`) bez zapisu wyniku częściowego; brak któregokolwiek z JSON/PNG/CSV; obietnica przepustowości w README ponad zmierzoną.
+- **Nie przechodzi:** partia przerwana (np. błąd braku pamięci karty) bez zapisu wyniku częściowego; brak któregokolwiek z JSON/PNG/CSV; obietnica przepustowości w README ponad zmierzoną.
 
 ## Zbiór D: ładunek zgodny, dodatek w ładunku, pusta naczepa, typ spoza katalogu (A15–A18)
 
@@ -148,7 +148,7 @@ Gdzie w kolumnie „Tryb” stoi „para” — wzorzec podany (metody A, A0, B)
 - **Kroki:** 1) analiza z podanym rodzajem towaru; 2) FN dodatków w ładunku; 3) ta sama analiza z „nie wiem” na tych samych 6 parach; 4) porównanie FN para po parze.
 - **Oczekiwany wynik:** dodatek w ładunku wykryty mimo wygaszania towaru zgodnego (P4 + P15); FN przy rodzaju towaru ≤ FN przy „nie wiem”.
 - **Miara:** FN(rodzaj podany)/6 i FN(nie wiem)/6; FP osobno (alarmy poza dodatkiem). Osobno dla obu trybów.
-- **Nie przechodzi:** FN(rodzaj podany) > FN(nie wiem) — reguła do wycofania („zwiń”, nie „ukryj”), ale tylko po pytaniu Projektanta do Artura (P15/P17: towar zgodny nie jest zaznaczany; decyduje Artur, nie ten test); FN i FP zsumowane; porównanie na różnych parach.
+- **Nie przechodzi:** żaden dodatek w ładunku niewykryty przy rodzaju podanym (FN = 6/6: wymóg „wykryty” niespełniony); FN(rodzaj podany) > 0 — liczbę graniczną (ile z 6) ustala Szef po pierwszym przebiegu (spec §7); FN(rodzaj podany) > FN(nie wiem) — reguła do wycofania („zwiń”, nie „ukryj”), ale tylko po pytaniu Projektanta do Artura (P15/P17: towar zgodny nie jest zaznaczany; decyduje Artur, nie ten test); FN i FP zsumowane; porównanie na różnych parach.
 
 ### A17 — Pusta naczepa
 - **Zbiór:** KP (założenie: 6 par — 3 z przedmiotem w ładowni, 3 bez), rodzaj towaru „pusta naczepa”.
@@ -159,7 +159,7 @@ Gdzie w kolumnie „Tryb” stoi „para” — wzorzec podany (metody A, A0, B)
 
 ### A18 — Typ spoza katalogu
 - **Zbiór:** KS: KL (6 par, typ w katalogu) + 2 pary typu spoza katalogu (nieobecnego w `nauka`); tryb bez pary, potem z parą (operator wskazuje wzorzec).
-- **Kroki:** 1) analiza bez pary: odczytać flagę „wzorzec niepewny” i pewność doboru (`PROG_PEWNOSCI` = 0,2, założenie P16); 2) sprawdzić, że ramki są pokazane; 3) w ekranie: wskazać wzorzec z listy typów w katalogu; 4) w ekranie: wgrać plik wzorca; 5) powtórzyć analizę w trybie z parą.
+- **Kroki:** 1) analiza bez pary: odczytać flagę „wzorzec niepewny” i pewność doboru (próg: docelowo z kalibracji na `kalib` wg spec §4c; do czasu kalibracji `PROG_PEWNOSCI` = 0,2 w `bazowy.py` to założenie Programisty z 11:48, nie wynik P16 — wynik flag podany z użytym progiem); 2) sprawdzić, że ramki są pokazane; 3) w ekranie: wskazać wzorzec z listy typów w katalogu; 4) w ekranie: wgrać plik wzorca; 5) powtórzyć analizę w trybie z parą.
 - **Oczekiwany wynik:** flaga i ramki są (P16, P2); operator może wskazać wzorzec z listy i z pliku; po wskazaniu poprawnego wzorca flaga znika.
 - **Miara:** flagi na 2 parach spoza katalogu (/2) oraz fałszywe flagi na 6 parach z katalogu (/6); ramki na 2 parach (>0); FP i FN w trybie z parą po wskazaniu wzorca, osobno.
 - **Nie przechodzi:** brak flagi na którejkolwiek z 2 par; ramki ukryte przy fladze (P16 B odrzucone); brak jednej z dwóch dróg wskazania wzorca; flaga na ≥ 1 z 6 par z katalogu bez wpisu (spada zaufanie do flagi).
@@ -186,10 +186,11 @@ Sprawdzone: `anomalie/ocena.py` (`ocen`, `linia`, `linia_dluga`), `skrypty/bazow
 | B12 | Brak testu offline: `D._siec()` pobiera wagi ResNet18 przy pierwszym użyciu (`~/.cache`); brak skryptu sprawdzającego brak ruchu sieciowego | A11 | wagi lokalnie (ścieżka, bez pobierania); uruchomienie w przestrzeni bez sieci i porównanie wyniku |
 | B13 | Zapis kontroli, linia „N · zostało M”, powód przy „odrzuć”, powiększenie wokół ramki w JSON: brak w repo kodu zapisu; `raport.py` robi PNG z powiększeniami, nie ma JSON z polami `{id, nazwa, ramka, pewność, opis, przedmiot kontroli, decyzja, powód}` | A5, A8, A9 | format JSON wg spec §2 z polami decyzji i powodu; test automatyczny (A8, A9: liczba pozycji, M maleje) |
 | B14 | `bazowy.py` ocenia tylko `test` i `pelny`; zbiorów kontrolnych (KL, KW, KP, KS) w obu trybach (para, bez pary) nie przepuszcza | A15–A18 | przebieg `bazowy.py` (lub osobny) dla zbiorów kontrolnych w obu trybach; wynik FP i FN osobno w tabeli |
+| B16 | Rozkład pewności doboru w trzech grupach (właściwy typ · wymuszony inny typ z katalogu · typ spoza katalogu) i skrytka przy błędnym wzorcu: `ocena` i `bazowy.py` ich nie liczą; `bazowy.py` nie wymusza wzorca | A4, A5, A18 | parametr „wymuś wzorzec typu X” i raport pewności po grupach; jeden przebieg A4→A5 (P11) |
 | B15 | Liczby bez progów: skrypt nie sprawdza warunków „nie przechodzi” (60 s, 4 GB, kolejność monotoniczna, N = liczba ramek) | A6, A7, A9 | linia `PRZECHODZI/NIE` dla warunków ze spec, tam gdzie spec podaje próg (A6: 60 s, 4 GB; A7, A9); tam gdzie próg ustala Szef — tylko liczba |
 
 **Uwaga o stanie ocen:** liczby w tym pliku są celami i warunkami ze spec; żadnych wyników modelu tu nie ma (nie uruchamiałem niczego na karcie ani na procesorze).
 
-**Oddane Programiście** (zlecenie po kroku 0P, `docs/decyzje.md`): B1–B15, w kolejności: B1+B2+B3 (bez nich A15–A18 nie da się uruchomić), B4–B8, B9–B12, B13–B15. Każdy scenariusz do uruchomienia na karcie (jeden przebieg może obalić kilka punktów: A15, A15b, A16, A17 i A18 jednym skryptem z kilkoma trybami, ale każdy tryb z osobną linią FP i FN).
+**Oddane Programiście** (zlecenie po kroku 0P, `docs/decyzje.md`): B1–B16, w kolejności: B1+B2+B3 (bez nich A15–A18 nie da się uruchomić), B4–B8, B9–B12, B13–B16. Każdy scenariusz do uruchomienia na karcie (jeden przebieg może obalić kilka punktów: A15, A15b, A16, A17 i A18 jednym skryptem z kilkoma trybami, ale każdy tryb z osobną linią FP i FN).
 
 <!-- skill: test-scenarios -->
