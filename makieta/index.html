@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Różnica RTG — makieta R1 (dane udawane)</title>
+<title>Różnica RTG — makieta R2 (dane udawane)</title>
 <style>
 *{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;background:#f4f5f7;color:#1c1f24;font-size:15px}
 header{background:#1f2a37;color:#fff;padding:10px 16px;display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline}
@@ -17,10 +17,12 @@ main{padding:12px;max-width:1400px;margin:auto}
 .ramka{fill:none;stroke:#d11;stroke-width:3;cursor:pointer}.ramka.akt{stroke:#ff8c00;stroke-width:5}
 .ramka.odp{stroke:#1a5fd1;stroke-dasharray:6 4;cursor:pointer}.ramka.odp.akt{stroke:#ff8c00}
 .ramka.zlec{stroke:#0a7d32;stroke-dasharray:8 4}.ramka.odrz{stroke:#888;stroke-dasharray:3 5}
-.etyk{font:bold 18px system-ui;fill:#d11;pointer-events:none}
+.etyk{font:bold 44px system-ui;fill:#d11;stroke:#fff;stroke-width:8px;paint-order:stroke;stroke-linejoin:round;pointer-events:none}
+.ramka.pom{stroke:#888;stroke-dasharray:2 5}.pomb{display:inline-block;font-size:12px;background:#eee;border:1px solid #bbb;border-radius:4px;padding:1px 6px;margin-left:4px}
 .miejsce{background:#fff;border:1px solid #d5d8dd;border-radius:6px;padding:10px;margin-bottom:10px;cursor:pointer}
 .miejsce.akt{border-color:#ff8c00;box-shadow:0 0 0 2px #ff8c0055}
 .miejsce h3{margin:0 0 4px;font-size:15px}.miejsce p{margin:4px 0;font-size:14px}
+.btns select{flex:1 1 150px;min-width:0;max-width:100%}
 .typ{font-size:12px;color:#555}.pew{font-weight:700}.btns{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
 button,select{font:inherit;padding:8px 10px;border-radius:5px;border:1px solid #888;background:#fff;cursor:pointer;min-height:40px}
 button.kontrola{background:#0a7d32;color:#fff;border-color:#0a7d32}button.odrzuc{color:#a11;border-color:#a11}
@@ -47,22 +49,36 @@ const AUTA={
  B:{opis:"Auto B — naczepa typu spoza katalogu (udawane)",wzorzec:KATALOG[1],pod:0.61,niepewny:true}
 };
 // strefa: konstrukcja → alarm zawsze (P15, spec §4a); ładunek_dodatek → alarm zawsze (A15b); ładunek_inny → tylko gdy „nie wiem” albo „pusta naczepa”
+// R2: nazwa = strefa + położenie (P18), opis bez miar (P19), 4 pozycje w pokazie (P20)
 const MIEJSCA=[
- {id:1,nazwa:"Podwójna podłoga — środek naczepy",rodz:"konstrukcja",pew:.91,box:{x:395,y:246,w:230,h:42},
-  roznica:"Podłoga: gęściej niż wzorzec, warstwa ok. 12 cm na długości ok. 2,3 m.",przedmiot:"podłoga naczepy, środek (między 2. a 4. paletą)"},
- {id:2,nazwa:"Ściana przy kabinie",rodz:"konstrukcja",pew:.78,box:{x:180,y:96,w:48,h:138},
-  roznica:"Ściana przednia: gęściej niż wzorzec, ok. 18 cm zamiast 6 cm.",przedmiot:"przednia ściana skrzyni ładunkowej (przód)"},
- {id:3,nazwa:"W ładunku — paleta 5",rodz:"ładunek_dodatek",pew:.66,box:{x:683,y:176,w:74,h:70},
-  roznica:"Ładownia: gęstszy prostokątny obiekt w środku palety, ok. 40×40 cm.",przedmiot:"paleta nr 5 (tył, licząc od kabiny)"},
- {id:4,nazwa:"Ładunek — palety 1–2",rodz:"ładunek_inny",pew:.57,box:{x:245,y:146,w:225,h:114},
-  roznica:"Ładownia: inny ładunek niż we wzorcu (rzadziej, ok. 2 palety).",przedmiot:"palety nr 1–2 (przód)"}
+ {id:1,nazwa:"Podłoga — środek",rodz:"konstrukcja",pew:.91,box:{x:395,y:246,w:230,h:42},
+  roznica:"Gęściej niż wzorzec, ok. 1/4 długości naczepy.",przedmiot:"podłoga naczepy, środek"},
+ {id:2,nazwa:"Ściana przednia — przód",rodz:"konstrukcja",pew:.78,box:{x:180,y:96,w:48,h:138},
+  roznica:"Gęściej niż wzorzec, ściana grubsza na większości wysokości.",przedmiot:"przednia ściana skrzyni ładunkowej (przy kabinie)"},
+ {id:3,nazwa:"Ładownia — tył",rodz:"ładunek_dodatek",pew:.66,box:{x:683,y:176,w:74,h:70},
+  roznica:"Gęstszy mały obiekt wewnątrz ładunku, we wzorcu brak.",przedmiot:"ładunek w tylnej części ładowni"},
+ {id:4,nazwa:"Ładownia — przód",rodz:"ładunek_inny",pew:.57,box:{x:245,y:146,w:225,h:114},
+  roznica:"Rzadziej niż wzorzec — inny ładunek, ok. 1/4 długości naczepy.",przedmiot:"ładunek w przedniej części ładowni"}
 ];
-let S={ekran:"start",auto:"A",towar:"nie wiem",para:false,wz:null,pod:0,niepewny:false,akt:null,stan:{},zapisano:false};
-
-function widoczne(){return MIEJSCA.filter(m=>m.rodz!="ładunek_inny"||S.towar=="nie wiem"||S.towar=="pusta naczepa")
-  .map(m=>m.rodz=="ładunek_inny"&&S.towar=="pusta naczepa"?{...m,pew:.97,nazwa:"Przedmioty w ładowni (zgłoszono: pusta naczepa)",roznica:"Ładownia: towar przy zgłoszonej pustej naczepie — każdy przedmiot to alarm."}:m)
+let S={ekran:"start",auto:"A",towar:"nie wiem",para:false,wz:null,pod:0,niepewny:false,wskazany:null,pokazPom:false,akt:null,stan:{},zapisano:false};
+const pewn=x=>Math.min(.99,Math.max(.5,Math.round(x*100)/100));
+// P24: przy niepewnym wzorcu niższa pewność; po wskazaniu wzorca udawane przeliczenie (inne ramki i pewności wg wskazanego typu)
+function wynik(){let w=MIEJSCA.map(m=>({...m,box:{...m.box}}));
+ if(S.para)return w;
+ if(S.wskazany!=null){const k=S.wskazany;
+  w=w.map(m=>({...m,pew:pewn(k==0?m.pew+.04:m.pew-.04*k),box:{...m.box,x:m.box.x+8*k}}));
+  if(k>=2)w.push({id:5,nazwa:"Rama — tył",rodz:"konstrukcja",pew:.55,box:{x:820,y:266,w:120,h:24},roznica:"Gęściej niż wzorzec — możliwa różnica typu naczepy.",przedmiot:"rama naczepy, tył"});
+  return w}
+ if(S.niepewny)return w.map(m=>({...m,pew:pewn(m.pew*.8)}));
+ return w}
+const pominietaReg=m=>m.rodz=="ładunek_inny"&&S.towar!="nie wiem"&&S.towar!="pusta naczepa";
+function wszystkie(){return wynik().map(m=>m.rodz=="ładunek_inny"&&S.towar=="pusta naczepa"?{...m,pew:.97,nazwa:"Ładownia — przód",roznica:"Przedmioty w ładowni przy zgłoszonej pustej naczepie — każdy przedmiot to alarm."}:{...m,pom:pominietaReg(m)})
   .sort((a,b)=>b.pew-a.pew)}
-function pominiete(){return MIEJSCA.filter(m=>m.rodz=="ładunek_inny").length-widoczne().filter(m=>m.rodz=="ładunek_inny").length}
+function widoczne(){return wszystkie().filter(m=>!m.pom)}           // liczą się do „ile miejsc”
+function naLiscie(){return wszystkie().filter(m=>!m.pom||S.pokazPom)} // P23: „Pokaż pominięte”
+function pominiete(){return wszystkie().filter(m=>m.pom).length}
+function powody(){return POWODY.map(p=>p=="ładunek zgodny z deklaracją"&&S.towar=="nie wiem"?"ładunek zgodny z dokumentami (sprawdzony ręcznie)":p)} // P21
+function odm(n){const d=n%10,s=n%100;return n==1?"miejsce":(d>=2&&d<=4&&(s<12||s>14))?"miejsca":"miejsc"} // P25
 
 function rysuj(anomalie){
  let s=`<defs><filter id="szum"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4"/><feColorMatrix values="0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 .18 0"/><feComposite in2="SourceGraphic" operator="in"/></filter></defs>
@@ -83,15 +99,15 @@ function rysuj(anomalie){
   <rect x="702" y="192" width="38" height="40" fill="#555" opacity=".85"/>`}
  return s+`<rect width="1000" height="360" filter="url(#szum)"/>`}
 function svg(badany,ramki,vb){let r="";
- if(ramki)widoczne().forEach((m,i)=>{const b=m.box,st=S.stan[m.id];
-  r+=`<rect class="ramka ${badany?'':'odp'} ${m.id==S.akt?'akt':''} ${st?st.typ:''}" data-id="${m.id}" x="${b.x}" y="${b.y}" width="${b.w}" height="${b.h}" rx="4"/>`+
+ if(ramki)naLiscie().forEach((m,i)=>{const b=m.box,st=S.stan[m.id];
+  r+=`<rect class="ramka ${badany?'':'odp'} ${m.pom?'pom':''} ${m.id==S.akt?'akt':''} ${st?st.typ:''}" data-id="${m.id}" x="${b.x}" y="${b.y}" width="${b.w}" height="${b.h}" rx="4"/>`+
    (badany?`<text class="etyk" x="${b.x+4}" y="${b.y-6}">${i+1}</text>`:"")});
  return `<svg class="rtg" viewBox="${vb||'0 0 1000 360'}" role="img" aria-label="Sztuczny obraz RTG naczepy z boku">${rysuj(badany)}${r}</svg>`}
 const vbM=(m,p=40)=>`${m.box.x-p} ${m.box.y-p} ${m.box.w+2*p} ${m.box.h+2*p}`;
 const zostalo=()=>widoczne().filter(m=>!S.stan[m.id]).length;
-function linia(){const n=widoczne().length,p=zostalo();return `${n} miejsca do sprawdzenia · zostało ${p}`}
+function linia(){const n=widoczne().length,p=zostalo();return `${n} ${odm(n)} do sprawdzenia · zostało ${p}`}
 
-function ekranStart(){return `<header><h1>Różnica RTG — nowe auto</h1><span class="meta">makieta R1, dane udawane</span></header>
+function ekranStart(){return `<header><h1>Różnica RTG — nowe auto</h1><span class="meta">makieta R2, dane udawane</span></header>
  <div class="karta"><b>1. Wczytaj obraz i wybierz rodzaj zgłoszonego towaru</b>
  <label for="auto">Obraz RTG (.bmp)</label><select id="auto">${Object.entries(AUTA).map(([k,a])=>`<option value="${k}" ${k==S.auto?'selected':''}>${a.opis}</option>`).join("")}</select>
  <div class="typ">W makiecie wybór z dwóch przykładowych obrazów zamiast wgrywania pliku.</div>
@@ -102,24 +118,24 @@ function ekranStart(){return `<header><h1>Różnica RTG — nowe auto</h1><span 
  <p><button class="glowny" data-a="analizuj">Analizuj</button></p></div>`}
 
 function kartaM(m,i){const st=S.stan[m.id];
- return `<div class="miejsce ${m.id==S.akt?'akt':''}" data-id="${m.id}"><h3>${i+1}. ${m.nazwa}</h3>
+ return `<div class="miejsce ${m.id==S.akt?'akt':''}" data-id="${m.id}"><h3>${i+1}. ${m.nazwa}${m.pom?'<span class="pomb">pominięte — towar zgodny ze zgłoszeniem</span>':''}</h3>
  <div class="typ">${m.rodz=="konstrukcja"?"konstrukcja pojazdu":"ładunek"}</div><p>${m.roznica}</p><p>Pewność: <span class="pew">${Math.round(m.pew*100)}%</span></p>
  ${st?`<div class="stan ${st.typ}">${st.typ=='zlec'?'✔ Do kontroli: '+m.przedmiot:'✖ Odrzucono: '+st.powod}</div> <button data-cofnij="${m.id}">Cofnij</button>`:
  `<div class="btns"><button class="kontrola" data-k="${m.id}">Do kontroli</button>
- <select data-p="${m.id}" aria-label="Powód odrzucenia"><option value="">Powód odrzucenia…</option>${POWODY.map(p=>`<option>${p}</option>`).join("")}</select>
+ <select data-p="${m.id}" aria-label="Powód odrzucenia"><option value="">Powód odrzucenia…</option>${powody().map(p=>`<option>${p}</option>`).join("")}</select>
  <button class="odrzuc" data-o="${m.id}">Odrzuć</button><button data-z="${m.id}">Powiększ</button></div>`}</div>`}
 
-function zapisLinie(){return widoczne().filter(m=>S.stan[m.id]).map(m=>`${m.nazwa} — ${S.stan[m.id].typ=='zlec'?'do kontroli: '+m.przedmiot:'odrzucone ('+S.stan[m.id].powod+')'}`)}
-function ekranGlowny(){const w=widoczne(),a=AUTA[S.auto],pom=pominiete();
- const podpis=S.para?"wzorzec: czysty obraz tej samej naczepy (tryb z parą)":`wzorzec dobrany: typ ${S.wz} (podobieństwo ${S.pod.toFixed(2).replace('.',',')})`;
+function zapisLinie(){return naLiscie().filter(m=>S.stan[m.id]).map(m=>`${m.nazwa} — ${S.stan[m.id].typ=='zlec'?'do kontroli: '+m.przedmiot:'odrzucone ('+S.stan[m.id].powod+')'}`)}
+function ekranGlowny(){const w=naLiscie(),a=AUTA[S.auto],pom=pominiete();
+ const podpis=S.para?"wzorzec: czysty obraz tej samej naczepy (tryb z parą)":`wzorzec ${S.wskazany!=null?"wskazany":"dobrany"}: typ ${S.wz} (podobieństwo ${S.pod.toFixed(2).replace('.',',')} — udawane)`;
  return `<header><h1>Różnica RTG</h1><span class="licz">${linia()}</span><span class="wz">${podpis}</span><span class="meta">${a.opis} · towar: ${S.towar}</span>
  <button data-a="nowe" style="margin-left:auto;min-height:32px;padding:4px 10px">Nowe auto</button></header><main>
  ${S.niepewny&&!S.para?`<div class="ostrz"><b>⚠ Wzorzec niepewny — wskaż wzorzec.</b> Ramki pokazujemy mimo to.
   <select id="wskaz"><option value="">Typ z katalogu…</option>${KATALOG.map(k=>`<option>${k}</option>`).join("")}</select>
   <button data-a="wskaz">Przelicz z tym wzorcem</button><button data-a="plik">Wgraj plik wzorca</button></div>`:""}
- ${pom?`<div class="info">Towar zgodny ze zgłoszeniem (${S.towar}) w ładunku nie jest zaznaczany: pominięto ${pom} różnicę w ładunku. Dodatki w konstrukcji i ukryte w ładunku są zaznaczane zawsze.</div>`:""}
+ ${pom?`<div class="info">Towar zgodny ze zgłoszeniem (${S.towar}) w ładunku nie jest zaznaczany: pominięto ${pom} różnicę w ładunku. Dodatki w konstrukcji i ukryte w ładunku są zaznaczane zawsze. <button data-a="pom" style="min-height:32px;padding:4px 10px">${S.pokazPom?"Ukryj pominięte":"Pokaż pominięte"}</button></div>`:""}
  <div class="uklad"><div><div class="obok">
-  <div><h2>Wzorzec ${S.para?"(czysty obraz)":"(dobrany)"} — odpowiednik miejsc</h2>${svg(false,true)}</div>
+  <div><h2>Wzorzec ${S.para?"(czysty obraz)":S.wskazany!=null?"(wskazany)":"(dobrany)"} — odpowiednik miejsc</h2>${svg(false,true)}</div>
   <div><h2>Badane auto</h2>${svg(true,true)}</div></div>
   <p class="uwaga">Kliknij miejsce na liście albo ramkę: oba obrazy przybliżają to samo miejsce. Obrazy i liczby sztuczne.</p>
   ${S.zapisano?`<div class="zapis"><b>Zapis kontroli</b> — ${a.opis}; wzorzec: ${S.para?"para":S.wz}; towar: ${S.towar}<ul>${zapisLinie().map(l=>`<li>${l}</li>`).join("")}</ul>
@@ -129,30 +145,31 @@ function ekranGlowny(){const w=widoczne(),a=AUTA[S.auto],pom=pominiete();
   ${zostalo()>0?`<div class="uwaga">Zapis kontroli będzie dostępny po decyzji przy każdym miejscu.</div>`:""}</aside></div></main>`}
 
 function odswiez(){document.getElementById("app").innerHTML=S.ekran=="start"?ekranStart():ekranGlowny()}
-function powieksz(id){const m=widoczne().find(x=>x.id==id);S.akt=id;odswiez();const z=document.getElementById("zoom");
+function powieksz(id){const m=naLiscie().find(x=>x.id==id);S.akt=id;odswiez();const z=document.getElementById("zoom");
  z.innerHTML=`<div class="okno"><b>${m.nazwa}</b> — pewność ${Math.round(m.pew*100)}%<div class="obrazy">
  <div><b>Wzorzec</b>${svg(false,false,vbM(m))}</div><div><b>Badane auto</b>${svg(true,false,vbM(m))}</div></div><p>${m.roznica}</p>
- <div class="btns">${S.stan[m.id]?"":`<button class="kontrola" data-k="${m.id}">Do kontroli</button>`}<button data-zamknij>Zamknij</button></div></div>`;z.classList.add("on")}
+ <div class="btns">${S.stan[m.id]?"":`<button class="kontrola" data-k="${m.id}">Do kontroli</button><select data-p="${m.id}" aria-label="Powód odrzucenia"><option value="">Powód odrzucenia…</option>${powody().map(p=>`<option>${p}</option>`).join("")}</select><button class="odrzuc" data-o="${m.id}">Odrzuć</button>`}<button data-zamknij>Zamknij</button></div></div>`;z.classList.add("on")}
 function nastepny(){const n=widoczne().find(m=>!S.stan[m.id]);S.akt=n?n.id:null}
 function analizuj(){S.auto=document.getElementById("auto").value;S.towar=document.getElementById("towar").value;S.para=document.getElementById("para").checked;
- const a=AUTA[S.auto];S.wz=a.wzorzec;S.pod=a.pod;S.niepewny=a.niepewny;S.stan={};S.zapisano=false;
- const l=document.createElement("div");l.className="ladow";l.textContent="Analiza… (w aplikacji kilka sekund)";document.body.appendChild(l);
+ const a=AUTA[S.auto];S.wz=a.wzorzec;S.pod=a.pod;S.niepewny=a.niepewny;S.wskazany=null;S.pokazPom=false;S.stan={};S.zapisano=false;
+ const l=document.createElement("div");l.className="ladow";l.textContent="Analiza…";document.body.appendChild(l);
  setTimeout(()=>{l.remove();S.ekran="glowny";S.akt=widoczne()[0].id;odswiez()},900)}
 function pobierz(){const d={auto:AUTA[S.auto].opis,wzorzec:S.para?"para":S.wz,podobienstwo:S.para?null:S.pod,wzorzec_niepewny:S.niepewny&&!S.para,rodzaj_towaru:S.towar,
- miejsca:widoczne().map(m=>({id:m.id,nazwa:m.nazwa,ramka:m.box,pewnosc:m.pew,opis_roznicy:m.roznica,przedmiot_kontroli:m.przedmiot,decyzja:S.stan[m.id].typ=="zlec"?"do kontroli":"odrzucone",powod:S.stan[m.id].powod||null})),dane:"udawane (makieta R1)"};
+ miejsca:naLiscie().filter(m=>S.stan[m.id]).map(m=>({id:m.id,nazwa:m.nazwa,ramka:m.box,pewnosc:m.pew,opis_roznicy:m.roznica,przedmiot_kontroli:m.przedmiot,decyzja:S.stan[m.id].typ=="zlec"?"do kontroli":"odrzucone",powod:S.stan[m.id].powod||null})),dane:"udawane (makieta R2)"};
  const u=URL.createObjectURL(new Blob([JSON.stringify(d,null,2)],{type:"application/json"}));const x=document.createElement("a");x.href=u;x.download="zapis-kontroli.json";x.click();URL.revokeObjectURL(u)}
 
 document.addEventListener("click",e=>{const t=e.target,d=t.dataset,z=document.getElementById("zoom");
  if(t==z||d.zamknij!==undefined){z.classList.remove("on");return}
  if(d.a=="analizuj")return analizuj();
  if(d.a=="nowe"){S.ekran="start";return odswiez()}
- if(d.a=="wskaz"){const v=document.getElementById("wskaz").value;if(!v)return document.getElementById("wskaz").focus();S.wz=v;S.pod=.9;S.niepewny=false;S.stan={};nastepny();return odswiez()}
+ if(d.a=="wskaz"){const v=document.getElementById("wskaz").value;if(!v)return document.getElementById("wskaz").focus();S.wskazany=KATALOG.indexOf(v);S.wz=v;S.pod=[.9,.84,.72,.66][S.wskazany];S.niepewny=false;S.stan={};S.zapisano=false;nastepny();return odswiez()}
+ if(d.a=="pom"){S.pokazPom=!S.pokazPom;return odswiez()}
  if(d.a=="plik"){S.para=true;S.niepewny=false;S.stan={};nastepny();return odswiez()}
  if(d.a=="zapisz"){S.zapisano=true;return odswiez()}
  if(d.a=="pobierz")return pobierz();
  if(d.k){S.stan[d.k]={typ:"zlec"};z.classList.remove("on");nastepny();return odswiez()}
- if(d.o){const s=document.querySelector(`select[data-p="${d.o}"]`);if(!s.value){s.focus();s.style.borderColor="#d11";s.style.boxShadow="0 0 0 2px #d1133";return}
-  S.stan[d.o]={typ:"odrz",powod:s.value};nastepny();return odswiez()}
+ if(d.o){const s=document.querySelector(`#zoom.on select[data-p="${d.o}"]`)||document.querySelector(`select[data-p="${d.o}"]`);if(!s.value){s.focus();s.style.borderColor="#d11";s.style.boxShadow="0 0 0 2px #d1133";return}
+  S.stan[d.o]={typ:"odrz",powod:s.value};z.classList.remove("on");nastepny();return odswiez()}
  if(d.cofnij){delete S.stan[d.cofnij];S.zapisano=false;S.akt=+d.cofnij;return odswiez()}
  if(d.z)return powieksz(+d.z);
  if(t.tagName=="SELECT"||t.tagName=="BUTTON"||t.tagName=="INPUT"||t.tagName=="LABEL")return;
@@ -161,8 +178,8 @@ document.addEventListener("click",e=>{const t=e.target,d=t.dataset,z=document.ge
 // ?demo=koniec — stan końcowy ścieżki pokazu (do zrzutu): decyzje podjęte, zapis widoczny
 const q=new URLSearchParams(location.search);
 if(q.get("demo")){S.ekran="glowny";const a=AUTA.A;S.wz=a.wzorzec;S.pod=a.pod;S.akt=1;
- if(q.get("demo")=="koniec"){S.stan={1:{typ:"zlec"},2:{typ:"zlec"},3:{typ:"zlec"},4:{typ:"odrz",powod:"ładunek zgodny z deklaracją"}};S.zapisano=true;S.akt=null}
+ if(q.get("demo")=="koniec"){S.stan={1:{typ:"zlec"},2:{typ:"zlec"},3:{typ:"zlec"},4:{typ:"odrz",powod:"ładunek zgodny z dokumentami (sprawdzony ręcznie)"}};S.zapisano=true;S.akt=null}
  if(q.get("demo")=="niepewny"){S.auto="B";Object.assign(S,{wz:AUTA.B.wzorzec,pod:AUTA.B.pod,niepewny:true})}
- if(q.get("towar"))S.towar=q.get("towar")}
-odswiez();
+ if(q.get("towar"))S.towar=q.get("towar");if(q.get("pom"))S.pokazPom=true;if(q.get("wskaz")){S.wskazany=+q.get("wskaz");S.wz=KATALOG[S.wskazany];S.pod=[.9,.84,.72,.66][S.wskazany];S.niepewny=false}}
+odswiez();if(q.get("demo")=="zoom")powieksz(1);
 </script></body></html>
