@@ -120,3 +120,10 @@ Liczby progowe ustala Szef po pierwszym przebiegu (E1+E2); do tego czasu kryteri
 - W powiększeniu „do kontroli” i „odrzuć” z powodem (P22); przycisk „Pokaż pominięte” (P23).
 - Niepewny wzorzec: niższa pewność przy ramkach, po wskazaniu wzorca przeliczenie (P24).
 - Czytelność: większe numery ramek z białą obwódką, „3 miejsca / 5 miejsc”, zrzut powiększenia; **czasu analizy na ekranie nie pokazujemy** (P25, P26).
+
+## Ustalenia po przeglądzie makiety R2 (P27–P33, Artur)
+- „Pusta naczepa”: pewność z wyniku, pozycja z flagą „alarm z reguły: pusta naczepa” na górze, obraz auta bez ładunku lub podpis „obraz poglądowy” (P27).
+- Po ręcznym wskazaniu wzorca: obraz wzorca zmienia się z typem, znacznik „wskazany ręcznie” zostaje, „Wgraj plik wzorca” pozwala wybrać plik (P28).
+- Pominięte różnice (towar zgodny ze zgłoszeniem) trafiają do zapisu jako „pominięte (towar zgodny ze zgłoszeniem): N”; po „Pokaż pominięte” można je zlecić do kontroli i liczą się do „zostało” (P29). Odmiana „1 różnicę / 2 różnice / 5 różnic” (P30).
+- W powiększeniu przycisk „Następne miejsce” (P31).
+- **Obraz naczepy z ramkami w zapisie kontroli jest już w makiecie** (P32 = B, dowód dla kontroli fizycznej). Nic do wyrzucenia z ekranu (P33).

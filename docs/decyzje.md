@@ -153,3 +153,10 @@ P30 12:17 Artur: Komunikat o pominiętych różnicach: (A) z poprawną odmianą 
 P31 12:17 Artur: W oknie powiększenia: (A) przycisk „Następne miejsce”, żeby nie zamykać okna przed kolejnym, czy (B) bez niego? (rekomendacja: A) — czeka
 P32 12:17 Artur: Obraz naczepy z ramkami w zapisie kontroli: (A) tylko w gotowej aplikacji, w makiecie sam zapis, czy (B) już w makiecie? (rekomendacja: A) — czeka
 P33 12:17 Artur: Co z ekranu wyrzucić? (rekomendacja: nic — zostawiamy jak jest) — czeka
+P27 12:19 odpowiedź: A (pusta naczepa: pewność z wyniku, flaga „alarm z reguły: pusta naczepa” na górze, obraz auta bez ładunku lub „obraz poglądowy”) — Artur w pokoju
+P28 12:19 odpowiedź: A (obraz wzorca zmienia się z typem, znacznik „wskazany ręcznie”, „Wgraj plik wzorca” z wyborem pliku) — Artur w pokoju
+P29 12:19 odpowiedź: A (pominięte różnice w zapisie „pominięte (towar zgodny ze zgłoszeniem): N”, można je zlecić do kontroli, liczą się do „zostało”) — Artur w pokoju
+P30 12:19 odpowiedź: A (odmiana „1 różnicę / 2 różnice / 5 różnic”) — Artur w pokoju
+P31 12:19 odpowiedź: A (przycisk „Następne miejsce” w powiększeniu) — Artur w pokoju
+P32 12:19 odpowiedź: B — obraz naczepy z ramkami w zapisie kontroli już w makiecie („to jest dowód dla kontroli fizycznej”); rekomendacja A odrzucona — Artur w pokoju
+P33 12:19 odpowiedź: nic do wyrzucenia — Artur w pokoju
