@@ -33,3 +33,4 @@ P4 11:29 Artur: Co boli najbardziej: małe skrytki w konstrukcji pojazdu (rama, 
 11:29 Szef: (1a R1 brak 5) „raport z priorytetem” i „mało czasu operatora” — tylko jeśli potwierdzi Artur (P7); czy zaznaczać też uszkodzenia konstrukcji (p. 2 zadania) — pyta Artura Projektant.
 P4 11:30 odpowiedź: zgoda — oba (skrytki w konstrukcji i towar w ładunku), w demo najpierw skrytka w konstrukcji; najczęściej to podwójna podłoga albo ściana przy kabinie (Artur w pokoju)
 P5 11:30 Artur: Ile obrazów dziennie przechodzi przez stanowisko i ile czasu operator ma na jeden? (rekomendacja: do kilku minut na auto, pokazujemy wynik w sekundach) — czeka
+11:30 Szef: krok 1a zamknięty (Analityk R3: brak braków); przed 1b Projektant nanosi w 01 rozstrzygnięcia Szefa z 11:29 (usunąć „nawet bez karty”, integracja z p. 9 jako ścieżka wdrożenia). Zlecony krok 1b /discover.
