@@ -4,12 +4,11 @@
 
 ## Nazwa projektu (≤ 50 znaków)
 
-Propozycje:
-1. Rentgenowski Różnicownik (24 zn.)
-2. Różnica RTG (11 zn.)
-3. SkrytkaScan (11 zn.)
+**Różnica RTG** [11/50] — wybór Szefa (docs/decyzje.md, 11:49): krótka, mówi wprost, że chodzi o różnicę między obrazami RTG. Rozważane: Drugie Oko RTG, Wzorzec RTG, Znajdź Skrytkę, RTG Obok (docs/pm/06-nazwa-haslo.md).
 
-**Wybór: Różnica RTG** — krótka, mówi wprost, że chodzi o różnicę między obrazami RTG. [11/50]
+## Hasło (jedno zdanie, ≤ 120 znaków) [102/120]
+
+Pokazuje na obrazie RTG naczepy to, czego nie ma we wzorcu — zaczynając od najpewniejszego miejsca.
 
 ## Nazwa zespołu
 
@@ -19,11 +18,13 @@ Hackathon (do potwierdzenia przez ludzi)
 
 https://github.com/PawelPisarek/hacknation-proba14
 
-## Opis krótki (≤ 300 znaków) [236/300]
+## Opis krótki (≤ 300 znaków) [245/300]
 
 Pomaga operatorowi RTG: porównuje obraz naczepy z wzorcowym albo z wyuczonym obrazem czystej naczepy i zaznacza różnice — możliwe skrytki. Uczy się tylko z czystych obrazów, jest budowane do pracy bez chmury, na małej karcie graficznej.
 
-## Opis średni (≤ 1000 znaków) [725/1000]
+## Opis średni (≤ 1000 znaków) [857/1000]
+
+Pokazuje na obrazie RTG naczepy to, czego nie ma we wzorcu — zaczynając od najpewniejszego miejsca.
 
 Przemytnicy ukrywają towar w drobnych przeróbkach konstrukcji, a operator RTG ma kilka minut na jedno auto. Nasze narzędzie porównuje obraz kontrolowanej naczepy na dwa sposoby: z obrazem wzorcowym (para wzorzec–badany) albo z wyuczonym obrazem czystej naczepy tego typu. Różnice zaznacza na obrazie, a po analizie powstaje raport.
 
@@ -31,7 +32,7 @@ Wyróżnik: uczy się wyłącznie z obrazów czystych, bez przykładów przemytu
 
 Sprawdzamy na własnym, sztucznym zbiorze obrazów naczep, bo prawdziwych obrazów nie mamy. Wyniki: [TODO: zbędne alarmy / przeoczenia / czas na obraz].
 
-## Opis pełny (≤ 2000 znaków) [1439/2000]
+## Opis pełny (≤ 2000 znaków) [1495/2000]
 
 Problem. Operatorzy RTG Służby Celno-Skarbowej oceniają obrazy kontenerów, ciężarówek i wagonów i decydują o kontroli fizycznej. Przemytnicy ukrywają towar w elementach konstrukcji oraz w deklarowanym ładunku; istniejące narzędzie do wykrywania papierosów słabo radzi sobie z małymi ilościami w skrytkach. Operator przy stanowisku ma kilka minut na jedno auto.
 
@@ -52,3 +53,4 @@ Kod: https://github.com/PawelPisarek/hacknation-proba14 (makieta i wersja na kse
 - **pm-skills** (github.com/phuryn/pm-skills, MIT) — skille produktowe (m.in. nazwa produktu, value proposition).
 
 <!-- skill: product-name -->
+<!-- skill: value-prop-statements -->
