@@ -25,7 +25,7 @@ Poza zakresem: podsumowanie partii poza linią „ile miejsc” (z 7 Artur wzią
 Wynik zapisuje **miejsce i przedmiot kontroli** (zadanie p. 9); integracja z repozytorium obrazów Nuctech/Multicontrol — poza pierwszą wersją, jako ścieżka wdrożenia.
 
 ## 3. Dane
-- Zbiór sztuczny (generator gen-v1, Programista, `docs/decyzje.md` 11:33): 3 typy naczep; para = ta sama konstrukcja i ładunek; badany: szum, przesunięcie ±1%, skala X ±1,5% / Y ±0,3%, jasność ±15%; dodatki 4 typów z maskami PNG.
+- Zbiór sztuczny (generator gen-v1, Programista, `docs/decyzje.md` 11:33): 3 typy naczep; para = ta sama konstrukcja i ładunek (plus mały zbiór kontrolny „inny ładunek zgodny ze zgłoszeniem”, §4 — czeka na decyzję Szefa); badany: szum, przesunięcie ±1%, skala X ±1,5% / Y ±0,3%, jasność ±15%; dodatki 4 typów z maskami PNG.
 - Zbiory: nauka 3×6 pustych; kalibracja 12 czystych par; test 30 czystych + 30 z dodatkami (1200×420); pełny 3+3 pary 12000×4200 (~50 MB).
 - Analiza na zmniejszeniu do szerokości 1200 px; ramki przeliczane na układ pełnej rozdzielczości. Próg z osobnego zbioru kalibracji (same czyste), bez podglądania testu.
 - Dane KAS (jeśli będą z pendrive'a): chronione, nie kopiować poza hackathon (zadanie p. 7).
