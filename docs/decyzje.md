@@ -50,3 +50,5 @@ P8 11:33 odpowiedź: wybrane pomysły 1, 2, 3, 4, 6 (zamiast 7 bierze 4 — oper
 P9 11:33 Artur: Co zmienić w wybranych pomysłach 1, 2, 3, 4, 6? (rekomendacja: nic poza dopisaniem do 2 krótkiego opisu różnicy przy każdym miejscu) — czeka
 P10 11:33 Artur: Czy któryś odrzucony pomysł (5, 7, 8, 9, 10) warto wziąć choć w części? (rekomendacja: z 7 tylko jedna linia „ile miejsc do sprawdzenia” na aucie; reszta nie) — czeka
 11:33 Szef: cofnięte przez Szefa — „Generowanie danych na procesorze OMENa” (11:33 Programista): liczenie na OMENie tylko na karcie, także generator (torch na CUDA przez orkiestrator --klasa gpu-tlo); reszta założeń 11:33 przyjęta.
+P9 11:34 odpowiedź: zgoda, nic więcej do zmiany w wybranych pomysłach (1, 2, 3, 4, 6) (Artur w pokoju)
+P10 11:34 odpowiedź: z 7 tylko jedna linia „ile miejsc do sprawdzenia” na aucie — tak; z 5 bierzemy powiększenie podejrzanego miejsca (bez niego operator nie zobaczy podwójnej podłogi); 8, 9, 10 nie (Artur w pokoju)
