@@ -1,0 +1,7 @@
+<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Wariant 1 — jeden obraz</title><link rel="stylesheet" href="../wspolne.css"><style>.uklad{display:flex;gap:12px}.uklad .obraz{flex:3}.uklad aside{flex:1;min-width:250px}@media(max-width:800px){.uklad{flex-direction:column}}</style></head><body><div id="app"></div><script src="../wspolne.js"></script><script>
+window.KLIK_POWIEKSZA=true;
+function odswiez(){document.getElementById("app").innerHTML=naglowek("Wariant 1 — jeden obraz na cały ekran")+
+ `<main><div class="uklad"><div class="obraz">${svg(true,true)}<p class="uwaga">Kliknij ramkę, by powiększyć miejsce. Najpewniejsza ramka podświetlona. Obraz i dane sztuczne.</p></div>
+ <aside>${DANE.miejsca.map(kartaMiejsca).join("")}${zapis()}</aside></div></main>`}
+odswiez();
+</script></body></html>

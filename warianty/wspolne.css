@@ -1,0 +1,23 @@
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;background:#f4f5f7;color:#1c1f24;font-size:15px}
+header{background:#1f2a37;color:#fff;padding:10px 16px;display:flex;flex-wrap:wrap;gap:8px 18px;align-items:baseline}
+header h1{font-size:17px;margin:0}header .meta{font-size:13px;opacity:.85}
+.licz{font-weight:700;background:#ffd24a;color:#1c1f24;padding:2px 8px;border-radius:4px}
+.wzorzec{font-size:13px;color:#cfe3ff}
+main{padding:12px;max-width:1300px;margin:auto}
+.rtg{width:100%;height:auto;display:block;background:#e9e9e9;border:1px solid #bbb;border-radius:4px}
+.ramka{fill:none;stroke:#d11;stroke-width:3;cursor:pointer}.ramka.akt{stroke:#ff8c00;stroke-width:5}
+.ramka.zlec{stroke:#0a7d32;stroke-dasharray:8 4}.ramka.odrz{stroke:#888;stroke-dasharray:3 5}
+.etyk{font:bold 18px system-ui;fill:#d11;pointer-events:none}
+.miejsce{background:#fff;border:1px solid #d5d8dd;border-radius:6px;padding:10px;margin-bottom:10px;cursor:pointer}
+.miejsce.akt{border-color:#ff8c00;box-shadow:0 0 0 2px #ff8c0055}
+.miejsce h3{margin:0 0 4px;font-size:15px}.miejsce p{margin:4px 0;font-size:14px}
+.pew{font-weight:700}.btns{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+button,select{font:inherit;padding:8px 10px;border-radius:5px;border:1px solid #888;background:#fff;cursor:pointer;min-height:40px}
+button.kontrola{background:#0a7d32;color:#fff;border-color:#0a7d32}button.odrzuc{background:#fff;color:#a11;border-color:#a11}
+.stan{font-size:13px;font-weight:600}.stan.zlec{color:#0a7d32}.stan.odrz{color:#666}
+#zoom{position:fixed;inset:0;background:#000c;display:none;align-items:center;justify-content:center;z-index:9;padding:12px}
+#zoom.on{display:flex}#zoom .okno{background:#fff;border-radius:6px;padding:10px;max-width:900px;width:100%}
+#zoom .obrazy{display:flex;gap:8px;flex-wrap:wrap}#zoom .obrazy>div{flex:1;min-width:240px}#zoom .obrazy b{font-size:13px}
+#zoom svg{width:100%;height:auto;background:#e9e9e9;border:1px solid #999}
+.zapis{font-size:13px;background:#fff;border:1px dashed #999;border-radius:6px;padding:8px;margin-top:10px}
+.zapis li{margin:2px 0}.uwaga{font-size:12px;color:#666;margin-top:8px}

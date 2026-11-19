@@ -1,0 +1,7 @@
+<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Wariant 2 — najpierw lista</title><link rel="stylesheet" href="../wspolne.css"><style>.uklad{display:flex;gap:12px}.uklad .lista{flex:1.2}.uklad aside{flex:1;position:sticky;top:8px;align-self:flex-start}.uklad aside h2{font-size:14px;margin:6px 0}@media(max-width:800px){.uklad{flex-direction:column-reverse}.uklad aside{position:static}}</style></head><body><div id="app"></div><script src="../wspolne.js"></script><script>
+function odswiez(){const m=DANE.miejsca.find(x=>x.id==AKT);document.getElementById("app").innerHTML=naglowek("Wariant 2 — najpierw lista (kolejka)")+
+ `<main><div class="uklad"><div class="lista"><h2 style="font-size:16px;margin:4px 0 8px">${liczLinia()} — od najpewniejszego</h2>${DANE.miejsca.map(kartaMiejsca).join("")}${zapis()}</div>
+ <aside><h2>Powiększenie: ${m.id}. ${m.nazwa}</h2><div data-z="${m.id}" style="cursor:zoom-in">${svg(true,false,vbMiejsca(m))}</div>
+ <h2>Podgląd naczepy</h2>${svg(true,true)}<p class="uwaga">Wybierz pozycję z listy; po decyzji przechodzi do następnej. Obraz i dane sztuczne.</p></aside></div></main>`}
+odswiez();
+</script></body></html>
