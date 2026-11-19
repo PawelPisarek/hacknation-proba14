@@ -130,3 +130,12 @@ P26 12:08 Artur: Co z ekranu wyrzucić? (rekomendacja: nic — zostawiamy jak je
   A k=5: FP 2/30 (6 obszarów), FN 0/60, FN konstrukcja 0/33, 1,3 miejsca/auto | A0 k=40: FP 4/30, FN 39/60 | B k=6: FP 0/30, FN 23/60 (konstr. 15/33) | C k=7: FP 15/30 (wszystkie na załadowanych; puste 0/15), FN 3/60 (konstr. 3/33), dobór wzorca 60/60, pewność min 0,47.
   Pełne 50,4 MB (3+3): A FP 1/3, FN 0/8, 0,49 s/obraz; C FP 3/3, FN 0/8, 0,89 s/obraz; szczyt pamięci karty 991 MiB.
 12:09 Programista: werdykty S0: H1 (A: FP 0 przy małym FN) — obalone częściowo: FN 0/60, ale FP 2/30 przy progu z 12 par kalib (FP 0 dopiero od k=8 na teście, FN nadal 0/60) → kalibracja za mała / próg do podniesienia; H2 (B gubi małe w konstrukcji częściej niż A) — utrzymane (15/33 vs 0/33); H3 (bez filtru maksimum więcej FP) — utrzymane (przy k=8: A0 FP 30/30, A 0/30); H4 (C działa na pustych, alarmuje na ładunku zgłoszonym) — utrzymane (puste: FP 0/15, FN 0/30; załadowane: FP 15/15, 13,5 miejsca/auto); H5 (czas < 60 s, pamięć < 4 GB) — utrzymane (0,89 s, 991 MiB). Wada raportu: domyślna czcionka bez polskich znaków; dodatek przecięty żebrem daje 2 ramki.
+P18 12:09 odpowiedź: A (nazwa wg strefy i położenia) — Artur w pokoju
+P19 12:09 odpowiedź: A (opis różnicy bez miar) — Artur w pokoju
+P20 12:09 odpowiedź: A (4 pozycje w pokazie) — Artur w pokoju
+P21 12:09 odpowiedź: A (przy „nie wiem” powód „ładunek zgodny z dokumentami (sprawdzony ręcznie)”) — Artur w pokoju
+P22 12:09 odpowiedź: A (w powiększeniu „do kontroli” i „odrzuć” z powodem) — Artur w pokoju
+P23 12:09 odpowiedź: A (przycisk „Pokaż pominięte”) — Artur w pokoju
+P24 12:09 odpowiedź: A (niższa pewność przy niepewnym wzorcu, przeliczenie po wskazaniu wzorca) — Artur w pokoju
+P25 12:09 odpowiedź: A, ale BEZ czasu analizy w nagłówku („operatora to nie obchodzi, ma tylko widzieć, że wynik jest”); reszta: większe numery ramek z obwódką, „3 miejsca / 5 miejsc”, zrzut powiększenia — Artur w pokoju
+P26 12:09 odpowiedź: wyrzucić czas analizy z ekranu; reszta zostaje — Artur w pokoju
