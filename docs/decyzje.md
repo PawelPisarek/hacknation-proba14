@@ -70,3 +70,4 @@ P16 11:45 Artur: Gdy system nie jest pewny doboru wzorca, ma (A) pokazać ramki 
 11:45 Projektant: braki recenzji przejścia 2 (R1): A12–A14 (zmniejszenie, partia, próba z operatorem), P15 spójne, wyrównanie PRD ze specem; „podsumowanie partii” (Q8) zastąpione linią „ile miejsc” — z P10 Artura (wybrał z 7 tylko tę linię).
 P17 11:46 Artur: Jakie rodzaje zgłoszonego towaru operator ma mieć na liście przed analizą? (rekomendacja: krótka lista — sprzęt i AGD, odzież i tekstylia, żywność i napoje, materiały budowlane, inne — oraz „nie wiem”, wtedy zaznaczamy wszystko) — czeka
 11:46 Projektant: R2 recenzji przejścia, brak 2 (P15 a Q5 i generator) — pytanie techniczne do Szefa: jak generator ma tworzyć przypadek „inny ładunek zgodny ze zgłoszeniem”; spec zakłada: osobny mały zbiór kontrolny w trybie bez pary.
+P16 11:46 odpowiedź: A — gdy system nie jest pewny doboru wzorca, pokazuje ramki z ostrzeżeniem „wzorzec niepewny — wskaż wzorzec” (Artur w pokoju)
