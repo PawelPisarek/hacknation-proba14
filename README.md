@@ -10,7 +10,7 @@ Zadanie: [docs/zadanie.md](docs/zadanie.md). Wersja robocza, tekst do zgłoszeni
 
 ## Demo
 
-- Makieta: TODO — link wkrótce (do uzupełnienia przed 20:00)
+- Makieta (ekran główny, wariant 3): https://pawelpisarek.github.io/hacknation-proba14/warianty/3/
 - Wersja na ksefbot.pl: TODO — link wkrótce
 
 ## Jak uruchomić lokalnie

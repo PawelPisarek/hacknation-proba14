@@ -6,7 +6,7 @@ Szkielet prezentacji (9 slajdów, jeden nagłówek `##` = jeden slajd; docelowo 
 
 **Pokazuje na obrazie RTG naczepy to, czego nie ma we wzorcu — zaczynając od najpewniejszego miejsca.**
 
-Narzędzie dla operatora RTG Służby Celno-Skarbowej. Zespół: Hackathon.
+Narzędzie dla operatora RTG Służby Celno-Skarbowej. Zespół: Hackathon (nazwa do potwierdzenia przez ludzi).
 
 *Co pokazać:* ekran główny makiety (wariant 3): obraz badany obok wzorcowego, z boku lista miejsc.
 
@@ -41,7 +41,7 @@ Narzędzie dla operatora RTG Służby Celno-Skarbowej. Zespół: Hackathon.
 ## 5. Rodzaj towaru
 
 - Przed analizą operator wybiera rodzaj zgłoszonego towaru: sprzęt i AGD, odzież i tekstylia, żywność i napoje, materiały budowlane, inne, „pusta naczepa” albo „nie wiem”.
-- Towar zgodny ze zgłoszeniem nie dostaje ramki.
+- Towar zgodny ze zgłoszeniem nie dostaje ramki; dodatek ukryty w ładunku ma nadal dawać ramkę (rozpoznanie „zgodny” dopiero mierzymy).
 - Dodatek poza ładownią (podłoga, ściana przy kabinie, rama, dach) jest zawsze alarmem.
 - „Pusta naczepa”: alarmem jest każdy przedmiot w ładowni. „Nie wiem”: zaznaczamy każdą różnicę.
 
@@ -62,7 +62,7 @@ Narzędzie dla operatora RTG Służby Celno-Skarbowej. Zespół: Hackathon.
 - Zdjęć KAS nie mamy: własny sztuczny zbiór naczep (czyste i z dodatkami, 4 typy dodatków, maski).
 - Cały model liczy na małej karcie graficznej (GTX 1050, 4 GB), nigdy na procesorze.
 - Model uczony tylko na obrazach czystych, bez przykładów przemytu (cel, jeszcze niezmierzony).
-- Detektor działa lokalnie bez sieci (wiersz poleceń i usługa na tej samej maszynie); pokaz pod linkiem idzie przez sieć.
+- Cel: praca bez internetu i chmury, jeszcze niezmierzony; pokaz pod linkiem idzie przez sieć (przeglądarka → ksefbot.pl → usługa na OMENie).
 
 *Co pokazać:* zrzut z karty OMENa (przebieg na GPU) albo schemat: przeglądarka → ksefbot.pl → usługa na OMENie → JSON + PNG.
 
@@ -71,16 +71,16 @@ Narzędzie dla operatora RTG Służby Celno-Skarbowej. Zespół: Hackathon.
 - **OpenMausBot** (Apache-2.0): zespół 5 botów: Szef, Projektant, Analityk, Programista, Prezenter.
 - **Modele Claude** (Anthropic): kod, specyfikacja, teksty.
 - **pm-skills** (MIT): kroki produktowe, nazwa, value proposition, PRD.
-- Generator danych, biblioteki `numpy`, `scipy`, `pillow`, `torch`, `torchvision`.
-- GitHub Pages (makieta), Coolify na ksefbot.pl (wersja pokazowa).
+- Skill `dummy-dataset` (plan sztucznego zbioru) i generator `anomalie/generator.py`; biblioteki `numpy`, `scipy`, `pillow`, `torch`, `torchvision`.
+- GitHub Pages (makieta), Coolify na ksefbot.pl (wersja pokazowa), orkiestrator i karta graficzna OMENa.
 
 *Co pokazać:* zrzut listy botów w OpenMausBot albo sekcja „Użyte narzędzia” z README.
 
 ## 9. Co dalej
 
 - Pomiar na zbiorze testowym i wpisanie wyników (zbędne alarmy, przeoczenia, czas).
-- Próba z operatorem na makiecie: czy z ramek da się podjąć decyzję w kilka minut.
-- Dane KAS, jeśli się pojawią: najpierw pytanie do Pawła, potem wgranie.
+- Próba ręczna na makiecie z Arturem: czy z ramek, opisu i powiększenia da się podjąć decyzję w kilka minut.
+- Dane KAS: ich nie mamy; jeśli się pojawią, tylko w ramach zasad z zadania (chronione, bez kopiowania poza hackathon), po decyzji Pawła.
 - Integracja z repozytorium obrazów skanera jako ścieżka wdrożenia.
 
 *Co pokazać:* link do repo https://github.com/PawelPisarek/hacknation-proba14 i do makiety.
