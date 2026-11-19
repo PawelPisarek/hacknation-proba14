@@ -1,4 +1,4 @@
-# Stan — 12:30 (sob)
+# Stan — 12:32 (sob)
 Kamień: 20:00 makieta (GitHub Pages) + docs/hacktribe.md; spec zamknięty 11:48.
 
 | zadanie | kto | status |
@@ -24,5 +24,5 @@ Kamień: 20:00 makieta (GitHub Pages) + docs/hacktribe.md; spec zamknięty 11:48
 | README szkielet + LICENSE MIT | Prezenter | zamknięte (5b5e8b1) |
 
 Ustalenia Artura: operator przy stanowisku, kilka minut/auto (P1); gorsze przeoczenie, ale kilka zaznaczeń na auto (P2); zleca kontrolę miejsc albo odrzuca z powodem z listy (P3); konstrukcja + ładunek, demo od skrytki w konstrukcji, podwójna podłoga / ściana przy kabinie (P4); wynik w sekundach, kilkadziesiąt aut/stanowisko — założenie (P5); bez uszkodzeń naczepy (P6); miejsca od najpewniejszego + krótko czym różni się od wzorca (P7); pomysły 1, 2, 3, 4, 6 — 4 = działa bez pary, sam dobiera wzorzec; 8 odrzucony (P8, P9); z 7 linia „ile miejsc do sprawdzenia”, z 5 powiększenie podejrzanego miejsca (P10); ryzyka: dobór wzorca → skrytka w konstrukcji → ocena operatora, 1 i 2 jednym przebiegiem (P11); ekran: wariant 3 (badany obok wzorca) + lista miejsc z boku od najpewniejszego, klik pokazuje miejsce na obu obrazach (P12); przyciski przy pozycji listy (P13); makieta + powiększenie, linia „ile miejsc”, powód odrzucenia (P14); towar zgodny ze zgłoszeniem nie zaznaczany tylko, gdy operator wybierze rodzaj towaru z listy (P15); niepewny wzorzec = ramki + ostrzeżenie „wskaż wzorzec” (P16); rodzaje towaru: sprzęt/AGD, odzież, żywność, budowlane, inne, „nie wiem”, „pusta naczepa” (P17); P18–P26 makieta R2; pusta naczepa z wyniku + flaga, wzorzec wskazany z obrazem i plikiem, pominięte w zapisie i do zlecenia, odmiana, „Następne miejsce”, PNG z ramkami w zapisie już w makiecie, nic nie wyrzucamy (P27–P33).
-Otwarte pytania: P38 Paweł nazwa zespołu (12:30)
+Otwarte pytania: brak (P38 zamknięte — zostaje „Hackathon”)
 Lista Artura na noc: docs/zadania/01 — P1–P37 w MVP (P34–P37 odp. 12:28: A, A, A, nic)
