@@ -37,6 +37,7 @@ Wynik zapisuje **miejsce i przedmiot kontroli** (zadanie p. 9); integracja z rep
 | **Bez pary (dobór wzorca)** | domyślny — operator zwykle pary nie ma (P8) | system wybiera z katalogu czystych najbliższy typ naczepy, potem jak wyżej; podpis „dobrany: …” |
 Jeśli dobór wzorca zawodzi (podobieństwo poniżej progu z kalibracji) — ekran pokazuje ramki z ostrzeżeniem „wzorzec niepewny — wskaż wzorzec” i prosi o wskazanie wzorca (tryb z parą; tryb pary pierwszy w razie porażki E1, `docs/pm/02`). Założenie = rekomendacja P16 (A), czeka na Artura; ramek nie ukrywamy (P2, P8).
 Inny ładunek zgodny ze zgłoszeniem (P15, Artur): **nie zaznaczamy go, ale tylko gdy narzędzie zna zgłoszenie** — operator wybiera rodzaj towaru z listy (pole na ekranie przed analizą). Bez wybranego rodzaju towaru zaznaczamy wszystko, co różni się od wzorca (P2: zbędny alarm lepszy niż przeoczenie).
+Lista rodzajów towaru na ekranie (P17, Artur): sprzęt i AGD; odzież i tekstylia; żywność i napoje; materiały budowlane; inne; „nie wiem” (zaznaczamy wszystko); **„pusta naczepa”** (najczęstszy przypadek — każdy przedmiot w ładowni jest alarmem).
 Reguła: przy wybranym rodzaju towaru różnica w ładunku, którą da się wyjaśnić tym rodzajem (inny ładunek niż we wzorcu), nie dostaje ramki; przy „nie wiem” zaznaczamy wszystko, co różni się od wzorca (P2). Rozpoznanie „zgodny ze zgłoszeniem” — zadanie dla Programisty, do zmierzenia w A15/A16; generator: zbiór kontrolny 6 par (decyzja Szefa).
 
 ## 5. Raport
