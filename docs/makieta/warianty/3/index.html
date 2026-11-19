@@ -1,0 +1,9 @@
+<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Wariant 3 — porównanie</title><link rel="stylesheet" href="../wspolne.css"><style>.obok{display:flex;gap:10px}.obok>div{flex:1}.obok h2{font-size:14px;margin:4px 0}.miejsca{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;margin-top:12px}@media(max-width:700px){.obok{flex-direction:column}}</style></head><body><div id="app"></div><script src="../wspolne.js"></script><script>
+window.KLIK_POWIEKSZA=true;window.ZOOM_WZORZEC=true;
+function odswiez(){document.getElementById("app").innerHTML=naglowek("Wariant 3 — porównanie obok siebie")+
+ `<main><div class="obok"><div><h2>Wzorzec (dobrany automatycznie) — odpowiednik miejsc zaznaczony</h2>${svg(false,true)}</div>
+ <div><h2>Badane auto</h2>${svg(true,true)}</div></div>
+ <p class="uwaga">Kliknij ramkę: oba obrazy przybliżają to samo miejsce. Obraz i dane sztuczne.</p>
+ <div class="miejsca">${DANE.miejsca.map(kartaMiejsca).join("")}</div>${zapis()}</main>`}
+odswiez();
+</script></body></html>
