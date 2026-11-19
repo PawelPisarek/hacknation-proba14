@@ -54,7 +54,7 @@ Narzędzia przygotowane wcześniej i użyte w projekcie (każde w jednym zdaniu:
   - Prezenter — pisał README, zgłoszenie i slajdy.
 - **Modele Claude** (Anthropic) — napędzają boty: pisanie kodu, specyfikacji i tekstów.
 - **pm-skills** ([github.com/phuryn/pm-skills](https://github.com/phuryn/pm-skills), MIT) — skille produktowe, które prowadziły kolejne kroki pracy (m.in. nazwa produktu, value proposition, PRD, analiza konkurencji, /discover).
-- **dummy-dataset** (skill z pm-skills) — pomógł zaplanować sztuczne dane; sam zbiór obrazów generuje nasz kod (`anomalie/generator.py`).
+- **dummy-dataset** — skill, z którego Programista ułożył plan sztucznego zbioru; obrazy tworzy nasz generator `anomalie/generator.py` na karcie graficznej.
 - **Biblioteki z `requirements.txt` i kodu:** `numpy` i `scipy` — obliczenia i przetwarzanie obrazów, `pillow` — wczytywanie i zapis obrazów .bmp/.png, `torch` i `torchvision` (z indeksu CUDA) — liczenie na karcie graficznej i cechy ResNet18.
 - **GitHub Pages** — publikacja makiety ekranu (warianty i wersja końcowa) pod publicznym adresem.
 - **Coolify na ksefbot.pl** — hosting aplikacji (wersja pokazowa dostępna w przeglądarce).
