@@ -9,7 +9,7 @@ import { fileURLToPath } from "node:url";
 
 const KAT = path.dirname(fileURLToPath(import.meta.url));
 const PORT = +(process.env.PORT || 3000);
-const OMEN = new URL(process.env.OMEN_URL || "http://192.168.1.112:8770");
+const OMEN = new URL(process.env.OMEN_URL || "http://omen:8770");
 const ZAP = path.join(KAT, "zapisane");
 const TYPY = { ".html": "text/html; charset=utf-8", ".js": "text/javascript", ".png": "image/png", ".json": "application/json; charset=utf-8" };
 
@@ -78,7 +78,11 @@ const serwer = http.createServer(async (req, res) => {
       if (fs.existsSync(lok)) { res.writeHead(200, { "Content-Type": "image/png", "Cache-Control": "max-age=86400" }); return fs.createReadStream(lok).pipe(res); }
       return doOmena(req, res, u.pathname.slice(4));
     }
-    if (u.pathname === "/api/wgraj" && req.method === "POST") return doOmena(req, res, "/wgraj");
+    if (u.pathname === "/api/wgraj" && req.method === "POST") return doOmena(req, res, "/wgraj", undefined, () => {
+      req.resume(); // tryb „wynik zapisany”: plik wzorca zastąpiony zapisanym przebiegiem z wgranym wzorcem
+      if (!zapisane) return json(res, 502, { blad: "usługa na karcie (OMEN) nie odpowiada" });
+      json(res, 200, { id: "plik:zapisany", nazwa: decodeURIComponent(req.headers["x-nazwa"] || "plik.bmp"), zapisany: true });
+    });
     if (u.pathname === "/api/analiza" && req.method === "POST") {
       const b = await czytaj(req);
       let z = {}; try { z = JSON.parse(b); } catch { return json(res, 400, { blad: "zły JSON" }); }

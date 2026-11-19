@@ -63,10 +63,10 @@ function pominieteNiezlecone(){return wszystkie().filter(m=>m.pom&&!S.stan[m.id]
 const zostalo=()=>widoczne().filter(m=>!S.stan[m.id]).length;
 function linia(){const n=widoczne().length,p=zostalo();return `${n} ${odm(n)} do sprawdzenia · zostało ${p}`}
 const opisAuta=()=>S.R?`obraz ${S.R.plik_badany}`:"";
-function podpisWz(){const r=S.R;if(!r)return"";const pod=String(r.podobienstwo.toFixed(2)).replace(".",",");
+function podpisWz(){const r=S.R;if(!r)return"";const pod=r.pewnosc_doboru!=null?"pewność doboru "+proc(r.pewnosc_doboru):"";
  if(r.tryb=="plik wzorca")return `wzorzec: plik ${r.plik_wzorca} (wskazany ręcznie)`;  // P36
  if(r.tryb=="para")return `wzorzec: czysty obraz tej samej naczepy (para, ${r.para})`;
- return `wzorzec ${r.wskazany_recznie?"wskazany ręcznie":"dobrany"}: ${r.opis_typu} (podobieństwo ${pod})`}
+ return `wzorzec ${r.wskazany_recznie?"wskazany ręcznie":"dobrany"}: ${r.opis_typu}${pod?" ("+pod+")":""}`}
 const imgUrl=t=>"/api/obraz/"+t+".png";
 
 // obraz + ramki w SVG (współrzędne obrazu badanego w pełnej rozdzielczości)

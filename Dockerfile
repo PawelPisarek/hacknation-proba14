@@ -3,7 +3,7 @@
 FROM node:22-alpine
 WORKDIR /app
 COPY aplikacja/ ./aplikacja/
-ENV PORT=3000 OMEN_URL=http://192.168.1.112:8770
+ENV PORT=3000 OMEN_URL=http://omen:8770
 EXPOSE 3000
 USER node
 CMD ["node", "aplikacja/serwer.mjs"]
