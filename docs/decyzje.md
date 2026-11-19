@@ -112,3 +112,4 @@ P17 11:47 odpowiedź: tak — lista rodzajów towaru: sprzęt i AGD, odzież i t
 12:02 Analityk: recenzja docs/slajdy.md, runda 3 — brak braków zmieniających zakres lub kryteria (3 braki R2 wniesione: skalowalność na slajdach 6, 7, 9; zapis kontroli na slajdzie 3; zespół Hackathon)
 12:02 Szef: docs/slajdy.md — R3 Analityka bez braków; szkielet zamknięty (treść liczbowa po pomiarach).
 12:02 Szef: docs/pm/08 — R3: 2 braki redakcyjne (linia 8 „operator stanowiska” → „kierownik stanowiska”, H12 „ani operatora” → usunąć); bez zmiany zakresu — Projektant poprawia, bez rundy 4 i bez pytania ludzi; krok 4 zamknięty po tej poprawce. Krok 5 makieta R1 → Programista (osobny wątek, obok 0P).
+12:03 Projektant: docs/pm/08 R3 (2 braki redakcyjne): „kierownik stanowiska” w linii 8 i w Założeniach, H12 „nie funkcja operatora”; krok 4 zamknięty (R3 Analityka bez braków zmieniających zakres, znacznik job-stories).

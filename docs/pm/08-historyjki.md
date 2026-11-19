@@ -5,7 +5,7 @@ Format: „Gdy [sytuacja], chcę [czynność], żeby [skutek]” (skill job-stor
 
 ## Role
 - **Operator RTG** — przy stanowisku, w trakcie kontroli, kilka minut na auto (P1, P5). Główny użytkownik.
-- Jedna rola: operator (P1). Roli „operator stanowiska” nie ma w specu ani u Artura — usunięta decyzją Szefa (wpis w docs/decyzje.md).
+- Jedna rola: operator (P1). Roli „kierownik stanowiska” nie ma w specu ani u Artura — usunięta decyzją Szefa (wpis w docs/decyzje.md).
 
 ## Ścieżka pokazu (≤ 2 min)
 
@@ -75,7 +75,7 @@ Gdy skończyłem decyzje przy aucie, chcę zapisać kontrolę i pobrać plik „
 - K3. Operator otwiera pobrany zapis i widzi dla każdej pozycji miejsce, decyzję i powód odrzucenia — bez nowych ekranów. Test: A8.
 
 ### H12. Partia obrazów i duże pliki — ścieżka techniczna, bez roli użytkownika (poza makietą)
-Gdy trzeba przeliczyć wiele aut (wiersz poleceń, nie ekran), chcę uruchomić folder `.bmp` i dostać JSON i PNG na obraz plus zbiorczy CSV, żeby sprawdzić, czy narzędzie wytrzymuje duże pliki (wymaganie zadania p. 3, 6; nie funkcja operatora ani operatora, P1).
+Gdy trzeba przeliczyć wiele aut (wiersz poleceń, nie ekran), chcę uruchomić folder `.bmp` i dostać JSON i PNG na obraz plus zbiorczy CSV, żeby sprawdzić, czy narzędzie wytrzymuje duże pliki (wymaganie zadania p. 3, 6; nie funkcja operatora, P1).
 - K1. Pełnowymiarowe obrazy (12000×4200, ~50 MB): czas na obraz, szczytowa pamięć karty, obrazy/min zapisane, bez obietnic. Test: A13.
 - K2. Poza ścieżką pokazu i poza makietą R1 (spec §4d; podsumowanie partii na ekranie — poza zakresem, P10).
 
@@ -83,7 +83,7 @@ Gdy trzeba przeliczyć wiele aut (wiersz poleceń, nie ekran), chcę uruchomić 
 A1, A2, A3 → H3 · A4, A6, A11 → H2 · A5 → H5 · A7 → H4 · A8 → H6, H7, H11 · A9 → H6, H8 · A10 → H10 · A12 → H5 (mierzone: FN po zmniejszeniu do 1200 px, nie widoczność) · A13 → H12 · A14 → H10 · A15, A15b, A16, A17 → H1 · A18 → H9. A4 tylko w H2, A10 tylko w H10.
 
 ## Założenia i otwarte
-- Rola operatora usunięta (decyzja Szefa); H12 nie ma roli użytkownika.
+- Rola „kierownik stanowiska” usunięta (decyzja Szefa); jedyna rola to operator; H12 nie ma roli użytkownika.
 - Wyniki A1–A18 na danych sztucznych nie przenoszą się na dane KAS (spec §8).
 
 <!-- skill: przeplywy-pm -->
