@@ -40,7 +40,7 @@ try {
   const R = await ev("S.R"); const n = R.miejsca.length;
   wyn.push(`pokaz: ${DEMO}, para, „nie wiem” → ${n} ${odm(n)}, ${R.metoda}, karta ${R.karta}, czas karty ${R.czas_analizy_s} s, od kliknięcia ${ms} ms${R.zapisany ? " (wynik zapisany)" : ""}`);
   spr(n >= 3, `pokaz: co najmniej 3 miejsca (jest ${n}): ` + R.miejsca.map((m) => `${m.nazwa} ${Math.round(m.pew * 100)}%`).join("; "));
-  let l = await tekst(".licz"); spr(l == `${n} ${odm(n)} do sprawdzenia · zostało ${n}`, "linia: " + l + " (P25)");
+  await zrzut("mvp-lista"); let l = await tekst(".licz"); spr(l == `${n} ${odm(n)} do sprawdzenia · zostało ${n}`, "linia: " + l + " (P25)");
   const pew = await ev('[...document.querySelectorAll(".lista .pew")].map(e=>parseInt(e.innerText))'); spr(pew.every((v, i) => i == 0 || pew[i - 1] >= v), "lista od najpewniejszego: " + pew.join(", ") + " (P7)");
   const nazwy = await ev('[...document.querySelectorAll(".lista .miejsce h3")].map(e=>e.innerText)'); spr(nazwy.every((t) => / — /.test(t)), "nazwy = strefa — położenie: " + nazwy.join(" | ") + " (P18)");
   spr(!/\b(cm|mm|px)\b/.test(await tekst(".lista")), "opisy bez miar (P19)");
@@ -54,7 +54,7 @@ try {
   spr(await ev('!!document.querySelector("#zoom [data-nast]")&&!!document.querySelector("#zoom [data-o]")&&!!document.querySelector("#zoom [data-k]")'), "w powiększeniu: Do kontroli, Odrzuć z powodem, Następne miejsce (P22, P31)");
   await zrzut("mvp-powiekszenie");
   const b1 = await tekst("#zoom .okno b"); await klik("#zoom [data-nast]", "Następne miejsce"); const b2 = await tekst("#zoom .okno b");
-  spr(b2 && b2 != b1 && b2.startsWith(R.miejsca[1].nazwa), `Następne miejsce: ${b1.split(" — pew")[0]} → ${b2} (P31)`);
+  await zrzut("mvp-nastepne-miejsce"); spr(b2 && b2 != b1 && b2.startsWith(R.miejsca[1].nazwa), `Następne miejsce: ${b1.split(" — pew")[0]} → ${b2} (P31)`);
   await klik("#zoom [data-k]", "Do kontroli w powiększeniu");
   spr(!(await ev('document.getElementById("zoom").classList.contains("on")')), "po decyzji w powiększeniu okno się zamyka");
   l = await tekst(".licz"); spr(l.endsWith(`zostało ${n - 1}`), "po 1 decyzji: " + l + " (A9)");
@@ -69,10 +69,10 @@ try {
   const powody = await ev(`[...document.querySelector('.lista select[data-p="${ost.id}"]').options].map(o=>o.text)`); spr(powody.includes("ładunek zgodny z dokumentami (sprawdzony ręcznie)"), "przy „nie wiem” powód „…z dokumentami (sprawdzony ręcznie)” (P21)");
   await wybierz(`.lista select[data-p="${ost.id}"]`, "znany element konstrukcji"); await klik(`.lista [data-o="${ost.id}"]`, "Odrzuć z powodem");
   l = await tekst(".licz"); spr(l == `${n} ${odm(n)} do sprawdzenia · zostało 0`, "linia: " + l);
-  await klik('[data-a="zapisz"]', "Zapisz kontrolę"); await czekaj('(document.getElementById("zapisPng")||{}).naturalWidth>0', 15000);
+  await zrzut("mvp-zostalo-0"); await klik('[data-a="zapisz"]', "Zapisz kontrolę"); await czekaj('(document.getElementById("zapisPng")||{}).naturalWidth>0', 15000);
   const z = await tekst(".zapis"); spr(z.includes(`${R.miejsca[0].nazwa} — do kontroli: ${R.miejsca[0].przedmiot}`) && z.includes("odrzucone (znany element konstrukcji)"), "zapis kontroli: miejsce i przedmiot, odrzucone z powodem (A8)");
   spr(await ev('document.getElementById("zapisPng").src.startsWith("data:image/png")&&document.getElementById("zapisPng").naturalWidth>=2000'), "obraz z ramkami PNG w zapisie (P32)");
-  await zrzut("mvp-pokaz-koniec");
+  await ev('document.querySelector(".zapis").scrollIntoView()'); await zrzut("mvp-zapis-pokaz"); await ev("scrollTo(0,0)");
   await ev('document.querySelector(".zapis").scrollIntoView()'); await zrzut("mvp-telefon", 390, 1600, true); await ev("scrollTo(0,0)"); await zrzut("mvp-telefon-gora", 390, 1000, true); await desk();
   await klik('[data-a="pobierz"]', "Pobierz zapis"); await sleep(3000);
   const pl = fs.readdirSync(POB); spr(pl.includes("zapis-kontroli.json") && pl.includes("zapis-kontroli.png"), "pobrane: " + pl.join(", ") + " (P32)");
@@ -85,7 +85,7 @@ try {
   spr((await tekst(".lista h2")).startsWith("Najpierw alarmy z reguły"), "nagłówek listy: " + (await tekst(".lista h2")) + " (P34)");
   const pierw = await tekst(".lista .miejsce"); spr(pierw.includes("alarm z reguły: pusta naczepa"), "pusta naczepa: alarm z reguły na górze listy (P27)");
   spr(new Set(lad.map((m) => m.pew)).size > 1 || lad.length == 1, "pewność z wyniku (różne wartości): " + lad.map((m) => Math.round(m.pew * 100) + "%").join(", ") + " (P27)");
-  await zrzut("mvp-pusta");
+  await zrzut("mvp-pusta-naczepa");
   for (const m of RP.miejsca.filter((m) => !m.pominieta)) await klik(`.lista [data-k="${m.id}"]`, "Do kontroli");
   await klik('[data-a="zapisz"]', "Zapisz"); await sleep(500); const zp = await tekst(".zapis");
   spr(zp.includes(`${lad[0].nazwa} (⚑ alarm z reguły: pusta naczepa) — do kontroli`) && !/pusta wg zgłoszenia/.test(zp), "zapis: ten sam tekst flagi „alarm z reguły: pusta naczepa” (P27)");
@@ -96,7 +96,7 @@ try {
   const info = await tekst(".info"); spr(np > 0 && info.includes(`pominięto ${np} `) && info.includes("Pokaż pominięte"), `pominięte: ${np} — „${info.split(". ")[1] || info}” (P23, P30)`);
   const nVis = RT.miejsca.length - np; l = await tekst(".licz"); spr(l.startsWith(`${nVis} ${odm(nVis)}`), "linia bez pominiętych: " + l);
   await klik('[data-a="pom"]', "Pokaż pominięte"); spr((await ev('document.querySelectorAll(".lista .pomb").length')) == np, "Pokaż pominięte: na liście z oznaczeniem");
-  await zrzut("mvp-pominiete");
+  await zrzut("mvp-pokaz-pominiete");
   const p1 = RT.miejsca.find((m) => m.pominieta); await klik(`.lista [data-k="${p1.id}"]`, "Do kontroli pominiętej");
   l = await tekst(".licz"); spr(l.startsWith(`${nVis + 1} ${odm(nVis + 1)}`), "zlecona pominięta liczy się: " + l + " (P23)");
   for (const m of RT.miejsca.filter((m) => !m.pominieta)) await klik(`.lista [data-k="${m.id}"]`, "Do kontroli");
@@ -109,20 +109,29 @@ try {
   await klik('[data-a="analizuj"]', "Analizuj pliki"); await wynik(); await czekaj("!!S.R&&S.ekran=='glowny'||!!S.blad", 60000);
   const RF = await ev("S.R"); spr(RF && RF.tryb == "plik wzorca", `wgrane pliki: tryb ${RF && RF.tryb}, ${RF && RF.miejsca.length} miejsc${RF && RF.zapisany ? " (wynik zapisany)" : ""}`);
   spr((await tekst("header .wz")).includes("(wskazany ręcznie)"), "podpis: " + (await tekst("header .wz")) + " (P28)");
+  await zrzut("mvp-wzorzec-plik");
   for (const m of RF.miejsca) await klik(`.lista [data-k="${m.id}"]`, "Do kontroli");
   await klik('[data-a="zapisz"]', "Zapisz"); await sleep(500);
   spr((await tekst(".zapis")).includes(`wzorzec: plik ${RF.plik_wzorca} (wskazany ręcznie)`), `zapis: „wzorzec: plik ${RF.plik_wzorca} (wskazany ręcznie)” (P36)`);
-  await zrzut("mvp-wzorzec-plik");
+  await ev('document.querySelector(".zapis").scrollIntoView()'); await zrzut("mvp-zapis-png"); await ev("scrollTo(0,0)");
   // ---------- Ścieżka 5: wzorzec niepewny → wskazanie z katalogu, „Wgraj plik wzorca” (P8, P9, P16, P24, P28)
   if (NIEPEWNY) {
     await nowe(); await wybierz("#zrodlo", "plik"); await wybierz("#towar", "nie wiem"); const d2 = await cmd("DOM.getDocument");
     const nb = await cmd("DOM.querySelector", { nodeId: d2.root.nodeId, selector: "#plikB" }); await cmd("DOM.setFileInputFiles", { nodeId: nb.nodeId, files: [NIEPEWNY] });
     await klik('[data-a="analizuj"]', "Analizuj plik bez wzorca"); await wynik(); const RN = await ev("S.R");
-    spr(RN.niepewny && (await tekst(".ostrz")).includes("Wzorzec niepewny — wskaż wzorzec"), `bez pary: dobrany ${RN.typ}, pewność doboru ${RN.pewnosc_doboru} → flaga „wzorzec niepewny” (P9, P16)`);
+    spr(RN.niepewny && (await ev('[...document.querySelectorAll(".ostrz")].some(e=>e.innerText.includes("Wzorzec niepewny — wskaż wzorzec"))')), `bez pary: dobrany ${RN.typ}, pewność doboru ${RN.pewnosc_doboru} → flaga „wzorzec niepewny” (P9, P16)`);
     spr(RN.miejsca.every((m) => Math.abs(m.pew - Math.max(0.5, Math.round(m.pew_wynik * 0.8 * 100) / 100)) < 0.011), "pewność ×0,8, min. 50% (P24)");
-    await zrzut("mvp-niepewny");
-    await cmd("Page.setInterceptFileChooserDialog", { enabled: true }); wyb = false; await klik('[data-a="plik"]', "Wgraj plik wzorca"); await sleep(500);
+    await zrzut("mvp-niepewny-wzorzec");
+    // prawdziwe kliknięcie myszą (wybór pliku wymaga gestu użytkownika), potem plik do pola i przeliczenie
+    await cmd("Page.setInterceptFileChooserDialog", { enabled: true }); wyb = false; await klik('[data-a="plik"]', "Wgraj plik wzorca (podpięcie)");
+    const [bx, by] = await ev('(()=>{const r=document.querySelector("[data-a=plik]").getBoundingClientRect();return [r.x+r.width/2,r.y+r.height/2]})()');
+    for (const t of ["mousePressed", "mouseReleased"]) await cmd("Input.dispatchMouseEvent", { type: t, x: bx, y: by, button: "left", clickCount: 1 }); await sleep(700);
     spr(wyb, "„Wgraj plik wzorca” otwiera wybór pliku (P28)"); await cmd("Page.setInterceptFileChooserDialog", { enabled: false });
+    const d3 = await cmd("DOM.getDocument"), nw = await cmd("DOM.querySelector", { nodeId: d3.root.nodeId, selector: "#plikWz" });
+    await cmd("DOM.setFileInputFiles", { nodeId: nw.nodeId, files: [BMP_W] }); await sleep(500); await wynik(); await czekaj("S.R&&S.R.tryb=='plik wzorca'||!!S.blad", 60000);
+    const RZ = await ev("S.R"); spr(RZ.tryb == "plik wzorca" && (await tekst("header .wz")).includes("(wskazany ręcznie)"), `po niepewnym: wgrany plik wzorca → przeliczone, ${RZ.miejsca.length} miejsc, „${await tekst("header .wz")}” (P28)`);
+    await nowe(); await wybierz("#zrodlo", "plik"); const d4 = await cmd("DOM.getDocument"), n4 = await cmd("DOM.querySelector", { nodeId: d4.root.nodeId, selector: "#plikB" });
+    await cmd("DOM.setFileInputFiles", { nodeId: n4.nodeId, files: [NIEPEWNY] }); await klik('[data-a="analizuj"]', "Analizuj ponownie"); await wynik();
     const inny = (await ev("K.katalog.map(k=>k.typ)")).find((t) => t != RN.typ); await wybierz("#wskaz", inny); await klik('[data-a="wskaz"]', "Przelicz z tym wzorcem"); await wynik();
     const RW = await ev("S.R"); spr(RW.wskazany_recznie && RW.typ == inny && (await tekst("header .wz")).includes("wskazany ręcznie"), `wskazany ręcznie typ ${inny}: przeliczone, ${RW.miejsca.length} miejsc (P24, P28)`);
     await zrzut("mvp-wskazany");

@@ -11,9 +11,15 @@ Zadanie: [docs/zadanie.md](docs/zadanie.md). Wersja robocza, tekst do zgłoszeni
 ## Demo
 
 - Makieta R3 (zamknięta; ekran operatora, dane udawane): https://pawelpisarek.github.io/hacknation-proba14/makieta/
-- Wersja na ksefbot.pl: w przygotowaniu (adres dziś nie odpowiada) — link dopiszemy, gdy zwróci 200
+- MVP na ksefbot.pl (prawdziwy wynik z karty graficznej OMENa; gdy karta nie odpowiada — „wynik zapisany” z wcześniejszego przebiegu, z podpisem): https://hacknation.ksefbot.pl/
 
 ## Jak uruchomić lokalnie
+
+**MVP (ekran operatora):**
+- usługa na karcie (CUDA): `python usluga/serwer.py --port 8770 --dane ~/dane/proba14/gen-v2` (`--sprawdz` — 8 prób bez serwera);
+- aplikacja (Node 22, bez zależności): `OMEN_URL=http://<host usługi>:8770 PORT=3000 node aplikacja/serwer.mjs`, albo `docker build -t rtg . && docker run -p 3000:3000 -e OMEN_URL=… rtg`;
+- zapis wyników do trybu „wynik zapisany”: `node skrypty/mvp/zapisz_wyniki.mjs <adres>/api <wzorzec.bmp>` (zmienna `WARIANTY`);
+- przeklik (przeglądarka bez okna): `node skrypty/mvp/przeklik_mvp.mjs <adres> docs/zrzuty <katalog pobrań> <badany.bmp> <wzorzec.bmp>`.
 
 
 

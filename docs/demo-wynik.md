@@ -28,3 +28,36 @@ Teksty pokazu (README, slajdy) piszemy według tej tabeli, nie według udawanych
 
 Wśród 66 przykładów zbioru żaden nie ma pewności doboru < 0,2 (najniższa 0,47, typ zawsze trafiony) — „wzorzec niepewny”
 pokazujemy na odbitym obrazie, którego układ nie pasuje do żadnego wzorca.
+
+## Wariant `test/d019_B`, bez pary, „sprzęt i AGD” — pełna lista w kolejności z ekranu (dla P39)
+
+Prawda generatora (`opis.json`, ramki w px obrazu 1200×420): (a) duży obiekt w ładunku [693,94–836,209]; (b) mały obiekt
+przy ścianie od kabiny [86,245–93,252]; (c) średni obiekt w podwójnej podłodze, przeróbka [562,294–708,297].
+Dopasowanie: ramka miejsca nachodzi na ramkę prawdy.
+
+**Na liście (5)** — nagłówek „Miejsca od najpewniejszego”, linia „5 miejsc do sprawdzenia · zostało 5”:
+
+| # | Miejsce | Strefa | Pewność | Prawda generatora |
+|---|---|---|---|---|
+| 1 | Ściana przednia — dół | konstrukcja | 69% | (b) mały obiekt przy ścianie od kabiny — **trafienie** |
+| 2 | Podłoga — środek | konstrukcja | 54% | (c) fragment obiektu w podwójnej podłodze — trafienie |
+| 3 | Podłoga — środek | konstrukcja | 52% | (c) ten sam obiekt, inny fragment |
+| 4 | Podłoga — środek | konstrukcja | 52% | (c) ten sam obiekt, inny fragment |
+| 5 | Podłoga — środek | konstrukcja | 51% | (c) ten sam obiekt, inny fragment |
+
+**Pominięte (5)** — „pominięto 5 różnic … Pokaż pominięte” (kategoria „inny ładunek niż we wzorcu”):
+
+| # | Miejsce | Strefa | Pewność | Prawda generatora |
+|---|---|---|---|---|
+| 1 | Ładownia — tył | ładownia | 94% | **zawiera (a) duży obiekt w ładunku** — prawdziwy dodatek ukryty pod „pominięte” |
+| 2 | Ładownia — środek | ładownia | 91% | brak dodatku — inny ładunek niż we wzorcu |
+| 3 | Ładownia — przód | ładownia | 89% | brak dodatku — inny ładunek niż we wzorcu |
+| 4 | Ładownia — tył | ładownia | 86% | brak dodatku — inny ładunek niż we wzorcu |
+| 5 | Ładownia — środek | ładownia | 83% | brak dodatku — inny ładunek niż we wzorcu |
+
+Wnioski dla P39:
+- Pierwsze miejsce na liście **jest w konstrukcji** (ściana przy kabinie, 69%) — pokaz zaczyna się od skrytki (P4).
+- Na liście **nie ma pozycji do „odrzuć”** — wszystkie 5 to prawdziwe dodatki; pozycje 2–5 to jeden obiekt w podłodze podzielony na 4 ramki o niskiej pewności (51–54%).
+- Do „odrzuć” nadają się pominięte 2–5 (inny ładunek, powód „ładunek zgodny z deklaracją”) — po „Pokaż pominięte”.
+- **Ryzyko:** prawdziwy dodatek w ładunku (a) trafia do pominiętych (ramka „inny ładunek” 94% go obejmuje); widać go tylko po „Pokaż pominięte” (kłóci się z A15b: dodatek w ładunku ma być wykryty mimo rodzaju towaru).
+- Z parą (`test/d019_B`, para) ten sam obraz daje 3 miejsca bez pominiętych: Ładownia — środek 95% (a), Ściana przednia — dół 90% (b), Podłoga — środek 85% (c) — tam pierwsze jest w ładowni, nie w konstrukcji.
