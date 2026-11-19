@@ -1,6 +1,6 @@
 # Krok 4: historyjki (operator) — Różnica RTG
 
-Źródła: `docs/spec.md` (§1, §4–§7, testy A1–A18), `docs/decyzje.md` (P1–P17). Kolejność = ścieżka pokazu do 2 minut (P4, P11, A10). Dane i ekrany sztuczne; ekran po polsku. Dla Programisty (makieta R1): historyjki H1–H10 to ekran główny wariantu 3 + lista miejsc z boku (P12); H11 to zapis (ostatni krok demo), H12 to ścieżka techniczna poza makietą.
+Źródła: `docs/spec.md` (§1, §4–§7, testy A1–A18), `docs/decyzje.md` (P1–P26). Kolejność = ścieżka pokazu do 2 minut (P4, P11, A10). Dane i ekrany sztuczne; ekran po polsku. Dla Programisty (makieta R2): historyjki H1–H10 to ekran główny wariantu 3 + lista miejsc z boku (P12); H11 to zapis (ostatni krok demo), H12 to ścieżka techniczna poza makietą.
 Format: „Gdy [sytuacja], chcę [czynność], żeby [skutek]” (skill job-stories, przyjęty zamiast `user-stories` decyzją Szefa) + kryteria akceptacji (K) z numerem testu A ze spec §7. Pozycja bez testu A w spec jest oznaczona „(makieta)”.
 
 ## Role
@@ -47,7 +47,7 @@ Gdy miejsce wygląda groźnie, chcę jednym kliknięciem przy pozycji listy zlec
 
 ### H7. „Odrzuć” z powodem z listy — operator
 Gdy alarm jest zbędny, chcę odrzucić go jednym kliknięciem z powodem z listy, żeby w zapisie było wiadomo, czemu alarm był zbędny (P3).
-- K1. Powody: znany element konstrukcji · ładunek zgodny z deklaracją · artefakt obrazu · inny typ naczepy niż wzorzec · inne (spec §6). Test: A8.
+- K1. Powody: znany element konstrukcji · ładunek zgodny z deklaracją · artefakt obrazu · inny typ naczepy niż wzorzec · inne; przy „nie wiem” zamiast „ładunek zgodny z deklaracją”: „ładunek zgodny z dokumentami (sprawdzony ręcznie)” (P21) (spec §6). Test: A8.
 - K2. Odrzucenie bez powodu niemożliwe; powód trafia do zapisu. Test: A8.
 
 ### H8. Linia „ile miejsc zostało” — operator
