@@ -40,3 +40,4 @@ P7 11:31 Artur: Czy raport ma pokazywać miejsca w kolejności ważności (najpe
 11:31 Szef: właściciel praw w LICENSE — „Zespół Hackathon” zostaje.
 11:31 Analityk: recenzja hacktribe R2 — 2 braków
 11:32 Szef: hacktribe R2 — 2 braki (TODO z liczbami, linki) to miejsca na wyniki, nie błąd treści: DRAFT zamknięty na teraz; Prezenter wpisuje liczby po wyniku bazowym Programisty i link makiety przed 20:00, ostatecznie przed 10:30.
+P8 11:32 Artur: Wybierz 3–5 pomysłów z listy 10 (ekran, raport, odrzucanie, wzorzec, partia…) do dalszej pracy lub „wszystkie” (rekomendacja: 1, 2, 3, 6, 7) — czeka
