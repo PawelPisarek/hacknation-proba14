@@ -9,3 +9,10 @@
 11:25 Projektant: pominięte (do czego analiza) — z zadania: wybór podejścia do porównywania obrazów i wykrywania anomalii dla naszego produktu
 11:25 Projektant: konkurentów szukamy sami (przegląd rozwiązań i podejść), bez pytania Artura — z zadania nie wynika lista konkurentów
 P1 11:25 Artur: Kto pierwszy patrzy na wynik: operator RTG przy stanowisku na granicy, w trakcie kontroli (rekomendacja), czy ktoś po fakcie, np. analityk przeglądający zapisane wyniki? — czeka
+11:26 Szef: (Q1 Analityka) ocena liczy i raportuje FP i FN osobno, bez łączenia w jedną liczbę; FP na obraz czysty (jakikolwiek zaznaczony obszar = alarm) + liczba obszarów (Q4 przyjęte).
+11:26 Szef: (Q3) dodatek wskazany = ramka nakłada się na maskę dodatku (IoU ≥ 0,1 albo środek dodatku w ramce); obszar poza dodatkami na obrazie z dodatkiem liczony osobno jako zbędny obszar.
+11:26 Szef: (Q5) generator: naczepa w widoku z boku, skala szarości, dodatki 4 typów: mały w konstrukcji (rama/podłoga/ściana), średni w konstrukcji, w ładunku, duży w ładunku — każdy z maską; zmiany nieistotne na czystych: szum, przesunięcie, jasność, inny ładunek zgłoszony nie jest dodatkiem tylko w trybie bez pary — do potwierdzenia przez Artura (P przez Projektanta).
+11:26 Szef: (Q6) z zadania (p. 3 „pary lub grupy”, p. 5 „nauczona na wzorcowych”): obsługujemy oba tryby — para wzorzec–badany i porównanie z modelem czystego obrazu tego typu; tryb pary pierwszy.
+11:26 Szef: (Q7, Q8) przechowywanie bezstratne, analiza na kafelkach/zmniejszeniu z pomiarem wpływu na przeoczenia; raport: obraz z ramkami + plik ze współrzędnymi + podsumowanie partii.
+11:26 Szef: (Q9) skrypt oceny przyjmuje dowolny katalog .bmp (+ opcjonalnie maski) i wypisuje FP/FN — gotowy na obce obrazy.
+11:26 Szef: (Q2) co ważniejsze dla operatora (zbędne alarmy czy przeoczenia) — pyta Artura Projektant (jego pozycja 4 w docs/pm/00-niewiadome.md).
