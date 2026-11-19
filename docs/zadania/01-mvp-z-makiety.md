@@ -2,7 +2,7 @@
 
 Cel: pierwsza prawdziwa wersja pod ksefbot.pl (aplikacja Coolify `hacknation`), z wynikiem z usługi na karcie OMENa (sieć lokalna), robiąca to, co makieta R3: https://pawelpisarek.github.io/hacknation-proba14/makieta/
 
-Źródła: `docs/spec.md`, `docs/pm/08-historyjki.md`, `docs/decyzje.md` (P1–P33), makieta `docs/makieta/index.html`.
+Źródła: `docs/spec.md`, `docs/pm/08-historyjki.md`, `docs/decyzje.md` (P1–P37), makieta `docs/makieta/index.html`.
 
 ## Decyzje do przeniesienia (każda = zrzut lub test w działającej aplikacji)
 
