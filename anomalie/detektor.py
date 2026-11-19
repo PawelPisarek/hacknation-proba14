@@ -22,6 +22,10 @@ from PIL import Image
 from scipy import ndimage
 
 SZER_ROBOCZA = 1200
+# Pole wejścia „rodzaj towaru” (P15, P17): opcjonalne; „nie wiem” → zaznaczamy wszystko,
+# „pusta naczepa” → każdy przedmiot w ładowni to alarm. Na razie bez wpływu na wynik.
+RODZAJE_TOWARU = ["sprzęt i AGD", "odzież i tekstylia", "żywność i napoje", "materiały budowlane", "inne",
+                  "nie wiem", "pusta naczepa"]
 Image.MAX_IMAGE_PIXELS = None
 
 
