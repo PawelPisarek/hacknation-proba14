@@ -58,39 +58,39 @@ Wnioski do przeglądu (rekomendacja robocza, do rozstrzygnięcia przez Szefa/Pro
 | Wykrywanie nieznanych skrytek | tak | częściowo (założenie) | częściowo (założenie) | częściowo (założenie) | nieznane | nie (zadanie, p. 1) |
 | Zaznaczone miejsca na obrazie | tak | tak (założenie) | tak (założenie) | tak (założenie) | tak (założenie) | nieznane |
 | Praca offline | tak | nieznane | nieznane | nieznane | nieznane | tak (zadanie, p. 9: docelowo bez chmury) |
-| Niezależny od producenta skanera | tak | nie (założenie) | nie (założenie) | nie (założenie) | nie (założenie) | nieznane |
+| Wejście z repozytorium obrazów (.bmp, oba dostawcy skanerów) | tak (cel; zadanie, p. 9) | tak (założenie) | tak (założenie) | tak (założenie) | tak (założenie) | nieznane |
 | Duże pliki .bmp, partie | tak (cel) | nieznane | nieznane | nieznane | nieznane | nieznane |
 
 ## Mapa pozycjonowania (2 osie)
-Oś X: wykrywa tylko znany towar ↔ wykrywa dowolną różnicę od wzorca. Oś Y: zamknięte w sprzęcie producenta ↔ niezależne, offline.
+Oś X: wykrywa tylko znany towar ↔ wykrywa dowolną różnicę od wzorca. Oś Y: zamknięte w sprzęcie jednego producenta ↔ otwarte wejście z plików .bmp z repozytorium (Nuctech i Multicontrol), działające offline (offline to wymóg zadania, nie potwierdzona przewaga).
 - Lewy dół: obecne narzędzie KAS (znany towar, związane ze sprzętem).
 - Środek: Nuctech, Smiths (wykrywanie zagrożeń, zamknięte).
 - Prawy środek: Rapiscan (zmiana względem historii, zamknięte).
-- **Prawy górny róg: nasz cel** — różnica od wzorca, niezależne, offline.
+- **Prawy górny róg: nasz cel** — różnica od wzorca, wejście z plików .bmp z repozytorium obu dostawców, praca offline (wymóg p. 9).
 
 ## Szanse różnicowania
 1. **Różnica od wzorca bez oznaczonych przykładów skrytek** — uczymy się tylko na czystych obrazach; odpowiada na lukę KAS (małe skrytki w konstrukcji).
-2. **Działa na własnym sprzęcie, offline, na małej karcie** — wymóg zadania, niedostępny u zamkniętych producentów.
-3. **Raport z zaznaczonymi miejscami i priorytetem** — operator widzi, gdzie patrzeć, i potrzebuje mało czasu.
+2. **Wejście z plików .bmp z repozytorium obu dostawców (Nuctech, Multicontrol), działanie offline na małej karcie** — wymóg zadania (p. 9); czy konkurenci tego nie oferują — nieznane (założenie), więc to nie jest potwierdzona przewaga.
+3. **Raport z kilkoma zaznaczonymi miejscami na aucie (nie kilkadziesiąt — P2) i krótkim czasem oceny** — założenie do potwierdzenia przez P3 (co operator robi z wynikiem) i poz. 5 (kształt raportu).
 4. **Przetwarzanie dużych obrazów partiami** — skalowalność wymagana w zadaniu.
 
 ## Zagrożenia
-1. **Fałszywe alarmy** (FP) — operator przestaje ufać; główne kryterium oceny. Reakcja: próg dobrany na obrazach czystych.
+1. **Fałszywe alarmy** (FP) — nadmiar zaznaczeń (kilkadziesiąt na aucie) odbiera zaufanie operatora; przeoczenie jest jednak gorsze (P2). Reakcja: próg dobrany tak, by przy zachowanej czułości zaznaczeń było kilka na auto.
 2. **Różnica między sztucznym zbiorem a prawdziwym RTG** — wynik na naszych danych może nie przenieść się do KAS. Reakcja: nie obiecywać skuteczności na prawdziwych danych.
-3. **Producenci sprzętu dodają AI porównującą** (Rapiscan już ma porównanie z historią). Reakcja: niezależność i offline.
+3. **Producenci sprzętu dodają AI porównującą** (Rapiscan już ma porównanie z historią). Reakcja: wejście z repozytorium obu dostawców, praca offline (wymóg zadania) i wskazywanie dowolnej różnicy od wzorca.
 4. **Mała karta (4 GB)** — ograniczy rozmiar modelu i kafelków.
 
 ## Rekomendacje
-- **Postawić na**: porównanie z wzorcem, offline, niezależność od producenta, czytelny raport.
-- **Dogonić**: niski poziom fałszywych alarmów i szybkość (< 1 min na obraz).
-- **Zignorować**: certyfikacje lotniskowe i pełną integrację z wieloma skanerami (poza zakresem hackathonu).
+- **Postawić na**: porównanie z wzorcem, wejście z plików .bmp z repozytorium obu dostawców, praca offline (wymóg zadania), czytelny raport.
+- **Dogonić**: nie przeoczyć dodatku (P2: przeoczenie jest gorsze od zbędnego alarmu), przy zaznaczeniach „kilka na auto, nie kilkadziesiąt”, i czas < 1 min na obraz.
+- **Zignorować**: certyfikacje lotniskowe i integrację z innymi skanerami niż Nuctech i Multicontrol (poza zakresem hackathonu).
 
 ## Założenia do potwierdzenia przez Artura
 - Użytkownik: operator przy stanowisku w trakcie kontroli, kilka minut na auto — **potwierdzone (P1, 11:27)**.
 - Szansa 1 (małe skrytki w konstrukcji jako główny problem) — założenie do potwierdzenia (poz. 3 w docs/pm/00-niewiadome.md).
-- Szansa 3 (raport: miejsca z priorytetem) — założenie do potwierdzenia (poz. 5, kształt raportu).
+- Szansa 3 (raport: kilka miejsc, krótka ocena) — założenie do potwierdzenia: P3 (co operator robi z wynikiem, poz. 2) i poz. 5 (kształt raportu).
 - Ocena „porównanie z historią” konkurentów zależy od tego, skąd operator dziś bierze obraz wzorcowy — poz. 6, pytanie do Artura w kolejce.
-- Co gorsze: zbędny alarm czy przeoczenie (poz. 4, P2) i czy zgodny ze zgłoszeniem inny ładunek zaznaczać (poz. 8) — wpływają na priorytet „dogonić”.
+- **P2 potwierdzone (11:28):** przeoczony dodatek gorszy od zbędnego alarmu, ale na aucie ma być kilka zaznaczeń, nie kilkadziesiąt. Czy zgodny ze zgłoszeniem inny ładunek zaznaczać (poz. 8) — jeszcze bez pytania.
 
 ## Czego nie wiem o produkcie
 Lista w `docs/pm/00-niewiadome.md` — pytania do Artura idą po kolei (P1…).
