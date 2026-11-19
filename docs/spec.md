@@ -25,7 +25,7 @@ Poza zakresem: podsumowanie partii poza linią „ile miejsc” (z 7 Artur wzią
 Wynik zapisuje **miejsce i przedmiot kontroli** (zadanie p. 9); integracja z repozytorium obrazów Nuctech/Multicontrol — poza pierwszą wersją, jako ścieżka wdrożenia.
 
 ## 3. Dane
-- Zbiór sztuczny (generator gen-v1, Programista, `docs/decyzje.md` 11:33): 3 typy naczep; para = ta sama konstrukcja i ładunek (plus zbiór kontrolny „inny ładunek zgodny ze zgłoszeniem”: 6 par, w metadanych rodzaj towaru zgodny z ładunkiem, w 3 parach dodatkowo mały dodatek w konstrukcji — decyzja Szefa 11:4x); badany: szum, przesunięcie ±1%, skala X ±1,5% / Y ±0,3%, jasność ±15%; dodatki 4 typów z maskami PNG.
+- Zbiór sztuczny (generator gen-v1, Programista, `docs/decyzje.md` 11:33): 3 typy naczep; para = ta sama konstrukcja i ładunek (plus zbiór kontrolny „inny ładunek zgodny ze zgłoszeniem”: 6 par, w metadanych rodzaj towaru zgodny z ładunkiem, w 3 parach dodatkowo mały dodatek w konstrukcji — decyzja Szefa, `docs/decyzje.md`); badany: szum, przesunięcie ±1%, skala X ±1,5% / Y ±0,3%, jasność ±15%; dodatki 4 typów z maskami PNG.
 - Zbiory: nauka 3×6 pustych; kalibracja 12 czystych par; test 30 czystych + 30 z dodatkami (1200×420); pełny 3+3 pary 12000×4200 (~50 MB).
 - Analiza na zmniejszeniu do szerokości 1200 px; ramki przeliczane na układ pełnej rozdzielczości. Próg z osobnego zbioru kalibracji (same czyste), bez podglądania testu.
 - Dane KAS (jeśli będą z pendrive'a): chronione, nie kopiować poza hackathon (zadanie p. 7).
@@ -40,8 +40,23 @@ Inny ładunek zgodny ze zgłoszeniem (P15, Artur): **nie zaznaczamy go, ale tylk
 Lista rodzajów towaru na ekranie (P17, Artur): sprzęt i AGD; odzież i tekstylia; żywność i napoje; materiały budowlane; inne; „nie wiem” (zaznaczamy wszystko); **„pusta naczepa”** (najczęstszy przypadek — każdy przedmiot w ładowni jest alarmem).
 Reguła: przy wybranym rodzaju towaru różnica w ładunku, którą da się wyjaśnić tym rodzajem (inny ładunek niż we wzorcu), nie dostaje ramki; przy „nie wiem” zaznaczamy wszystko, co różni się od wzorca (P2). Rozpoznanie „zgodny ze zgłoszeniem” — zadanie dla Programisty, do zmierzenia w A15/A16; generator: zbiór kontrolny 6 par (decyzja Szefa).
 
+### 4a. Strefy naczepy (rozstrzygnięcie Szefa 11:49, p. 1)
+Generator i katalog wzorców mają dla każdego typu naczepy **mapę stref**: ładownia · podłoga · ściana przednia (przy kabinie) · rama/osie · dach. Ramka dostaje strefę z największego pokrycia; **nazwa strefy = „miejsce kontroli”** w raporcie i w JSON. Podział: **konstrukcja = wszystko poza ładownią**, **ładunek = ładownia**. Dodatek w konstrukcji zawsze jest alarmem; różnica w ładowni — według reguły rodzaju towaru (wyżej).
+
+### 4b. Wygląd ładunku i „pusta naczepa” (p. 2)
+Generator ma stałe przypisanie wyglądu ładunku do każdego rodzaju z P17 (np. sprzęt i AGD — gęste prostokątne bryły; odzież i tekstylia — jednolita średnia gęstość; żywność i napoje — wiele małych równych kształtów; materiały budowlane — długie, gęste elementy; inne — mieszanka). Dla „pusta naczepa” ładownia jest pusta, więc **każdy przedmiot w ładowni = alarm** (test A17).
+
+### 4c. Typ naczepy spoza katalogu (p. 3)
+Gdy badany typ nie ma wzorca w katalogu (podobieństwo poniżej progu z kalibracji): flaga **„wzorzec niepewny”**, ramki **są** pokazane (nie ukrywamy różnic, P2/P8), a operator **wskazuje wzorzec z listy typów w katalogu albo wgrywa plik wzorca** (tryb z parą). Test A18.
+
+### 4d. Przepływ i zapis kontroli (p. 4)
+- Pojedynczy obraz: przeglądarka → aplikacja na ksefbot.pl → usługa HTTP na karcie (OMEN; obraz `.bmp` w żądaniu) → JSON (ramki, strefy, pewność, opis, flaga wzorca) + PNG podglądu.
+- Zapis kontroli (miejsce + przedmiot kontroli + decyzja i powód): plik JSON na serwerze aplikacji, z możliwością pobrania.
+- Partia z wiersza poleceń: folder `.bmp` → JSON i PNG na obraz + zbiorczy CSV (test A13).
+
 ## 5. Raport
 - Obraz z ramkami + JSON (pkt 2) — układ jak w makiecie: ramki numerowane wg kolejności listy.
+- Pewność: 50–99%, liczona względem progu z kalibracji (wynik metody ÷ próg, ograniczony do skali); opis różnicy z szablonu: strefa + „gęściej/rzadziej niż wzorzec” + wielkość (Szef 11:49, p. 5).
 - Pozycja miejsca: nazwa, opis różnicy (np. „pod podłogą dodatkowa warstwa; we wzorcu podłoga pojedyncza” — dane udawane z makiety), pewność, przedmiot kontroli.
 - Powiększenie: wycinek wokół ramki z marginesem, na wzorcu i badanym.
 - Linia „ile miejsc do sprawdzenia” (P10); pełne podsumowanie partii — poza zakresem (decyzja Artura P10).
@@ -76,6 +91,8 @@ Liczby progowe ustala Szef po pierwszym przebiegu (E1+E2); do tego czasu kryteri
 | A14 | Ocena przez operatora (E3) | próba ręczna z Arturem na makiecie: czy z ramek, opisu różnicy i powiększenia da się podjąć „do kontroli / odrzuć” dla każdej ramki w kilka minut; wynik: tak/nie + uwagi |
 | A15 | Zbiór kontrolny z podanym rodzajem towaru | 6 par (inny ładunek niż we wzorcu, rodzaj towaru zgodny z ładunkiem; w 3 parach dodatkowo mały dodatek w konstrukcji): brak alarmu na ładunku, a dodatek w konstrukcji wykryty; FP i FN osobno |
 | A16 | Zbiór kontrolny bez rodzaju towaru („nie wiem”) | te same 6 par: alarm na ładunku jest (zaznaczone wszystko, co różni się od wzorca; P15, P2); dodatek w konstrukcji nadal wykryty; FP i FN osobno |
+| A17 | Pusta naczepa | wybrany rodzaj „pusta naczepa”: każdy przedmiot w ładowni daje ramkę (strefa: ładownia); FP i FN osobno |
+| A18 | Typ spoza katalogu | zbiór kontrolny + 2 pary typu spoza katalogu: flaga „wzorzec niepewny” i ramki są; operator może wskazać wzorzec z listy lub z pliku |
 
 ## 8. Ryzyka (z /discover i zadania)
 1. Dobór wzorca bez pary zawodzi → tryb pary jako ratunek (P11, E1).
