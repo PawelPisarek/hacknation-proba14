@@ -27,9 +27,9 @@ Wybór nazwy należy do Szefa (wpis w docs/decyzje.md); docs/hacktribe.md zmieni
 
 | # | Hasło | Znaki |
 |---|-------|-------|
-| A | Pokazuje na obrazie RTG naczepy to, czego nie ma we wzorcu — zaczynając od najpewniejszego miejsca. | HASLO_A |
-| B | Sam dobiera wzorzec i wskazuje operatorowi kilka miejsc do sprawdzenia na jednym aucie. | HASLO_B |
-| C | Dwa obrazy obok siebie, różnice zaznaczone, decyzja o kontroli zawsze po stronie operatora. | HASLO_C |
+| A | Pokazuje na obrazie RTG naczepy to, czego nie ma we wzorcu — zaczynając od najpewniejszego miejsca. | 102 |
+| B | Sam dobiera wzorzec i wskazuje operatorowi kilka miejsc do sprawdzenia na jednym aucie. | 87 |
+| C | Dwa obrazy obok siebie, różnice zaznaczone, decyzja o kontroli zawsze po stronie operatora. | 93 |
 
 **Rekomendacja: A** na slajd tytułowy i do formularza (jedno zdanie o korzyści); B — gdy trzeba podkreślić wyróżnik (bez pary); C — do opisu ekranu. „Kilka miejsc” pochodzi z P2 (Artur: kilka, nie kilkadziesiąt) — to cel, nie wynik pomiaru.
 
