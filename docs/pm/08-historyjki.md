@@ -11,7 +11,7 @@ Format: „Gdy [sytuacja], chcę [czynność], żeby [skutek]” (skill job-stor
 
 ### H1. Wczytanie obrazu i rodzaju towaru — operator
 Gdy auto wjechało na stanowisko, chcę wczytać obraz `.bmp` i wybrać z listy rodzaj zgłoszonego towaru (lub „nie wiem”), żeby narzędzie wiedziało, co jest zgodne ze zgłoszeniem.
-- K1. Lista: sprzęt i AGD · odzież i tekstylia · żywność i napoje · materiały budowlane · inne · pusta naczepa · „nie wiem” (domyślnie) (P17; spec §2, §6). Test: makieta — **do dodania** (pole rodzaju towaru przed analizą; w wspolne.js jeszcze go nie ma, spec §6); skutki — K2–K5.
+- K1. Lista: sprzęt i AGD · odzież i tekstylia · żywność i napoje · materiały budowlane · inne · pusta naczepa · „nie wiem” (domyślnie) (P17; spec §2, §6). Test: makieta R3 (pole rodzaju towaru przed analizą); skutki — K2–K5.
 - K2. Przy „nie wiem” narzędzie zaznacza wszystko, co różni się od wzorca (P15, P2). Test: A16.
 - K3. Przy „pusta naczepa” każdy przedmiot w ładowni dostaje ramkę. Test: A17.
 - K4. Przy rodzaju towaru zgodnym z ładunkiem inny ładunek niż we wzorcu nie dostaje ramki, ale dodatek ukryty w ładunku nadal jest wykryty. Testy: A15 (brak alarmu na ładunku), A15b (dodatek w ładunku wykryty).
@@ -57,9 +57,9 @@ Gdy przechodzę po liście, chcę linii „N miejsc do sprawdzenia · zostało M
 
 ### H9. Wzorzec niepewny — operator
 Gdy narzędzie nie jest pewne doboru wzorca (np. typ naczepy spoza katalogu), chcę widzieć ramki z ostrzeżeniem „wzorzec niepewny — wskaż wzorzec”, żeby nic nie zostało po cichu pominięte (P16 A, P2, P8).
-- K1. Flaga i ramki pokazane jednocześnie (ramek nie ukrywamy). Test: A18. Flagi „wzorzec niepewny” w makiecie jeszcze nie ma — **do dodania** (spec §6).
+- K1. Flaga i ramki pokazane jednocześnie (ramek nie ukrywamy). Test: A18 i makieta R3 (flaga „wzorzec niepewny” i ramki razem; spec §6).
 - K2. Operator wskazuje wzorzec z listy typów w katalogu albo wgrywa plik wzorca (tryb z parą); po wskazaniu lista przelicza się. Test: A18.
-- K3. Tryb z parą działa też, gdy operator od razu poda czysty obraz. (spec §4) Test: makieta (**do dodania**); A4 mierzy tylko trafność doboru wzorca bez pary (H2).
+- K3. Tryb z parą działa też, gdy operator od razu poda czysty obraz. (spec §4) Test: makieta R3; A4 mierzy tylko trafność doboru wzorca bez pary (H2).
 
 ### H10. Ocena ekranu przez operatora — operator (Artur)
 Gdy mam kilka minut na auto, chcę z ramek, opisu różnicy i powiększenia podjąć decyzję dla każdej ramki, żeby nie potrzebować nic poza ekranem (P11, punkt 3).
