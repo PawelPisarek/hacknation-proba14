@@ -25,7 +25,7 @@ Poza zakresem: podsumowanie partii poza linią „ile miejsc” (z 7 Artur wzią
 Wynik zapisuje **miejsce i przedmiot kontroli** (zadanie p. 9); integracja z repozytorium obrazów Nuctech/Multicontrol — poza pierwszą wersją, jako ścieżka wdrożenia.
 
 ## 3. Dane
-- Zbiór sztuczny (generator gen-v1, Programista, `docs/decyzje.md` 11:33): 3 typy naczep; para = ta sama konstrukcja i ładunek (plus mały zbiór kontrolny „inny ładunek zgodny ze zgłoszeniem”, §4 — czeka na decyzję Szefa); badany: szum, przesunięcie ±1%, skala X ±1,5% / Y ±0,3%, jasność ±15%; dodatki 4 typów z maskami PNG.
+- Zbiór sztuczny (generator gen-v1, Programista, `docs/decyzje.md` 11:33): 3 typy naczep; para = ta sama konstrukcja i ładunek (plus zbiór kontrolny „inny ładunek zgodny ze zgłoszeniem”: 6 par, w metadanych rodzaj towaru zgodny z ładunkiem, w 3 parach dodatkowo mały dodatek w konstrukcji — decyzja Szefa 11:4x); badany: szum, przesunięcie ±1%, skala X ±1,5% / Y ±0,3%, jasność ±15%; dodatki 4 typów z maskami PNG.
 - Zbiory: nauka 3×6 pustych; kalibracja 12 czystych par; test 30 czystych + 30 z dodatkami (1200×420); pełny 3+3 pary 12000×4200 (~50 MB).
 - Analiza na zmniejszeniu do szerokości 1200 px; ramki przeliczane na układ pełnej rozdzielczości. Próg z osobnego zbioru kalibracji (same czyste), bez podglądania testu.
 - Dane KAS (jeśli będą z pendrive'a): chronione, nie kopiować poza hackathon (zadanie p. 7).
@@ -37,7 +37,7 @@ Wynik zapisuje **miejsce i przedmiot kontroli** (zadanie p. 9); integracja z rep
 | **Bez pary (dobór wzorca)** | domyślny — operator zwykle pary nie ma (P8) | system wybiera z katalogu czystych najbliższy typ naczepy, potem jak wyżej; podpis „dobrany: …” |
 Jeśli dobór wzorca zawodzi (podobieństwo poniżej progu z kalibracji) — ekran pokazuje ramki z ostrzeżeniem „wzorzec niepewny — wskaż wzorzec” i prosi o wskazanie wzorca (tryb z parą; tryb pary pierwszy w razie porażki E1, `docs/pm/02`). Założenie = rekomendacja P16 (A), czeka na Artura; ramek nie ukrywamy (P2, P8).
 Inny ładunek zgodny ze zgłoszeniem (P15, Artur): **nie zaznaczamy go, ale tylko gdy narzędzie zna zgłoszenie** — operator wybiera rodzaj towaru z listy (pole na ekranie przed analizą). Bez wybranego rodzaju towaru zaznaczamy wszystko, co różni się od wzorca (P2: zbędny alarm lepszy niż przeoczenie).
-Reguła: przy wybranym rodzaju towaru różnica w ładunku, którą da się wyjaśnić tym rodzajem (inny ładunek niż we wzorcu), nie dostaje ramki; przy „nie wiem” zaznaczamy wszystko, co różni się od wzorca (P2). Rozpoznanie „zgodny ze zgłoszeniem” — zadanie dla Programisty, do zmierzenia w A15/A16; generator: osobny mały zbiór kontrolny „inny ładunek zgodny ze zgłoszeniem” w trybie bez pary (otwarte, pytanie do Szefa, Q5).
+Reguła: przy wybranym rodzaju towaru różnica w ładunku, którą da się wyjaśnić tym rodzajem (inny ładunek niż we wzorcu), nie dostaje ramki; przy „nie wiem” zaznaczamy wszystko, co różni się od wzorca (P2). Rozpoznanie „zgodny ze zgłoszeniem” — zadanie dla Programisty, do zmierzenia w A15/A16; generator: zbiór kontrolny 6 par (decyzja Szefa).
 
 ## 5. Raport
 - Obraz z ramkami + JSON (pkt 2) — układ jak w makiecie: ramki numerowane wg kolejności listy.
@@ -73,8 +73,8 @@ Liczby progowe ustala Szef po pierwszym przebiegu (E1+E2); do tego czasu kryteri
 | A12 | Zmniejszenie obrazu | mały dodatek w konstrukcji (typ „mały w konstrukcji”, Q5) wykrywany po zmniejszeniu do 1200 px; porównanie FN na zmniejszeniu i na pełnym obrazie (decyzja Q7) |
 | A13 | Partia i duże pliki | przebieg partii pełnowymiarowych obrazów (3+3 pary 12000×4200, ~50 MB): czas na obraz, szczytowa pamięć karty, obrazy/min; wynik zapisany, wynik bez obietnic (zadanie p. 3, 6) |
 | A14 | Ocena przez operatora (E3) | próba ręczna z Arturem na makiecie: czy z ramek, opisu różnicy i powiększenia da się podjąć „do kontroli / odrzuć” dla każdej ramki w kilka minut; wynik: tak/nie + uwagi |
-| A15 | Rodzaj towaru wybrany | na zbiorze kontrolnym „inny ładunek zgodny ze zgłoszeniem” brak ramek na zgodnym ładunku; dodatek w konstrukcji nadal oznaczony |
-| A16 | „Nie wiem” | bez wybranego rodzaju towaru zaznaczone jest wszystko, co różni się od wzorca (P15, P2) |
+| A15 | Zbiór kontrolny z podanym rodzajem towaru | 6 par (inny ładunek niż we wzorcu, rodzaj towaru zgodny z ładunkiem; w 3 parach dodatkowo mały dodatek w konstrukcji): brak alarmu na ładunku, a dodatek w konstrukcji wykryty; FP i FN osobno |
+| A16 | Zbiór kontrolny bez rodzaju towaru („nie wiem”) | te same 6 par: alarm na ładunku jest (zaznaczone wszystko, co różni się od wzorca; P15, P2); dodatek w konstrukcji nadal wykryty; FP i FN osobno |
 
 ## 8. Ryzyka (z /discover i zadania)
 1. Dobór wzorca bez pary zawodzi → tryb pary jako ratunek (P11, E1).
