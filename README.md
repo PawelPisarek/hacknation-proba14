@@ -2,7 +2,7 @@
 
 **Pokazuje na obrazie RTG naczepy to, czego nie ma we wzorcu — zaczynając od najpewniejszego miejsca.**
 
-Narzędzie dla operatora RTG na granicy: porównuje obraz kontrolowanej naczepy z obrazem wzorcowym i zaznacza miejsca, które się różnią — możliwe skrytki i towar niezgłoszony. Po analizie powstaje raport z zaznaczonymi obszarami. Obrazy .bmp (~50 MB) przetwarzamy partiami, a całość jest budowana tak, by działać bez internetu i chmury (cel — do czasu pomiaru nie jest to zmierzony stan). Decyzję o kontroli fizycznej zawsze podejmuje operator.
+Narzędzie dla operatora RTG na granicy: pokazuje obraz kontrolowanej naczepy obok wzorcowego i listę miejsc od najpewniejszego, z opisem różnicy i pewnością. Operator zleca „do kontroli” albo odrzuca z powodem, a zapis kontroli zawiera obraz naczepy z ramkami. Wzorzec można podać (para) albo program dobiera go sam; gdy niepewny, ostrzega. Obrazy .bmp (~50 MB) przetwarzamy partiami, a całość jest budowana tak, by działać bez internetu i chmury (cel — do czasu pomiaru nie jest to zmierzony stan). Decyzję o kontroli fizycznej zawsze podejmuje operator.
 
 **Dla kogo:** operator RTG (Służba Celno-Skarbowa) przy stanowisku w trakcie kontroli — ma kilka minut na jedno auto (ustalenie z Arturem, `docs/decyzje.md`).
 
@@ -10,7 +10,7 @@ Zadanie: [docs/zadanie.md](docs/zadanie.md). Wersja robocza, tekst do zgłoszeni
 
 ## Demo
 
-- Makieta R1 (ekran operatora, dane udawane): https://pawelpisarek.github.io/hacknation-proba14/makieta/ — warianty: https://pawelpisarek.github.io/hacknation-proba14/warianty/3/
+- Makieta R3 (zamknięta; ekran operatora, dane udawane): https://pawelpisarek.github.io/hacknation-proba14/makieta/
 - Wersja na ksefbot.pl: TODO — link wkrótce
 
 ## Jak uruchomić lokalnie
@@ -36,7 +36,15 @@ Duże obrazy nie trafiają do repo (`dane/`, `*.bmp` w `.gitignore`).
 - **Zbiór obrazów z „dodatkami”** — narzędzie powinno wskazać ich miejsce; brak wskazania to przeoczenie (false negative).
 - **Dane są sztuczne.** Zdjęć RTG od KAS nie mamy, a dane organizatora są chronione i nie wolno ich dalej udostępniać, więc przygotowujemy własny zbiór obrazów naczep (czyste i z dodatkowym ładunkiem).
 - Skrypt oceny przyjmuje dowolny katalog .bmp (opcjonalnie z maskami) i wypisuje liczbę zbędnych alarmów i przeoczeń, więc można go użyć na obcych obrazach.
-- Wyniki: TODO (liczby dopiszemy po pomiarze — bez zgadywania).
+- **Wynik bazowy** (sztuczny zbiór: 30 czystych + 30 z dodatkami, 60 dodatków, 33 w konstrukcji; karta GTX 1050; źródło: wpis Programisty 12:09 w `docs/decyzje.md`, tabela `wyniki/bazowy/tabela.md`):
+
+| metoda | czyste z alarmem | dodatki przeoczone | uwagi |
+|---|---|---|---|
+| A (piksele, para) | 2/30 | 0/60 (konstrukcja 0/33) | 1,3 miejsca na auto; pełny obraz 50,4 MB: 0,49 s |
+| B (cechy, para) | 0/30 | 23/60 (konstrukcja 15/33) | |
+| C (model typu) | 15/30 | 3/60 (konstrukcja 3/33) | dobór wzorca 60/60 |
+
+  Wynik nie przesądza o jakości na prawdziwych obrazach. Kolejne pomiary dopiszemy, gdy będą.
 
 ## Architektura
 
