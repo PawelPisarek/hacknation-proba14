@@ -33,11 +33,11 @@ Gdy analiza się skończyła, chcę widzieć wzorzec i badane auto obok siebie, 
 Gdy mam kilka minut na auto, chcę listy miejsc z boku od najpewniejszego, z nazwą miejsca, krótkim opisem różnicy i pewnością, żeby zacząć od najważniejszego (P7, P9, P12).
 - K1. Kolejność malejąco wg pewności. Test: A7.
 - K2. Pozycja: nazwa miejsca (strefa), opis różnicy (szablon: strefa + gęściej/rzadziej niż wzorzec + wielkość), pewność 50–99% (spec §5, 4a). Test: A7, makieta.
-- K3. Dane udawane makiety (spec §6): 1. podwójna podłoga 91% · 2. ściana przy kabinie 78% · 3. w ładunku — paleta 5, 54%.
+- K3. Dane udawane makiety (spec §6, P18–P20): 1. Podłoga — środek, 91% · 2. Ściana przednia — przód, 78% · 3. Ładownia — tył, 66% (do kontroli) · 4. Ładownia — przód, 57% (odrzuć; przy „nie wiem” powód „ładunek zgodny z dokumentami (sprawdzony ręcznie)”, P21). Nazwy = strefa + położenie, opisy bez miar.
 
 ### H5. Klik w miejsce → powiększenie na obu obrazach — operator
 Gdy klikam miejsce na liście albo w ramce, chcę, żeby oba obrazy przybliżyły to samo miejsce, żeby zobaczyć, czym różni się od wzorca (P10, P12).
-- K1. Klik na liście i klik w ramkę dają ten sam efekt: wycinek z marginesem na wzorcu i badanym. Test: A5 (podwójna podłoga, ściana przy kabinie — z powiększeniem), makieta.
+- K1. Klik na liście i klik w ramkę dają ten sam efekt: wycinek z marginesem na wzorcu i badanym. Test: A5 (Podłoga — środek, Ściana przednia — przód — z powiększeniem), makieta.
 - K2. Mały dodatek w konstrukcji nadal wykryty po zmniejszeniu obrazu do 1200 px; porównanie FN na zmniejszeniu i na pełnym obrazie. Test: A12.
 
 ### H6. „Do kontroli” jednym kliknięciem — operator
@@ -64,7 +64,7 @@ Gdy narzędzie nie jest pewne doboru wzorca (np. typ naczepy spoza katalogu), ch
 ### H10. Ocena ekranu przez operatora — operator (Artur)
 Gdy mam kilka minut na auto, chcę z ramek, opisu różnicy i powiększenia podjąć decyzję dla każdej ramki, żeby nie potrzebować nic poza ekranem (P11, punkt 3).
 - K1. Próba ręczna z Arturem na makiecie (dane udawane): tak/nie + uwagi. Test: A14.
-- K2. Cała ścieżka H1→H8 i zapis w ≤ 2 min: wczytanie → wzorzec → podwójna podłoga → klik → powiększenie → „do kontroli” → ściana przy kabinie → „do kontroli” → ładunek → „odrzuć” z powodem → linia „zostało 0” → zapis z H11 (spec §1, demo). Test: A10.
+- K2. Cała ścieżka H1→H8 i zapis w ≤ 2 min: wczytanie → wzorzec → „Podłoga — środek” → klik → powiększenie → „do kontroli” → „Ściana przednia — przód” → „do kontroli” → „Ładownia — tył” → „do kontroli” → „Ładownia — przód” → „odrzuć” z powodem → linia „zostało 0” → zapis z H11 (spec §1, demo). Test: A10.
 
 ## Koniec ścieżki pokazu i po kontroli
 

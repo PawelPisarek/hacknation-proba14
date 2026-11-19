@@ -14,7 +14,7 @@ Ekran główny = **wariant 3 + lista z wariantu 2** (P12). Makieta: https://pawe
 7. Zapis kontroli: lista „miejsce — do kontroli: przedmiot / odrzucone (powód)” (zadanie, p. 9).
 Poza zakresem: podsumowanie partii poza linią „ile miejsc” (z 7 Artur wziął tylko ją, P10; zastępuje „podsumowanie partii” z Q8), uszkodzenia naczepy (P6), ciche pomijanie różnic (P8).
 
-**Demo ≤ 2 min (P4, P11):** wczytanie → wzorzec dobrany → ramka na podwójnej podłodze (najpewniejsza, pierwsza) → klik → powiększenie na obu obrazach → „do kontroli” → ściana przy kabinie → „do kontroli” → trzecie (ładunek) → „odrzuć” z powodem → zapis i linia „zostało 0”.
+**Demo ≤ 2 min (P4, P11):** wczytanie → wzorzec dobrany → ramka „Podłoga — środek” (najpewniejsza, pierwsza) → klik → powiększenie na obu obrazach → „do kontroli” → „Ściana przednia — przód” → „do kontroli” → „Ładownia — tył” → „do kontroli” → „Ładownia — przód” → „odrzuć” z powodem → zapis i linia „zostało 0”.
 
 ## 2. Wejście i wyjście
 **Wejście:** rodzaj zgłoszonego towaru z listy (domyślnie „nie wiem”; lista wstępna — założenie = rekomendacja P17: sprzęt i AGD · odzież i tekstylia · żywność i napoje · materiały budowlane · inne · pusta naczepa); plik `.bmp` badanego auta (8 bit, skala szarości; docelowo ~50 MB, zadanie p. 3/7); opcjonalnie drugi `.bmp` jako wzorzec (tryb z parą); katalog czystych wzorców (do nauki i doboru).
@@ -65,13 +65,15 @@ Przedmiot kontroli = strefa + położenie wzdłuż naczepy (przód, środek, ty�
 - Wynik dla partii: ta sama struktura, jeden JSON na obraz; skalowalność mierzona testem A13 (nie obietnica).
 
 ## 6. Udawane dane ekranu (dla Programisty)
+Źródło: `docs/makieta/index.html` (R2), zgodne z P18–P26. Nazwa miejsca = strefa + położenie (P18); opis różnicy bez miar (P19); w pokazie 4 pozycje (P20).
 Auto: „Ciągnik + naczepa plandeka, nr rej. XX 0000 (dane udawane)”. Wzorzec: „typ naczepa plandeka 3-osiowa, 13,6 m (podobieństwo 0,93)”.
-1. Podwójna podłoga — środek naczepy, pewność 91%, „pod podłogą dodatkowa warstwa ok. 12 cm na długości ok. 2,3 m; we wzorcu podłoga pojedyncza”, przedmiot: podłoga naczepy między 1. a 2. paletą.
-2. Ściana przy kabinie, 78%, „przednia ściana grubsza, wewnątrz jednolity gęsty kształt”, przedmiot: przednia ściana skrzyni.
-3. W ładunku — paleta 5, 54%, „gęstszy prostokątny obiekt w środku palety; we wzorcu brak”, przedmiot: paleta nr 5.
-Powody odrzucenia: znany element konstrukcji · ładunek zgodny z deklaracją · artefakt obrazu · inny typ naczepy niż wzorzec · inne.
-Pole „Rodzaj zgłoszonego towaru” (lista rozwijana nad obrazami, domyślnie „nie wiem”); makieta wariantu 3 go jeszcze nie ma — do dodania przez Programistę (P14/P15).
-(Źródło: `docs/makieta/warianty/wspolne.js`; liczby w opisach to dane udawane makiety, nie wyniki modelu.)
+1. Podłoga — środek, 91% (konstrukcja), „Gęściej niż wzorzec, ok. 1/4 długości naczepy.”, przedmiot: podłoga naczepy, środek.
+2. Ściana przednia — przód, 78% (konstrukcja), „Gęściej niż wzorzec, ściana grubsza na większości wysokości.”, przedmiot: przednia ściana skrzyni ładunkowej (przy kabinie).
+3. Ładownia — tył, 66% (mały dodatek w ładunku), „Gęstszy mały obiekt wewnątrz ładunku, we wzorcu brak.”, przedmiot: ładunek w tylnej części ładowni — w pokazie „do kontroli”.
+4. Ładownia — przód, 57% (inny ładunek niż we wzorcu), „Rzadziej niż wzorzec — inny ładunek, ok. 1/4 długości naczepy.”, przedmiot: ładunek w przedniej części ładowni — w pokazie „odrzuć” z powodem; ramka tylko przy „nie wiem” i „pusta naczepa”; przy wybranym rodzaju towaru jest pominięta (P15).
+Powody odrzucenia: znany element konstrukcji · ładunek zgodny z deklaracją · artefakt obrazu · inny typ naczepy niż wzorzec · inne. Przy „nie wiem” powód „ładunek zgodny z deklaracją” zastępuje „ładunek zgodny z dokumentami (sprawdzony ręcznie)” (P21).
+Ekran: pole „Rodzaj zgłoszonego towaru” (lista rozwijana nad obrazami, domyślnie „nie wiem”) jest w makiecie. W powiększeniu miejsca są oba przyciski, „do kontroli” i „odrzuć” z powodem (P22). Pominięta różnica (towar zgodny ze zgłoszeniem): komunikat „pominięto N różnic” i przycisk „Pokaż pominięte” (P23). Przy niepewnym wzorcu pewność jest niższa, a po wskazaniu wzorca ramki i pewność się przeliczają (P24). Numery ramek większe, z białą obwódką; linia „N miejsc” z poprawną odmianą (3 miejsca, 5 miejsc); **czasu analizy na ekranie nie ma** (P25, P26) — zostaje tylko w JSON (§2).
+(Liczby i opisy to dane udawane makiety, nie wyniki modelu.)
 
 ## 7. Kryteria akceptacji (testy)
 Liczby progowe ustala Szef po pierwszym przebiegu (E1+E2); do tego czasu kryteria jakościowe i pomiary.
