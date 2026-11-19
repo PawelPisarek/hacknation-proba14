@@ -12,7 +12,7 @@ Pokazuje na obrazie RTG naczepy to, czego nie ma we wzorcu — zaczynając od na
 
 ## Nazwa zespołu
 
-Hackathon (do potwierdzenia przez ludzi)
+Hackathon
 
 ## Link do repo
 
