@@ -155,7 +155,7 @@ Gdzie w kolumnie „Tryb” stoi „para” — wzorzec podany (metody A, A0, B)
 - **Kroki:** 1) analiza z rodzajem „pusta naczepa”; 2) dla każdego przedmiotu w ładowni sprawdzić ramkę i jej strefę; 3) dla 3 par bez przedmiotu sprawdzić brak alarmu.
 - **Oczekiwany wynik:** każdy przedmiot w ładowni daje ramkę w strefie „ładownia” (spec §4b).
 - **Miara:** FN przedmiotów w ładowni (przeoczone/3) i FP (pary czyste z alarmem/3, obszary na nich) osobno; trafność strefy „ładownia” u trafionych ramek.
-- **Nie przechodzi:** jakikolwiek przedmiot w ładowni bez ramki (gasimy ładunek zgodny, nie przy „pusta naczepa”: P17); strefa inna niż ładownia; reguła gaszenia towaru zgodnego zadziałała przy „pusta naczepa”.
+- **Nie przechodzi:** jakikolwiek przedmiot w ładowni bez ramki (przy „pusta naczepa” nic w ładowni nie jest towarem zgodnym, P17); strefa inna niż ładownia; reguła gaszenia towaru zgodnego zadziałała przy „pusta naczepa”.
 
 ### A18 — Typ spoza katalogu
 - **Zbiór:** KS: KL (6 par, typ w katalogu) + 2 pary typu spoza katalogu (nieobecnego w `nauka`); tryb bez pary, potem z parą (operator wskazuje wzorzec).
@@ -185,7 +185,7 @@ Sprawdzone: `anomalie/ocena.py` (`ocen`, `linia`, `linia_dluga`), `skrypty/bazow
 | B11 | Analiza bez zmniejszenia niemożliwa: `D.wczytaj` zmniejsza do `SZER_ROBOCZA` (`f = ceil(W/SZER_ROBOCZA)`), brak przełącznika | A12 | parametr szerokości roboczej (pełna rozdzielczość) i czas/pamięć w obu wariantach |
 | B12 | Brak testu offline: `D._siec()` pobiera wagi ResNet18 przy pierwszym użyciu (`~/.cache`); brak skryptu sprawdzającego brak ruchu sieciowego | A11 | wagi lokalnie (ścieżka, bez pobierania); uruchomienie w przestrzeni bez sieci i porównanie wyniku |
 | B13 | Zapis kontroli, linia „N · zostało M”, powód przy „odrzuć”, powiększenie wokół ramki w JSON: brak w repo kodu zapisu; `raport.py` robi PNG z powiększeniami, nie ma JSON z polami `{id, nazwa, ramka, pewność, opis, przedmiot kontroli, decyzja, powód}` | A5, A8, A9 | format JSON wg spec §2 z polami decyzji i powodu; test automatyczny (A8, A9: liczba pozycji, M maleje) |
-| B14 | Wynik oceny nie podaje liczb pomocniczych: **ile obrazów z dodatkiem w danym typie miało ramkę** w trybie para vs bez pary dla zbiorów kontrolnych (ocena na `--badane` jednego katalogu; `bazowy.py` ocenia tylko `test`, `pelny`) | A15–A18 | przebieg `bazowy.py` (lub osobny) dla zbiorów kontrolnych w obu trybach; wynik FP i FN osobno w tabeli |
+| B14 | `bazowy.py` ocenia tylko `test` i `pelny`; zbiorów kontrolnych (KL, KW, KP, KS) w obu trybach (para, bez pary) nie przepuszcza | A15–A18 | przebieg `bazowy.py` (lub osobny) dla zbiorów kontrolnych w obu trybach; wynik FP i FN osobno w tabeli |
 | B15 | Liczby bez progów: skrypt nie sprawdza warunków „nie przechodzi” (60 s, 4 GB, kolejność monotoniczna, N = liczba ramek) | A6, A7, A9 | linia `PRZECHODZI/NIE` dla warunków ze spec, tam gdzie spec podaje próg (A6: 60 s, 4 GB; A7, A9); tam gdzie próg ustala Szef — tylko liczba |
 
 **Uwaga o stanie ocen:** liczby w tym pliku są celami i warunkami ze spec; żadnych wyników modelu tu nie ma (nie uruchamiałem niczego na karcie ani na procesorze).
