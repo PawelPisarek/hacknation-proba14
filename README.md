@@ -5,7 +5,7 @@
 Wykrywanie dodatków w obrazach RTG naczepy (para wzorzec–badany albo model czystego obrazu typu).
 
 - `anomalie/generator.py` — sztuczny zbiór .bmp (naczepa z boku, dodatki 4 typów, maski PNG + `opis.json`):
-  `python -m anomalie.generator --wyjscie dane/gen-v1 --maly [--pelny]`
+  `python -m anomalie.generator --wyjscie dane/gen-v2 --maly [--pelny]`
 - `anomalie/ocena.py` — skrypt oceny (dowolny katalog .bmp + opcjonalne maski): FP (czyste z alarmem, liczba obszarów),
   FN (dodatek wskazany: IoU ≥ 0,1 albo środek w ramce), zbędne obszary, czas/obraz:
   `python -m anomalie.ocena --badane DIR/badane --maski DIR/maski --predykcje P.json`

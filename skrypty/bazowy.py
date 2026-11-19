@@ -5,7 +5,7 @@
 2. ocena na zbiorze test (+ tabela dla całej siatki k, do wglądu);
 3. zbiór pełnowymiarowy (~50 MB .bmp): ocena + czas na obraz od odczytu pliku do ramek, pamięć karty.
 
-python skrypty/bazowy.py --dane ~/dane/proba14/gen-v1 --wyniki wyniki/bazowy
+python skrypty/bazowy.py --dane ~/dane/proba14/gen-v2 --wyniki wyniki/bazowy
 """
 from __future__ import annotations
 
@@ -20,7 +20,9 @@ import torch
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from anomalie import detektor as D  # noqa: E402
 from anomalie import ocena as O     # noqa: E402
+from anomalie import raport as RAP  # noqa: E402
 
+PROG_PEWNOSCI = 0.2  # założenie: poniżej — flaga „wzorzec niepewny” (P16)
 SIATKA_K = [3, 4, 5, 6, 7, 8, 10, 12, 15, 20, 25, 30, 40]
 METODY = ["A_piksele_para", "A0_piksele_para_r0", "B_cechy_para", "C_model_typu"]
 
@@ -42,6 +44,7 @@ def mapy_zbioru(katalog, model, metody=METODY):
                 P, _, f, rozm = D.wczytaj(os.path.join(katalog, "badane", nazwa + ".bmp"))
                 z, par, typ = model.mapa(P)
                 wyn[nazwa]["typ_rozpoznany"] = typ
+                wyn[nazwa]["pewnosc_wzorca"] = model.ostatnia_pewnosc
             else:
                 R, Rj, f, _ = D.wczytaj(os.path.join(katalog, "wzorce", nazwa + ".bmp"))
                 P, _, f, rozm = D.wczytaj(os.path.join(katalog, "badane", nazwa + ".bmp"))
@@ -63,8 +66,11 @@ def predykcje(mapy, m, k, dodaj_czas_ramek=True):
     for nazwa, d in mapy.items():
         z, par, f, rozm, czas = d[m]
         t0 = time.perf_counter()
-        r, oc = D.ramki(z, k, par, f, rozm)
-        obrazy[nazwa] = dict(ramki=r, oceny=oc, czas_s=round(czas + (time.perf_counter() - t0), 3))
+        r, oc, op = D.ramki(z, k, par, f, rozm, z_opisem=True)
+        obrazy[nazwa] = dict(ramki=r, oceny=oc, opisy=op, czas_s=round(czas + (time.perf_counter() - t0), 3))
+        if "pewnosc_wzorca" in d and m == "C_model_typu":
+            obrazy[nazwa]["pewnosc_wzorca"] = d["pewnosc_wzorca"]
+            obrazy[nazwa]["wzorzec_niepewny"] = d["pewnosc_wzorca"] < PROG_PEWNOSCI
     return dict(metoda=m, k=k, obrazy=obrazy)
 
 
@@ -113,6 +119,15 @@ def main():
         tabela.append((m, progi[m], w))
     trafne = sum(opis_t[n].get("typ_naczepy") == mapy_t[n].get("typ_rozpoznany") for n in opis_t)
     print(f"C: typ naczepy rozpoznany {trafne}/{len(opis_t)}")
+    print("C: dobór wzorca bez pary (typ z biblioteki 3 typów) — trafny {}/{}".format(trafne, len(opis_t)))
+    pw = sorted(mapy_t[n]["pewnosc_wzorca"] for n in mapy_t)
+    print(f"C: pewność doboru wzorca min {pw[0]} mediana {pw[len(pw) // 2]} | niepewnych (< {PROG_PEWNOSCI}): {sum(p < PROG_PEWNOSCI for p in pw)}/{len(pw)}")
+    for m in ("A_piksele_para", "C_model_typu"):
+        pr = json.load(open(os.path.join(a.wyniki, f"predykcje_test_{m}.json")))
+        for n in [x for x in sorted(opis_t) if not opis_t[x]["czysty"]][:3]:
+            o = pr["obrazy"][n]
+            print(f"raport {m} {n}: " + RAP.raport(os.path.join(kat, "badane", n + ".bmp"), o["ramki"], o["oceny"],
+                  o["opisy"], os.path.join(a.wyniki, "raporty", m)))
     print("\n== siatka k (test, do wglądu; wybór progu tylko z kalib) ==")
     for m in METODY:
         wiersz = []
@@ -135,17 +150,27 @@ def main():
         w = O.ocen(prawda_p, pr)
         wyniki_p[m] = w
         print(O.linia(f"{m} k={progi[m]}", w))
+    trafne = sum(opis_p[n]["typ_naczepy"] == mapy_p[n].get("typ_rozpoznany") for n in opis_p)
+    print(f"C pełne: dobór wzorca trafny {trafne}/{len(opis_p)}")
+    pr = json.load(open(os.path.join(a.wyniki, "predykcje_pelny_C_model_typu.json")))
+    n = [x for x in sorted(opis_p) if not opis_p[x]["czysty"]][0]
+    o = pr["obrazy"][n]
+    print(f"raport C pełny {n}: " + RAP.raport(os.path.join(kat, "badane", n + ".bmp"), o["ramki"], o["oceny"], o["opisy"],
+          os.path.join(a.wyniki, "raporty", "pelny")))
     print(f"pamięć karty (szczyt): {torch.cuda.max_memory_allocated() / 2**20:.0f} MiB")
 
     # --- tabela zbiorcza
     with open(os.path.join(a.wyniki, "tabela.md"), "w") as f:
-        f.write("| metoda | k | FP test (czyste z alarmem) | obszary na czystych | FN test (dodatki) | "
-                "zbędne obszary | FN pełny | FP pełny | czas/obraz pełny [s] |\n|---|---|---|---|---|---|---|---|---|\n")
+        f.write("| metoda | k | FP test (czyste z alarmem) | obszary na czystych | FN test (dodatki) | FN test konstrukcja | "
+                "zbędne obszary | miejsc na auto | FN pełny | FP pełny | czas/obraz pełny [s] |\n|---|---|---|---|---|---|---|---|---|---|---|\n")
         for m, k, w in tabela:
             wp = wyniki_p[m]
             cz = max(wp["czasy"]) if wp["czasy"] else float("nan")
+            nk = sum(n for t, n in w["n_typ"].items() if t.endswith("_konstrukcja"))
+            fk = sum(n for t, n in w["fn_typ"].items() if t.endswith("_konstrukcja"))
+            na = sum(w["ramki_na_auto"]) / max(1, len(w["ramki_na_auto"]))
             f.write(f"| {m} | {k} | {w['czyste_z_alarmem']}/{w['czyste']} | {w['obszary_na_czystych']} | "
-                    f"{w['przeoczone']}/{w['dodatki']} | {w['zbedne_obszary']} | {wp['przeoczone']}/{wp['dodatki']} | "
+                    f"{w['przeoczone']}/{w['dodatki']} | {fk}/{nk} | {w['zbedne_obszary']} | {na:.1f} | {wp['przeoczone']}/{wp['dodatki']} | "
                     f"{wp['czyste_z_alarmem']}/{wp['czyste']} | {sum(wp['czasy']) / len(wp['czasy']):.2f} (maks {cz:.2f}) |\n")
     print("\n" + open(os.path.join(a.wyniki, "tabela.md")).read())
 

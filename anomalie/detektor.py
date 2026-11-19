@@ -205,14 +205,15 @@ class ModelTypu:
             self.typy[os.path.basename(d)] = dict(wzor=wzor, med=med, mad=mad, jas=wzor_jas)
 
     def rozpoznaj(self, P):
-        najl = None
-        for typ, m in self.typy.items():
-            par, szczyt = rejestruj(m["wzor"], P)
-            if najl is None or szczyt > najl[2]:
-                najl = (typ, par, szczyt)
-        return najl
+        """Dobór wzorca: typ z najwyższym szczytem korelacji; pewność = 1 − drugi/najlepszy szczyt."""
+        wyn = sorted(((rejestruj(m["wzor"], P), typ) for typ, m in self.typy.items()), key=lambda x: -x[0][1])
+        (par, szczyt), typ = wyn[0]
+        pewnosc = 1 - wyn[1][0][1] / szczyt if len(wyn) > 1 else 1.0
+        self.ostatnia_pewnosc = round(float(pewnosc), 3)
+        return typ, par, szczyt
 
-    def mapa(self, P, r=2):
+    def mapa(self, P, r=2, rodzaj_towaru=None):
+        """rodzaj_towaru: opcjonalne pole (P15) — na razie bez wpływu; docelowo nie zaznaczamy towaru zgodnego ze zgłoszeniem."""
         typ, par, _ = self.rozpoznaj(P)
         m = self.typy[typ]
         Pw, wazne = wyrownaj(m["med"], P, par)
@@ -226,12 +227,12 @@ class ModelTypu:
 
 
 # ---------------------------------------------------------------- mapa → ramki
-def ramki(z, k, par, f, rozmiar, min_pole=12):
-    """Spójne składowe z > k (po dylatacji 1 px) → ramki w układzie obrazu badanego (pełna rozdzielczość)."""
+def ramki(z, k, par, f, rozmiar, min_pole=12, z_opisem=False):
+    """Spójne składowe z > k (po dylatacji 1 px) → ramki w układzie obrazu badanego (pełna rozdzielczość). Kolejność: od najpewniejszego (P7). z_opisem → także krótki opis różnicy."""
     maska = (_maks((z > k).float(), 1) > 0).cpu().numpy()
     et, n = ndimage.label(maska)
     if n == 0:
-        return [], []
+        return ([], [], []) if z_opisem else ([], [])
     pola = np.bincount(et.ravel())
     zc = z.cpu().numpy()
     sx, sy, dx, dy = par
@@ -245,4 +246,9 @@ def ramki(z, k, par, f, rozmiar, min_pole=12):
         Y0, Y1 = sorted((sy * (y0 - dy) * f, sy * (y1 - dy) * f))
         wyn.append([max(0, int(X0)), max(0, int(Y0)), min(W, int(math.ceil(X1))), min(H, int(math.ceil(Y1)))])
         oceny.append(round(float(zc[sl][et[sl] == i].max()), 2))
-    return wyn, oceny
+    kol = sorted(range(len(wyn)), key=lambda i: -oceny[i])
+    wyn, oceny = [wyn[i] for i in kol], [oceny[i] for i in kol]
+    if not z_opisem:
+        return wyn, oceny
+    opisy = [f"gęstsze niż wzorzec ({o:.0f}× ponad szum), {r[2] - r[0]}×{r[3] - r[1]} px" for r, o in zip(wyn, oceny)]
+    return wyn, oceny, opisy

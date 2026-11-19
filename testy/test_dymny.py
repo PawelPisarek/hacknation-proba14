@@ -2,10 +2,12 @@
 ramka na czystym → FP. python testy/test_dymny.py"""
 import json, os, sys, tempfile
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+import torch
 from anomalie import generator as G, ocena as O
+G.DEV = torch.device("cpu")  # tylko test kodu na małych obrazach; dane właściwe — karta OMENa
 
 with tempfile.TemporaryDirectory() as d:
-    G.generuj_zbior(d, 5, *G.ROZMIAR_MALY, 2, 4)
+    G.generuj_zbior(d, 5, *G.ROZMIAR_MALY, 2, 8)
     opis = json.load(open(os.path.join(d, "opis.json")))["obrazy"]
     pr = O.wczytaj_prawde(os.path.join(d, "badane"), os.path.join(d, "maski"), os.path.join(d, "opis.json"))
     idealne = {"obrazy": {n: {"ramki": [x["ramka"] for x in o["dodatki"]], "czas_s": 0.1} for n, o in opis.items()}}

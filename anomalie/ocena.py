@@ -34,7 +34,7 @@ def wczytaj_prawde(badane, maski=None, opis=None):
     typy = {}
     if opis and os.path.exists(opis):
         for nazwa, o in json.load(open(opis))["obrazy"].items():
-            typy[nazwa] = {d["etykieta"]: d["typ"] for d in o.get("dodatki", []) if "etykieta" in d}
+            typy[nazwa] = {d["etykieta"]: (d["typ"], d.get("miejsce", "?")) for d in o.get("dodatki", []) if "etykieta" in d}
     prawda = {}
     for p in sorted(glob.glob(os.path.join(badane, "*.bmp"))):
         nazwa = os.path.splitext(os.path.basename(p))[0]
@@ -57,7 +57,8 @@ def wczytaj_prawde(badane, maski=None, opis=None):
                 y0, y1, x0, x1 = ys.min(), ys.max() + 1, xs.min(), xs.max() + 1
                 dodatki.append(dict(ramka=(int(x0), int(y0), int(x1), int(y1)), ys=ys, xs=xs,
                                     srodek=((x0 + x1) / 2, (y0 + y1) / 2),
-                                    typ=typy.get(nazwa, {}).get(int(v), "?")))
+                                    typ=typy.get(nazwa, {}).get(int(v), ("?", "?"))[0],
+                                    miejsce=typy.get(nazwa, {}).get(int(v), ("?", "?"))[1]))
         prawda[nazwa] = dodatki
     return prawda
 
@@ -76,10 +77,11 @@ def wskazuje(ramka, d):
 def ocen(prawda, predykcje):
     obrazy = predykcje["obrazy"]
     w = dict(czyste=0, czyste_z_alarmem=0, obszary_na_czystych=0, z_dodatkami=0, dodatki=0,
-             przeoczone=0, obrazy_z_przeoczeniem=0, zbedne_obszary=0, fn_typ={}, n_typ={}, czasy=[])
+             przeoczone=0, obrazy_z_przeoczeniem=0, zbedne_obszary=0, fn_typ={}, n_typ={}, fn_miejsce={}, n_miejsce={}, czasy=[], ramki_na_auto=[])
     for nazwa, dodatki in prawda.items():
         p = obrazy.get(nazwa)
         ramki = p["ramki"] if p else []
+        w["ramki_na_auto"].append(len(ramki))
         if p and "czas_s" in p:
             w["czasy"].append(p["czas_s"])
         if not dodatki:
@@ -93,11 +95,13 @@ def ocen(prawda, predykcje):
         for d in dodatki:
             w["dodatki"] += 1
             w["n_typ"][d["typ"]] = w["n_typ"].get(d["typ"], 0) + 1
+            w["n_miejsce"][d["miejsce"]] = w["n_miejsce"].get(d["miejsce"], 0) + 1
             traf = [i for i, r in enumerate(ramki) if wskazuje(r, d)]
             uzyte.update(traf)
             if not traf:
                 przeocz += 1
                 w["fn_typ"][d["typ"]] = w["fn_typ"].get(d["typ"], 0) + 1
+                w["fn_miejsce"][d["miejsce"]] = w["fn_miejsce"].get(d["miejsce"], 0) + 1
         w["przeoczone"] += przeocz
         w["obrazy_z_przeoczeniem"] += przeocz > 0
         w["zbedne_obszary"] += len(ramki) - len(uzyte)
@@ -105,6 +109,21 @@ def ocen(prawda, predykcje):
 
 
 def linia(metoda, w):
+    cz = w["czasy"]
+    czas = f"{np.mean(cz):.2f} s (maks {np.max(cz):.2f} s)" if cz else "—"
+    typy = ", ".join(f"{t} {w['fn_typ'].get(t, 0)}/{n}" for t, n in sorted(w["n_typ"].items()))
+    n_k = sum(n for t, n in w["n_typ"].items() if t.endswith("_konstrukcja"))
+    fn_k = sum(n for t, n in w["fn_typ"].items() if t.endswith("_konstrukcja"))
+    miejsca = ", ".join(f"{m} {w['fn_miejsce'].get(m, 0)}/{n}" for m, n in sorted(w["n_miejsce"].items()) if m != "ladunek")
+    ra = w["ramki_na_auto"]
+    na_auto = f"{np.mean(ra):.1f} (maks {max(ra)})" if ra else "—"
+    return (f"WYNIK {metoda}: FP = {w['czyste_z_alarmem']}/{w['czyste']} czystych z alarmem "
+            f"({w['obszary_na_czystych']} obszarów) | FN konstrukcja = {fn_k}/{n_k} [{miejsca}] | "
+            f"FN wszystkie = {w['przeoczone']}/{w['dodatki']} [{typy}] | zbędne obszary: {w['zbedne_obszary']} | "
+            f"miejsc do sprawdzenia na auto {na_auto} | czas/obraz {czas}")
+
+
+def linia_dluga(metoda, w):
     cz = w["czasy"]
     czas = f"{np.mean(cz):.2f} s (maks {np.max(cz):.2f} s)" if cz else "—"
     typy = ", ".join(f"{t} {w['fn_typ'].get(t, 0)}/{n}" for t, n in sorted(w["n_typ"].items()))
