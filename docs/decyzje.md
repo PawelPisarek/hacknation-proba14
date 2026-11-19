@@ -187,3 +187,4 @@ P38 12:32 odpowiedź: zostaje „Hackathon” (Paweł)
 12:34 Szef: materiały — brak R2/1 poprawiony (2e13ac2); pętla zamknięta po R2, zostaje tylko README uruchomienie po MVP
 12:35 Szef: krok 7 pre-mortem → Analityk (docs/pm/09)
 12:35 Analityk: docs/pm/09-pre-mortem.md — 10 ryzyk (właściciel, sygnał, działanie) + sekcja „wersja działa na pewno” (karta / sieć / ksefbot.pl → zapisany wynik, makieta, zrzuty); najpilniejsze: R2 osiągalność usługi na OMENie z ksefbot.pl, R1 ksefbot.pl 530, R5/R6 obietnice i liczby w tekstach
+12:36 Szef: pre-mortem (303fabd) → recenzja Projektant; R2 (osiągalność usługi na OMENie z ksefbot.pl) i R1 (najpierw statyczna strona na ksefbot.pl, żeby było 200) → Programista do MVP; R3: przebiegi na karcie kończą się o 07:00, potem karta tylko dla pokazu; tryb „wynik zapisany” → wiersz w docs/zadania/01

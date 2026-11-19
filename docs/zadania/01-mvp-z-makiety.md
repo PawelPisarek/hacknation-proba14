@@ -25,3 +25,10 @@ Cel: pierwsza prawdziwa wersja pod ksefbot.pl (aplikacja Coolify `hacknation`), 
 - https://ksefbot.pl (adres aplikacji) zwraca 200, analizuje prawdziwy obraz z danych przez usługę na karcie OMENa;
 - każdy wiersz tabeli ma status „działa” + zrzut `docs/zrzuty/mvp-*.png` albo nazwę testu;
 - przeklik ścieżki pokazu (4 pozycje, spec §6) na adresie produkcyjnym: wynik skryptu w meldunku.
+
+## Dopisane po pre-mortem (docs/pm/09)
+| wiersz | status |
+|---|---|
+| R2: test, że usługa na OMENie odpowiada z ksefbot.pl (jeśli nie — tunel), przed resztą | — |
+| R1: pierwsze wdrożenie od razu (choćby statyczna strona), żeby ksefbot.pl dawał 200 | — |
+| tryb „wynik zapisany”: ksefbot.pl pokazuje ścieżkę pokazu z zapisanego wyniku karty, gdy karta albo sieć nie odpowiada | — |
