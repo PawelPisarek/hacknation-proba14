@@ -32,7 +32,7 @@ from scipy import ndimage
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 from anomalie import detektor as D            # noqa: E402
-from anomalie.generator import geometria_typu  # noqa: E402
+from anomalie.generator import geometria_typu, mapa_stref  # noqa: E402
 
 K_PARA, K_TYPU = 5.0, 7.0          # progi z przebiegu bazowego (najmniejsze k bez alarmu na kalib)
 PROG_PEWNOSCI_WZORCA = 0.2         # poniżej — „wzorzec niepewny — wskaż wzorzec” (P16)
@@ -125,12 +125,40 @@ def skladowe(z, k, min_pole, scal=2):
     return wyn
 
 
+# ---------------------------------------------------------------- reguła towaru (spec §4, P15, A15b)
+def regula_towaru(dane_towaru):
+    """Reguła towaru z detektora (D.RegulaTowaru, ta sama co w sondzie S3, tryb C): wygasza w ładowni tylko różnicę,
+    którą wyjaśnia wybrany rodzaj towaru; dodatek ukryty w ładunku (zwarte zgęszczenie albo gęstość ponad ten towar)
+    zostaje i dostaje ramkę. Progi z katalogu wyglądu towaru (<dane_towaru>/towar, czyste pary pusta → załadowana),
+    liczone raz na karcie i trzymane w <dane_towaru>/progi_towaru_C.json. Brak katalogu → None (stara reguła)."""
+    if not dane_towaru or not os.path.exists(os.path.join(dane_towaru, "towar", "opis.json")):
+        print("reguła towaru: brak katalogu wyglądu towaru — pomijanie całych różnic w ładowni (stara reguła)", flush=True)
+        return None
+    reg = D.RegulaTowaru()
+    plik = os.path.join(dane_towaru, "progi_towaru_C.json")
+    if os.path.exists(plik):
+        reg.progi = {r: tuple(v) for r, v in json.load(open(plik)).items()}
+    else:
+        model = D.ModelTypu(os.path.join(dane_towaru, "nauka"))
+        kt = os.path.join(dane_towaru, "towar")
+        for n, o in json.load(open(os.path.join(kt, "opis.json")))["obrazy"].items():
+            P, _, _, _ = D.wczytaj(os.path.join(kt, "badane", n + ".bmp"))
+            _, _, typ, Dm = model.mapa(P, zwroc_roznice=True)
+            reg.dodaj(o["rodzaj_towaru"], Dm, model.typy[typ]["strefy"])
+        reg.zamknij()
+        json.dump(reg.progi, open(plik, "w"), ensure_ascii=False, indent=1)
+        del model
+    print("reguła towaru (t1 top-hat, t2 gęstość):", {r: tuple(round(x, 3) for x in v) for r, v in reg.progi.items()}, flush=True)
+    return reg
+
+
 # ---------------------------------------------------------------- model
 class Usluga:
-    def __init__(self, dane):
+    def __init__(self, dane, dane_towaru=None):
         self.dane = dane
         t0 = time.time()
         self.model = D.ModelTypu(os.path.join(dane, "nauka"))
+        self.reg = regula_towaru(dane_towaru)
         self.geom = {t: geometria_typu(t) for t in self.model.typy}
         self.katalog = {t: dict(obraz=png(m["jas"]), opis=OPIS_TYPU.get(t, f"typ {t}")) for t, m in self.model.typy.items()}
         self.przyklady = []
@@ -189,6 +217,7 @@ class Usluga:
             sig = torch.sqrt((1.4826 * D._maks(m["mad"], 1)) ** 2 + (sig_I / m["jas"].clamp(min=4.0)) ** 2)
             roz = D._rozmyj(Pw, 3) - D._maks(D._rozmyj(m["med"], 3), 2) - med
             zmap = torch.where(wazne, roz / (D._rozmyj(sig, 3) / 2.0), torch.zeros_like(roz))
+            Dm = torch.where(wazne, D._rozmyj(Pw, 3) - D._rozmyj(m["med"], 3) - med, torch.zeros_like(roz))
             zneg = None
             k, fR, R_jas = K_TYPU, fP, m["jas"]
             wskazany = wz.startswith("typ:")
@@ -210,6 +239,7 @@ class Usluga:
             # rzadziej niż wzorzec (inny ładunek): role zamienione — wzorzec gęstszy od badanego
             Pwj = (256.0 * torch.exp(-Pw) - 1.0).clamp(min=0)
             zneg = D.mapa_piksele(Pw, Pwj, R, wazne, r=2)
+            Dm = None
             k, R_jas = K_PARA, Rj
             plik = wz.startswith("plik:")
             typ = typ_rozp
@@ -222,12 +252,16 @@ class Usluga:
         sx, sy, dx, dy = par
         miejsca = []
 
-        def dodaj(x0, y0, x1, y1, zm, pole, znak):
+        def dodaj(x0, y0, x1, y1, zm, pole, znak, wymus=None):
             cx, cy = (x0 + x1) / 2 / wR, (y0 + y1) / 2 / hR
             s, p, t = strefa(g, cx, cy, (y1 - y0) / hR)
             w_rel = (x1 - x0) / wR
             duzy = pole > 0.012 * wR * hR
-            if s == "Ładownia":
+            if s == "Ładownia" and wymus == "inny":
+                kat, opis = "ładunek_inny", "Gęściej niż wzorzec — ładunek zgodny z rodzajem towaru" + dlugosc(w_rel, g) + "."
+            elif s == "Ładownia" and wymus == "dodatek":
+                kat, opis = "ładunek_dodatek", "Gęstszy obiekt wewnątrz ładunku — ponad to, co daje zgłoszony towar."
+            elif s == "Ładownia":
                 if znak < 0:
                     kat, opis = "ładunek_inny", "Rzadziej niż wzorzec — inny ładunek" + dlugosc(w_rel, g) + "."
                 elif duzy and info["tryb"] in ("dobrany", "wskazany typ"):
@@ -248,28 +282,40 @@ class Usluga:
                 strefa=s, polozenie=p, nazwa=f"{s} — {p}", kategoria=kat, opis=opis, przedmiot=przedmiot(s, p, t),
                 z=round(zm, 1), pew_wynik=pewnosc(zm, k * (2 if znak < 0 else 1)),
                 ramka=[max(0, int(X0)), max(0, int(Y0)), min(W, math.ceil(X1)), min(H, math.ceil(Y1))],
-                ramka_wz=[x0 / wR, y0 / hR, x1 / wR, y1 / hR]))
+                ramka_wz=[x0 / wR, y0 / hR, x1 / wR, y1 / hR], _wygaszona=wymus == "inny" and s == "Ładownia"))
 
         min_pole = 12
-        for x0, y0, x1, y1, zm, pole in skladowe(zmap, k, min_pole):
-            dodaj(x0, y0, x1, y1, zm, pole, +1)
+        pusta = towar == "pusta naczepa"
+        zost = None
+        if self.reg is not None and Dm is not None and not pusta and towar != "nie wiem":
+            strefy = mapa_stref(g, wR, hR).cpu().numpy()
+            zost = self.reg.maska_zostaw(towar, Dm, strefy)
+        if zost is None:
+            for x0, y0, x1, y1, zm, pole in skladowe(zmap, k, min_pole):
+                dodaj(x0, y0, x1, y1, zm, pole, +1)
+        else:   # reguła towaru: ramka dla tego, co wykracza poza zgłoszony towar; reszta ładowni → pominięte
+            for x0, y0, x1, y1, zm, pole in skladowe(torch.where(zost, zmap, torch.zeros_like(zmap)), k, min_pole):
+                dodaj(x0, y0, x1, y1, zm, pole, +1, "dodatek")
+            for x0, y0, x1, y1, zm, pole in skladowe(torch.where(zost, torch.zeros_like(zmap), zmap), k, min_pole):
+                dodaj(x0, y0, x1, y1, zm, pole, +1, "inny")
         if zneg is not None:
             for x0, y0, x1, y1, zm, pole in skladowe(zneg, 2 * k, 0.004 * wR * hR, scal=3):
                 cx, cy = (x0 + x1) / 2 / wR, (y0 + y1) / 2 / hR
                 if strefa(g, cx, cy, 0)[0] == "Ładownia":
                     dodaj(x0, y0, x1, y1, zm, pole, -1)
         # reguły towaru (P15, P23, P27, P34)
-        pusta = towar == "pusta naczepa"
         for mj in miejsca:
+            wyg = mj.pop("_wygaszona")
             mj["regula"] = pusta and mj["strefa"] == "Ładownia"
-            mj["pominieta"] = (not pusta) and towar != "nie wiem" and mj["kategoria"] == "ładunek_inny"
+            mj["pominieta"] = wyg if zost is not None else ((not pusta) and towar != "nie wiem" and mj["kategoria"] == "ładunek_inny")
             mj["pew"] = round(max(0.5, mj["pew_wynik"] * 0.8), 2) if info["niepewny"] else mj["pew_wynik"]
         miejsca.sort(key=lambda m: (not m["regula"], -m["pew"]))
         for i, mj in enumerate(miejsca, 1):
             mj["id"] = i
         info.update(towar=towar, miejsca=miejsca, czas_analizy_s=round(time.time() - t0, 2),
                     metoda="A_piksele_para" if info["tryb"] in ("para", "plik wzorca") else "C_model_typu",
-                    karta=torch.cuda.get_device_name(0))
+                    karta=torch.cuda.get_device_name(0),
+                    regula_towaru="katalog wyglądu towaru (D.RegulaTowaru)" if zost is not None else None)
         return info
 
 
@@ -372,12 +418,14 @@ def sprawdz(U):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dane", default=os.path.expanduser("~/dane/proba14/gen-v2"))
+    ap.add_argument("--towar", default=os.path.expanduser("~/dane/proba14/gen-v3"),
+                    help="dane z katalogiem wyglądu towaru (towar/, nauka/) — progi reguły towaru")
     ap.add_argument("--port", type=int, default=8770)
     ap.add_argument("--bezczynnosc", type=int, default=1200)
     ap.add_argument("--sprawdz", action="store_true", help="sonda: analiza polecanych przykładów i koniec")
     a = ap.parse_args()
     D.dev()
-    Obsluga.U = Usluga(a.dane)
+    Obsluga.U = Usluga(a.dane, a.towar)
     if a.sprawdz:
         return sprawdz(Obsluga.U)
     print(f"usługa gotowa: karta {torch.cuda.get_device_name(0)}, typy {list(Obsluga.U.model.typy)}, "
