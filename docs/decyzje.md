@@ -35,3 +35,5 @@ P4 11:30 odpowiedź: zgoda — oba (skrytki w konstrukcji i towar w ładunku), w
 P5 11:30 Artur: Ile obrazów dziennie przechodzi przez stanowisko i ile czasu operator ma na jeden? (rekomendacja: do kilku minut na auto, pokazujemy wynik w sekundach) — czeka
 11:30 Szef: krok 1a zamknięty (Analityk R3: brak braków); przed 1b Projektant nanosi w 01 rozstrzygnięcia Szefa z 11:29 (usunąć „nawet bez karty”, integracja z p. 9 jako ścieżka wdrożenia). Zlecony krok 1b /discover.
 P6 11:31 Artur: Czy narzędzie ma też zaznaczać uszkodzenia naczepy, czy tylko dodatkowe przedmioty i przeróbki? (rekomendacja: tylko dodatkowe przedmioty i przeróbki — tego dotyczy sprawdzanie) — czeka
+P5 11:31 odpowiedź: zgoda — wynik w kilka sekund; liczby aut dziennie Artur nie zna, zakładamy kilkadziesiąt na stanowisko (założenie) (Artur w pokoju)
+P7 11:31 Artur: Czy raport ma pokazywać miejsca w kolejności ważności (najpewniejszy alarm pierwszy), żeby operator z kilkoma minutami zaczął od najważniejszego? (rekomendacja: tak) — czeka
