@@ -1,0 +1,68 @@
+{
+ "obraz": "d002_C.bmp",
+ "linia": "Miejsc do sprawdzenia: 5",
+ "miejsca": [
+  {
+   "nr": 1,
+   "ramka": [
+    735,
+    139,
+    924,
+    284
+   ],
+   "ocena": 68.23,
+   "opis": "gęstsze niż wzorzec (68× ponad szum), 189×145 px"
+  },
+  {
+   "nr": 2,
+   "ramka": [
+    256,
+    168,
+    377,
+    284
+   ],
+   "ocena": 51.39,
+   "opis": "gęstsze niż wzorzec (51× ponad szum), 121×116 px"
+  },
+  {
+   "nr": 3,
+   "ramka": [
+    590,
+    91,
+    717,
+    285
+   ],
+   "ocena": 48.49,
+   "opis": "gęstsze niż wzorzec (48× ponad szum), 127×194 px"
+  },
+  {
+   "nr": 4,
+   "ramka": [
+    479,
+    185,
+    588,
+    284
+   ],
+   "ocena": 34.93,
+   "opis": "gęstsze niż wzorzec (35× ponad szum), 109×99 px"
+  },
+  {
+   "nr": 5,
+   "ramka": [
+    102,
+    160,
+    231,
+    284
+   ],
+   "ocena": 30.95,
+   "opis": "gęstsze niż wzorzec (31× ponad szum), 129×124 px"
+  }
+ ],
+ "powiekszenia": [
+  "d002_C_miejsce1.png",
+  "d002_C_miejsce2.png",
+  "d002_C_miejsce3.png",
+  "d002_C_miejsce4.png",
+  "d002_C_miejsce5.png"
+ ]
+}

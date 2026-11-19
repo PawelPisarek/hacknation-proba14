@@ -1,0 +1,20 @@
+{
+ "obraz": "d001_B.bmp",
+ "linia": "Miejsc do sprawdzenia: 1",
+ "miejsca": [
+  {
+   "nr": 1,
+   "ramka": [
+    81,
+    155,
+    89,
+    285
+   ],
+   "ocena": 46.3,
+   "opis": "gęstsze niż wzorzec (46× ponad szum), 8×130 px"
+  }
+ ],
+ "powiekszenia": [
+  "d001_B_miejsce1.png"
+ ]
+}

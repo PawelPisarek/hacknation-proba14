@@ -1,0 +1,135 @@
+{
+ "obraz": "d000_A.bmp",
+ "linia": "Miejsc do sprawdzenia: 11",
+ "miejsca": [
+  {
+   "nr": 1,
+   "ramka": [
+    394,
+    193,
+    495,
+    279
+   ],
+   "ocena": 55.78,
+   "opis": "gęstsze niż wzorzec (56× ponad szum), 101×86 px"
+  },
+  {
+   "nr": 2,
+   "ramka": [
+    866,
+    147,
+    1011,
+    279
+   ],
+   "ocena": 54.74,
+   "opis": "gęstsze niż wzorzec (55× ponad szum), 145×132 px"
+  },
+  {
+   "nr": 3,
+   "ramka": [
+    252,
+    199,
+    380,
+    279
+   ],
+   "ocena": 35.46,
+   "opis": "gęstsze niż wzorzec (35× ponad szum), 128×80 px"
+  },
+  {
+   "nr": 4,
+   "ramka": [
+    514,
+    135,
+    630,
+    280
+   ],
+   "ocena": 26.09,
+   "opis": "gęstsze niż wzorzec (26× ponad szum), 116×145 px"
+  },
+  {
+   "nr": 5,
+   "ramka": [
+    768,
+    126,
+    861,
+    278
+   ],
+   "ocena": 24.5,
+   "opis": "gęstsze niż wzorzec (24× ponad szum), 93×152 px"
+  },
+  {
+   "nr": 6,
+   "ramka": [
+    1023,
+    177,
+    1129,
+    279
+   ],
+   "ocena": 23.52,
+   "opis": "gęstsze niż wzorzec (24× ponad szum), 106×102 px"
+  },
+  {
+   "nr": 7,
+   "ramka": [
+    1139,
+    177,
+    1153,
+    280
+   ],
+   "ocena": 22.9,
+   "opis": "gęstsze niż wzorzec (23× ponad szum), 14×103 px"
+  },
+  {
+   "nr": 8,
+   "ramka": [
+    89,
+    194,
+    101,
+    209
+   ],
+   "ocena": 17.39,
+   "opis": "gęstsze niż wzorzec (17× ponad szum), 12×15 px"
+  },
+  {
+   "nr": 9,
+   "ramka": [
+    1130,
+    228,
+    1137,
+    279
+   ],
+   "ocena": 12.61,
+   "opis": "gęstsze niż wzorzec (13× ponad szum), 7×51 px"
+  },
+  {
+   "nr": 10,
+   "ramka": [
+    1130,
+    177,
+    1137,
+    217
+   ],
+   "ocena": 11.18,
+   "opis": "gęstsze niż wzorzec (11× ponad szum), 7×40 px"
+  },
+  {
+   "nr": 11,
+   "ramka": [
+    1132,
+    222,
+    1136,
+    228
+   ],
+   "ocena": 7.36,
+   "opis": "gęstsze niż wzorzec (7× ponad szum), 4×6 px"
+  }
+ ],
+ "powiekszenia": [
+  "d000_A_miejsce1.png",
+  "d000_A_miejsce2.png",
+  "d000_A_miejsce3.png",
+  "d000_A_miejsce4.png",
+  "d000_A_miejsce5.png",
+  "d000_A_miejsce6.png"
+ ]
+}

@@ -1,0 +1,124 @@
+{
+ "obraz": "d000_A.bmp",
+ "linia": "Miejsc do sprawdzenia: 10",
+ "miejsca": [
+  {
+   "nr": 1,
+   "ramka": [
+    1815,
+    1754,
+    2644,
+    2842
+   ],
+   "ocena": 58.43,
+   "opis": "gęstsze niż wzorzec (58× ponad szum), 829×1088 px"
+  },
+  {
+   "nr": 2,
+   "ramka": [
+    9905,
+    1395,
+    10694,
+    2852
+   ],
+   "ocena": 58.23,
+   "opis": "gęstsze niż wzorzec (58× ponad szum), 789×1457 px"
+  },
+  {
+   "nr": 3,
+   "ramka": [
+    8578,
+    1515,
+    9876,
+    2852
+   ],
+   "ocena": 56.47,
+   "opis": "gęstsze niż wzorzec (56× ponad szum), 1298×1337 px"
+  },
+  {
+   "nr": 4,
+   "ramka": [
+    6723,
+    1505,
+    8539,
+    2862
+   ],
+   "ocena": 49.94,
+   "opis": "gęstsze niż wzorzec (50× ponad szum), 1816×1357 px"
+  },
+  {
+   "nr": 5,
+   "ramka": [
+    2852,
+    1076,
+    4040,
+    2852
+   ],
+   "ocena": 49.74,
+   "opis": "gęstsze niż wzorzec (50× ponad szum), 1188×1776 px"
+  },
+  {
+   "nr": 6,
+   "ramka": [
+    4279,
+    1515,
+    5427,
+    2852
+   ],
+   "ocena": 43.23,
+   "opis": "gęstsze niż wzorzec (43× ponad szum), 1148×1337 px"
+  },
+  {
+   "nr": 7,
+   "ramka": [
+    937,
+    1066,
+    1656,
+    2852
+   ],
+   "ocena": 29.55,
+   "opis": "gęstsze niż wzorzec (30× ponad szum), 719×1786 px"
+  },
+  {
+   "nr": 8,
+   "ramka": [
+    5645,
+    987,
+    6394,
+    2842
+   ],
+   "ocena": 27.01,
+   "opis": "gęstsze niż wzorzec (27× ponad szum), 749×1855 px"
+  },
+  {
+   "nr": 9,
+   "ramka": [
+    608,
+    1954,
+    729,
+    2603
+   ],
+   "ocena": 19.45,
+   "opis": "gęstsze niż wzorzec (19× ponad szum), 121×649 px"
+  },
+  {
+   "nr": 10,
+   "ramka": [
+    608,
+    717,
+    689,
+    818
+   ],
+   "ocena": 13.44,
+   "opis": "gęstsze niż wzorzec (13× ponad szum), 81×101 px"
+  }
+ ],
+ "powiekszenia": [
+  "d000_A_miejsce1.png",
+  "d000_A_miejsce2.png",
+  "d000_A_miejsce3.png",
+  "d000_A_miejsce4.png",
+  "d000_A_miejsce5.png",
+  "d000_A_miejsce6.png"
+ ]
+}

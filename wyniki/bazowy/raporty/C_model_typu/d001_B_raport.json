@@ -1,0 +1,146 @@
+{
+ "obraz": "d001_B.bmp",
+ "linia": "Miejsc do sprawdzenia: 12",
+ "miejsca": [
+  {
+   "nr": 1,
+   "ramka": [
+    866,
+    111,
+    961,
+    288
+   ],
+   "ocena": 38.84,
+   "opis": "gęstsze niż wzorzec (39× ponad szum), 95×177 px"
+  },
+  {
+   "nr": 2,
+   "ramka": [
+    241,
+    109,
+    344,
+    288
+   ],
+   "ocena": 37.9,
+   "opis": "gęstsze niż wzorzec (38× ponad szum), 103×179 px"
+  },
+  {
+   "nr": 3,
+   "ramka": [
+    766,
+    202,
+    838,
+    288
+   ],
+   "ocena": 27.94,
+   "opis": "gęstsze niż wzorzec (28× ponad szum), 72×86 px"
+  },
+  {
+   "nr": 4,
+   "ramka": [
+    982,
+    215,
+    1050,
+    288
+   ],
+   "ocena": 25.33,
+   "opis": "gęstsze niż wzorzec (25× ponad szum), 68×73 px"
+  },
+  {
+   "nr": 5,
+   "ramka": [
+    611,
+    140,
+    740,
+    288
+   ],
+   "ocena": 23.82,
+   "opis": "gęstsze niż wzorzec (24× ponad szum), 129×148 px"
+  },
+  {
+   "nr": 6,
+   "ramka": [
+    83,
+    155,
+    89,
+    285
+   ],
+   "ocena": 21.84,
+   "opis": "gęstsze niż wzorzec (22× ponad szum), 6×130 px"
+  },
+  {
+   "nr": 7,
+   "ramka": [
+    362,
+    204,
+    462,
+    288
+   ],
+   "ocena": 20.91,
+   "opis": "gęstsze niż wzorzec (21× ponad szum), 100×84 px"
+  },
+  {
+   "nr": 8,
+   "ramka": [
+    169,
+    139,
+    205,
+    288
+   ],
+   "ocena": 19.88,
+   "opis": "gęstsze niż wzorzec (20× ponad szum), 36×149 px"
+  },
+  {
+   "nr": 9,
+   "ramka": [
+    134,
+    139,
+    169,
+    288
+   ],
+   "ocena": 19.52,
+   "opis": "gęstsze niż wzorzec (20× ponad szum), 35×149 px"
+  },
+  {
+   "nr": 10,
+   "ramka": [
+    109,
+    139,
+    133,
+    288
+   ],
+   "ocena": 19.46,
+   "opis": "gęstsze niż wzorzec (19× ponad szum), 24×149 px"
+  },
+  {
+   "nr": 11,
+   "ramka": [
+    206,
+    139,
+    234,
+    288
+   ],
+   "ocena": 19.35,
+   "opis": "gęstsze niż wzorzec (19× ponad szum), 28×149 px"
+  },
+  {
+   "nr": 12,
+   "ramka": [
+    128,
+    239,
+    132,
+    245
+   ],
+   "ocena": 7.54,
+   "opis": "gęstsze niż wzorzec (8× ponad szum), 4×6 px"
+  }
+ ],
+ "powiekszenia": [
+  "d001_B_miejsce1.png",
+  "d001_B_miejsce2.png",
+  "d001_B_miejsce3.png",
+  "d001_B_miejsce4.png",
+  "d001_B_miejsce5.png",
+  "d001_B_miejsce6.png"
+ ]
+}

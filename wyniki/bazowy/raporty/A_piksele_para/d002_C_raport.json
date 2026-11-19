@@ -1,0 +1,32 @@
+{
+ "obraz": "d002_C.bmp",
+ "linia": "Miejsc do sprawdzenia: 2",
+ "miejsca": [
+  {
+   "nr": 1,
+   "ramka": [
+    749,
+    161,
+    844,
+    245
+   ],
+   "ocena": 83.87,
+   "opis": "gęstsze niż wzorzec (84× ponad szum), 95×84 px"
+  },
+  {
+   "nr": 2,
+   "ramka": [
+    844,
+    162,
+    896,
+    244
+   ],
+   "ocena": 21.28,
+   "opis": "gęstsze niż wzorzec (21× ponad szum), 52×82 px"
+  }
+ ],
+ "powiekszenia": [
+  "d002_C_miejsce1.png",
+  "d002_C_miejsce2.png"
+ ]
+}

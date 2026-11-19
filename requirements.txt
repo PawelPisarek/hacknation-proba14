@@ -1,4 +1,7 @@
-numpy
-scipy
-pillow
-# torch + torchvision instalowane z indeksu CUDA (karta GTX 1050, sm_61) — patrz skrypty/srodowisko_omen.sh
+# Karta NVIDIA z CUDA (sprawdzone: GTX 1050 4 GB, sm_61, sterownik 580). Liczenie tylko na karcie.
+--extra-index-url https://download.pytorch.org/whl/cu126
+torch==2.14.1+cu126
+torchvision==0.29.1+cu126
+numpy>=2.0
+scipy>=1.13
+pillow>=11.0
