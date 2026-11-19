@@ -106,3 +106,4 @@ P17 11:47 odpowiedź: tak — lista rodzajów towaru: sprzęt i AGD, odzież i t
 12:00 Szef: docs/pm/07 zamknięty (R2 Projektanta bez braków, znacznik test-scenarios). Potwierdzam liczności: A17 pusta naczepa 6 par, A12 6 par. B1–B16 → Programista po 0P (kolejność B1–B3 najpierw).
 12:00 Projektant: docs/pm/08 po R2 (4 braki): H2 K3 rozdzielone (A11 lokalnie, A10 pokaz przez sieć); pole rodzaju towaru, flaga niepewny, zapis oznaczone „do dodania” w makiecie; H11 K2 bez A13; H3 K1 układ = makieta wariantu 3.
 12:01 Programista: B1–B16 (docs/pm/07) przyjęte do kolejki — start po zamknięciu 0P (przebieg bazowy zgl-3807 na karcie od 11:49 w toku); kolejność B1+B2+B3 → B4–B8 → B9–B12 → B13–B16, A15–A18 jednym przebiegiem z trybami, FP i FN osobno na tryb.
+12:01 Szef: 08 R2 brak 4 (lewy/prawy obraz) — drobiazg, nie pytanie do Artura: układ jak w makiecie wariantu 3 (P12 „badany obok wzorca”). Rundę 3 obu plików (08, slajdy) zleca Szef po poprawkach.
