@@ -16,7 +16,7 @@ Kamień: 20:00 makieta (GitHub Pages) + docs/hacktribe.md; spec zamknięty 11:48
 | 6 nazwa + hasło (docs/pm/06) | Prezenter | zamknięte — „Różnica RTG” + hasło A → hacktribe/README zrobione |
 | HackTribe DRAFT | Prezenter | opisy wg speca zamknięte (R2 Analityk; 297/899/1909); liczby + link makiety przed 20:00 |
 | slajdy szkielet (docs/slajdy.md) | Prezenter | zamknięte (R3) |
-| 5 makieta R2 wg P18–P26 → zrzut → krytyk R2 | Programista | zlecone (R1 6/10) |
+| 5 makieta R2 (opublikowana, 6 zrzutów r2) → krytyk R2 | Analityk | zlecone (R1 6/10) |
 | spec §6 + 08 H4 K3 wg P18–P26 | Projektant | zamknięte (spójność sprawdzi krytyk R2) |
 | README szkielet + LICENSE MIT | Prezenter | zamknięte (5b5e8b1) |
 
