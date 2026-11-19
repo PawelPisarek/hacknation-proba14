@@ -1,0 +1,4 @@
+numpy
+scipy
+pillow
+# torch + torchvision instalowane z indeksu CUDA (karta GTX 1050, sm_61) — patrz skrypty/srodowisko_omen.sh

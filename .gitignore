@@ -1,0 +1,8 @@
+# duże obrazy i dane — nigdy do repo
+dane/
+*.bmp
+*.npy
+__pycache__/
+*.pyc
+wyniki/**/*.png
+wyniki/**/predykcje*.json
