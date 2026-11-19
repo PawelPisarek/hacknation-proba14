@@ -1,4 +1,4 @@
-# Stan — 12:20 (sob)
+# Stan — 12:24 (sob)
 Kamień: 20:00 makieta (GitHub Pages) + docs/hacktribe.md; spec zamknięty 11:48.
 
 | zadanie | kto | status |
@@ -16,7 +16,7 @@ Kamień: 20:00 makieta (GitHub Pages) + docs/hacktribe.md; spec zamknięty 11:48
 | 6 nazwa + hasło (docs/pm/06) | Prezenter | zamknięte — „Różnica RTG” + hasło A → hacktribe/README zrobione |
 | HackTribe DRAFT | Prezenter | opisy wg speca zamknięte (R2 Analityk; 297/899/1909); liczby + link makiety przed 20:00 |
 | slajdy szkielet (docs/slajdy.md) | Prezenter | zamknięte (R3) |
-| 5 makieta R3 (ostatnia) wg P27–P33 | Programista | zlecone; potem zrzuty + krytyk R3 |
+| 5 makieta R3 (ostatnia) wg P27–P33 | Programista → Analityk | opublikowana 12:24 (200, zrzuty r3); krytyk R3 zlecony |
 | spec §6 + 08 wg P27–P33 | Projektant | zamknięte; „do dodania” w H2, H9, H10 sprawdzi krytyk R3 |
 | spec §6 + 08 H4 K3 wg P18–P26 | Projektant | zamknięte (spójność sprawdzi krytyk R2) |
 | README szkielet + LICENSE MIT | Prezenter | zamknięte (5b5e8b1) |
