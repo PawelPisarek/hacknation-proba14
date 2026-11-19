@@ -1,6 +1,6 @@
-# Specyfikacja: Różnica RTG (wersja robocza do recenzji przejścia)
+# Specyfikacja: Różnica RTG (po recenzji przejścia, runda 1)
 
-Źródła: `docs/pm/04-write-prd.md`, `docs/pm/02-discover.md`, `docs/pm/03-warianty-ekranu.md`, `docs/zadanie.md`, `docs/decyzje.md` (P1–P12). Dane i ekrany są **sztuczne** (zdjęć KAS nie mamy). Liczenie wyłącznie na karcie (GTX 1050, 4 GB), nigdy na procesorze. Ekran po polsku.
+Źródła: `docs/pm/04-write-prd.md`, `docs/pm/02-discover.md`, `docs/pm/03-warianty-ekranu.md`, `docs/zadanie.md`, `docs/decyzje.md` (P1–P16). Dane i ekrany są **sztuczne** (zdjęć KAS nie mamy). Liczenie wyłącznie na karcie (GTX 1050, 4 GB), nigdy na procesorze. Ekran po polsku.
 
 ## 1. Co zobaczy i zrobi użytkownik (według Artura)
 Użytkownik: operator RTG przy stanowisku, kilka minut na auto (P1).
@@ -12,7 +12,7 @@ Ekran główny = **wariant 3 + lista z wariantu 2** (P12). Makieta: https://pawe
 5. Decyzja: **„do kontroli”** (zleca kontrolę fizyczną miejsca) albo **„odrzuć”** jednym kliknięciem z **powodem z listy** (P3). Przyciski przy każdej pozycji listy z boku (P13, odpowiedź A).
 6. Linia „N miejsc do sprawdzenia · zostało M” (P10).
 7. Zapis kontroli: lista „miejsce — do kontroli: przedmiot / odrzucone (powód)” (zadanie, p. 9).
-Poza zakresem: podsumowanie partii poza linią „ile miejsc”, uszkodzenia naczepy (P6), ciche pomijanie różnic (P8).
+Poza zakresem: podsumowanie partii poza linią „ile miejsc” (z 7 Artur wziął tylko ją, P10; zastępuje „podsumowanie partii” z Q8), uszkodzenia naczepy (P6), ciche pomijanie różnic (P8).
 
 **Demo ≤ 2 min (P4, P11):** wczytanie → wzorzec dobrany → ramka na podwójnej podłodze (najpewniejsza, pierwsza) → klik → powiększenie na obu obrazach → „do kontroli” → ściana przy kabinie → „do kontroli” → trzecie (ładunek) → „odrzuć” z powodem → zapis i linia „zostało 0”.
 
@@ -35,15 +35,15 @@ Wynik zapisuje **miejsce i przedmiot kontroli** (zadanie p. 9); integracja z rep
 |---|---|---|
 | **Z parą** | operator ma czysty obraz tego samego typu | wyrównanie badanego do wzorca, różnica tłumienia, ramki |
 | **Bez pary (dobór wzorca)** | domyślny — operator zwykle pary nie ma (P8) | system wybiera z katalogu czystych najbliższy typ naczepy, potem jak wyżej; podpis „dobrany: …” |
-Jeśli dobór wzorca zawodzi (podobieństwo poniżej progu z kalibracji) — ekran prosi o wskazanie wzorca (tryb z parą) i nie pokazuje ramek (decyzja Szefa: tryb pary pierwszy w razie porażki E1, `docs/pm/02`).
+Jeśli dobór wzorca zawodzi (podobieństwo poniżej progu z kalibracji) — ekran pokazuje ramki z ostrzeżeniem „wzorzec niepewny — wskaż wzorzec” i prosi o wskazanie wzorca (tryb z parą; tryb pary pierwszy w razie porażki E1, `docs/pm/02`). Założenie = rekomendacja P16 (A), czeka na Artura; ramek nie ukrywamy (P2, P8).
 Inny ładunek zgodny ze zgłoszeniem (P15, Artur): **nie zaznaczamy go, ale tylko gdy narzędzie zna zgłoszenie** — operator wybiera rodzaj towaru z listy (pole na ekranie przed analizą). Bez wybranego rodzaju towaru zaznaczamy wszystko, co różni się od wzorca (P2: zbędny alarm lepszy niż przeoczenie).
 
 ## 5. Raport
 - Obraz z ramkami + JSON (pkt 2) — układ jak w makiecie: ramki numerowane wg kolejności listy.
 - Pozycja miejsca: nazwa, opis różnicy (np. „pod podłogą dodatkowa warstwa; we wzorcu podłoga pojedyncza” — dane udawane z makiety), pewność, przedmiot kontroli.
 - Powiększenie: wycinek wokół ramki z marginesem, na wzorcu i badanym.
-- Linia „ile miejsc do sprawdzenia”; podsumowanie partii poza tą linią — poza zakresem.
-- Wynik dla partii: ta sama struktura, jeden JSON na obraz (skalowanie — cel, nie obietnica, do czasu pomiaru).
+- Linia „ile miejsc do sprawdzenia” (P10); pełne podsumowanie partii — poza zakresem (decyzja Artura P10).
+- Wynik dla partii: ta sama struktura, jeden JSON na obraz; skalowalność mierzona testem A13 (nie obietnica).
 
 ## 6. Udawane dane ekranu (dla Programisty)
 Auto: „Ciągnik + naczepa plandeka, nr rej. XX 0000 (dane udawane)”. Wzorzec: „typ naczepa plandeka 3-osiowa, 13,6 m (podobieństwo 0,93)”.
@@ -59,7 +59,7 @@ Liczby progowe ustala Szef po pierwszym przebiegu (E1+E2); do tego czasu kryteri
 |---|---|---|
 | A1 | Czyste obrazy testowe (30) | liczba obrazów z jakimkolwiek alarmem (FP) zmierzona i podana; cel: 0 (hipoteza H1 Programisty) |
 | A2 | Obrazy z dodatkami (30) | liczba dodatków bez ramki (FN) zmierzona osobno od FP; przeoczenie traktowane jako gorsze (P2) |
-| A3 | Ramki na auto | kilka (nie kilkadziesiąt) na obraz (P2) |
+| A3 | Ramki na auto | kilka (nie kilkadziesiąt) na obraz (P2); liczbę graniczną ustala Szef po pierwszym przebiegu E1+E2, do tego czasu raportujemy średnią i maksimum ramek na obraz |
 | A4 | Dobór wzorca bez pary | wybrany wzorzec = właściwy typ naczepy; odsetek trafień zmierzony (E1, H4) |
 | A5 | Skrytka w konstrukcji | podwójna podłoga / ściana przy kabinie wskazana ramką z powiększeniem (E2, P4, P11) |
 | A6 | Czas | czas na obraz pełnowymiarowy < 60 s, pamięć karty < 4 GB (H5; zadanie p. 7); pokaz: wynik w kilka sekund (P5) |
@@ -68,6 +68,9 @@ Liczby progowe ustala Szef po pierwszym przebiegu (E1+E2); do tego czasu kryteri
 | A9 | Linia | „N miejsc do sprawdzenia” zgadza się z liczbą ramek i maleje po decyzji |
 | A10 | Demo | główna ścieżka z pkt 1 wykonalna w ≤ 2 min |
 | A11 | Praca bez internetu | działa bez sieci (zadanie p. 9); wynik z karty OMENa |
+| A12 | Zmniejszenie obrazu | mały dodatek w konstrukcji (typ „mały w konstrukcji”, Q5) wykrywany po zmniejszeniu do 1200 px; porównanie FN na zmniejszeniu i na pełnym obrazie (decyzja Q7) |
+| A13 | Partia i duże pliki | przebieg partii pełnowymiarowych obrazów (3+3 pary 12000×4200, ~50 MB): czas na obraz, szczytowa pamięć karty, obrazy/min; wynik zapisany, wynik bez obietnic (zadanie p. 3, 6) |
+| A14 | Ocena przez operatora (E3) | próba ręczna z Arturem na makiecie: czy z ramek, opisu różnicy i powiększenia da się podjąć „do kontroli / odrzuć” dla każdej ramki w kilka minut; wynik: tak/nie + uwagi |
 
 ## 8. Ryzyka (z /discover i zadania)
 1. Dobór wzorca bez pary zawodzi → tryb pary jako ratunek (P11, E1).

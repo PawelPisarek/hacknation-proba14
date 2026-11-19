@@ -45,7 +45,7 @@ Zakres (pomysły wybrane przez Artura: 1, 2, 3, 4, 6 + powiększenie z 5 + linia
 - P13: przyciski przy każdej pozycji listy; P14: układ wariantu 3 zostaje (Artur). P15 rozstrzygnięte.
 
 ## 8. Wydanie
-**Pierwsza wersja (demo ≤ 2 min):** wczytanie badanego obrazu → wzorzec dobrany → ekran obok siebie z ramkami → klik w najpewniejszą (podwójna podłoga) → powiększenie → „do kontroli” → linia „ile miejsc” i zapis.
+**Pierwsza wersja (demo ≤ 2 min):** wczytanie badanego obrazu → wzorzec dobrany → ekran obok siebie z ramkami i listą z boku → klik w najpewniejszą (podwójna podłoga) → powiększenie na obu obrazach → „do kontroli” → ściana przy kabinie → „do kontroli” → miejsce w ładunku → „odrzuć” z powodem → linia „ile miejsc” i zapis.
 **Poza pierwszą wersją:** podsumowanie partii poza linią „ile miejsc” (7), przetwarzanie w tle (9), uczenie z odrzuceń (10), ciche pomijanie różnic (8 — odrzucone przez Artura), integracja z repozytorium obrazów Nuctech/Multicontrol (ścieżka wdrożenia, zadanie p. 9), uszkodzenia naczepy (P6), cena/wejście na rynek (nie dotyczy).
 
 <!-- skill: przeplywy-pm -->

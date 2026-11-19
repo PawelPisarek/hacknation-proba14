@@ -66,3 +66,5 @@ P15 11:42 Artur: Czy towar w ładunku, który jest inny niż na obrazie wzorcowy
 P13 11:43 odpowiedź: A — przyciski „do kontroli” i „odrzuć” przy każdej pozycji listy z boku (Artur w pokoju)
 P14 11:43 odpowiedź: układ wariantu 3 zostaje; do makiety dodać trzy już ustalone rzeczy: powiększenie podejrzanego miejsca (P10), linię „ile miejsc do sprawdzenia” przy aucie (P10), powód z listy przy „odrzuć” (P3) (Artur w pokoju)
 P15 11:44 odpowiedź: nie zaznaczamy towaru zgodnego ze zgłoszeniem — ale tylko gdy narzędzie zna zgłoszenie (operator wybiera rodzaj towaru z listy); bez tego zaznaczamy wszystko, co różni się od wzorca (P2: woli zbędny alarm) (Artur w pokoju)
+P16 11:45 Artur: Gdy system nie jest pewny doboru wzorca, ma (A) pokazać ramki z ostrzeżeniem „wzorzec niepewny — wskaż wzorzec” czy (B) nie pokazywać ramek, dopóki operator nie wskaże wzorca? (rekomendacja: A — przy P2 lepiej zbędny alarm niż ciche pominięcie) — czeka
+11:45 Projektant: braki recenzji przejścia 2 (R1): A12–A14 (zmniejszenie, partia, próba z operatorem), P15 spójne, wyrównanie PRD ze specem; „podsumowanie partii” (Q8) zastąpione linią „ile miejsc” — z P10 Artura (wybrał z 7 tylko tę linię).
