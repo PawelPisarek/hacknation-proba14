@@ -17,7 +17,7 @@ Poza zakresem: podsumowanie partii poza linią „ile miejsc” (z 7 Artur wzią
 **Demo ≤ 2 min (P4, P11):** wczytanie → wzorzec dobrany → ramka na podwójnej podłodze (najpewniejsza, pierwsza) → klik → powiększenie na obu obrazach → „do kontroli” → ściana przy kabinie → „do kontroli” → trzecie (ładunek) → „odrzuć” z powodem → zapis i linia „zostało 0”.
 
 ## 2. Wejście i wyjście
-**Wejście:** rodzaj zgłoszonego towaru z listy (domyślnie „nie wiem”; lista wstępna — założenie = rekomendacja P17: sprzęt i AGD · odzież i tekstylia · żywność i napoje · materiały budowlane · inne); plik `.bmp` badanego auta (8 bit, skala szarości; docelowo ~50 MB, zadanie p. 3/7); opcjonalnie drugi `.bmp` jako wzorzec (tryb z parą); katalog czystych wzorców (do nauki i doboru).
+**Wejście:** rodzaj zgłoszonego towaru z listy (domyślnie „nie wiem”; lista wstępna — założenie = rekomendacja P17: sprzęt i AGD · odzież i tekstylia · żywność i napoje · materiały budowlane · inne · pusta naczepa); plik `.bmp` badanego auta (8 bit, skala szarości; docelowo ~50 MB, zadanie p. 3/7); opcjonalnie drugi `.bmp` jako wzorzec (tryb z parą); katalog czystych wzorców (do nauki i doboru).
 **Wyjście na plik wynikowy:**
 - obraz z ramkami (PNG, układ obrazu badanego w pełnej rozdzielczości);
 - JSON: lista miejsc `{id, nazwa, ramka {x,y,w,h}, pewność, opis różnicy, przedmiot kontroli, decyzja, powód}` + wzorzec użyty + czas analizy;
@@ -35,7 +35,7 @@ Wynik zapisuje **miejsce i przedmiot kontroli** (zadanie p. 9); integracja z rep
 |---|---|---|
 | **Z parą** | operator ma czysty obraz tego samego typu | wyrównanie badanego do wzorca, różnica tłumienia, ramki |
 | **Bez pary (dobór wzorca)** | domyślny — operator zwykle pary nie ma (P8) | system wybiera z katalogu czystych najbliższy typ naczepy, potem jak wyżej; podpis „dobrany: …” |
-Jeśli dobór wzorca zawodzi (podobieństwo poniżej progu z kalibracji) — ekran pokazuje ramki z ostrzeżeniem „wzorzec niepewny — wskaż wzorzec” i prosi o wskazanie wzorca (tryb z parą; tryb pary pierwszy w razie porażki E1, `docs/pm/02`). Założenie = rekomendacja P16 (A), czeka na Artura; ramek nie ukrywamy (P2, P8).
+Jeśli dobór wzorca zawodzi (podobieństwo poniżej progu z kalibracji) — ekran pokazuje ramki z ostrzeżeniem „wzorzec niepewny — wskaż wzorzec” i prosi o wskazanie wzorca (tryb z parą; tryb pary pierwszy w razie porażki E1, `docs/pm/02`). P16 (A): Artur odpowiedział 11:46; ramek nie ukrywamy (P2, P8).
 Inny ładunek zgodny ze zgłoszeniem (P15, Artur): **nie zaznaczamy go, ale tylko gdy narzędzie zna zgłoszenie** — operator wybiera rodzaj towaru z listy (pole na ekranie przed analizą). Bez wybranego rodzaju towaru zaznaczamy wszystko, co różni się od wzorca (P2: zbędny alarm lepszy niż przeoczenie).
 Lista rodzajów towaru na ekranie (P17, Artur): sprzęt i AGD; odzież i tekstylia; żywność i napoje; materiały budowlane; inne; „nie wiem” (zaznaczamy wszystko); **„pusta naczepa”** (najczęstszy przypadek — każdy przedmiot w ładowni jest alarmem).
 Reguła: przy wybranym rodzaju towaru różnica w ładunku, którą da się wyjaśnić tym rodzajem (inny ładunek niż we wzorcu), nie dostaje ramki; przy „nie wiem” zaznaczamy wszystko, co różni się od wzorca (P2). Rozpoznanie „zgodny ze zgłoszeniem” — zadanie dla Programisty, do zmierzenia w A15/A16; generator: zbiór kontrolny 6 par (decyzja Szefa).
@@ -48,6 +48,8 @@ Generator ma stałe przypisanie wyglądu ładunku do każdego rodzaju z P17 (np.
 
 ### 4c. Typ naczepy spoza katalogu (p. 3)
 Gdy badany typ nie ma wzorca w katalogu (podobieństwo poniżej progu z kalibracji): flaga **„wzorzec niepewny”**, ramki **są** pokazane (nie ukrywamy różnic, P2/P8), a operator **wskazuje wzorzec z listy typów w katalogu albo wgrywa plik wzorca** (tryb z parą). Test A18.
+
+Przedmiot kontroli = strefa + położenie wzdłuż naczepy (przód, środek, tył), liczone z ramki (ustalenie Programisty, R2).
 
 ### 4d. Przepływ i zapis kontroli (p. 4)
 - Pojedynczy obraz: przeglądarka → aplikacja na ksefbot.pl → usługa HTTP na karcie (OMEN; obraz `.bmp` w żądaniu) → JSON (ramki, strefy, pewność, opis, flaga wzorca) + PNG podglądu.
