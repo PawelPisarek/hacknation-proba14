@@ -17,3 +17,6 @@ P1 11:25 Artur: Kto pierwszy patrzy na wynik: operator RTG przy stanowisku na gr
 11:26 Szef: (Q9) skrypt oceny przyjmuje dowolny katalog .bmp (+ opcjonalnie maski) i wypisuje FP/FN — gotowy na obce obrazy.
 11:26 Szef: (Q2) co ważniejsze dla operatora (zbędne alarmy czy przeoczenia) — pyta Artura Projektant (jego pozycja 4 w docs/pm/00-niewiadome.md).
 11:27 Analityk: recenzja 1a R1 — 5 braków
+P1 11:27 odpowiedź: tak — operator przy stanowisku w trakcie kontroli, ma kilka minut na jedno auto (Artur w pokoju)
+P2 11:27 Artur: Co gorsze dla operatora: zbędny alarm na czystej naczepie czy przeoczony dodatek? (rekomendacja: najpierw mało zbędnych alarmów) — czeka
+P3 11:27 Artur: Co operator robi z wynikiem: zleca kontrolę fizyczną miejsca, zapisuje, czy odrzuca alarm? (rekomendacja: zleca kontrolę tylko zaznaczonych miejsc albo odrzuca jednym kliknięciem) — czeka
