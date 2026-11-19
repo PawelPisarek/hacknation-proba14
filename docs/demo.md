@@ -37,4 +37,3 @@ Cztery warstwy z `docs/pm/09-pre-mortem.md`. Przełączenie = jedna zmiana linku
 
 Zasada mówienia: przy każdej warstwie powiedzieć głośno, co jest „na żywo”, a co „zapisane” albo „makieta”. Nie udawać, że makieta to wynik modelu.
 
-<!-- skill: value-prop-statements -->
