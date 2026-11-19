@@ -69,7 +69,7 @@ Gdy mam kilka minut na auto, chcę z ramek, opisu różnicy i powiększenia podj
 ## Koniec ścieżki pokazu i po kontroli
 
 ### H11. Zapis kontroli i jego odczyt — operator (ostatni krok demo)
-Gdy skończyłem decyzje przy aucie, chcę zapisać kontrolę i pobrać plik „miejsce — do kontroli: przedmiot / odrzucone (powód)”, żeby dało się potem odczytać, co zlecono i dlaczego odrzucono (zadanie p. 9; P3). 9; P3).
+Gdy skończyłem decyzje przy aucie, chcę zapisać kontrolę i pobrać plik „miejsce — do kontroli: przedmiot / odrzucone (powód)”, żeby dało się potem odczytać, co zlecono i dlaczego odrzucono (zadanie p. 9; P3).
 - K1. Zapis: JSON na serwerze aplikacji z możliwością pobrania; zawiera użyty wzorzec, rodzaj towaru, miejsce, przedmiot kontroli, decyzję i powód (spec §2, §4d). Test: A8.
 - K2. Obraz z ramkami (PNG, układ pełnej rozdzielczości) jest częścią wyniku (spec §2). Test: brak w §7 — makieta i A13 (PNG na obraz).
 - K3. Operator otwiera pobrany zapis i widzi dla każdej pozycji miejsce, decyzję i powód odrzucenia — bez nowych ekranów. Test: A8.
