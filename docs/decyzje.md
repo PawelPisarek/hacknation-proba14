@@ -139,3 +139,4 @@ P23 12:09 odpowiedź: A (przycisk „Pokaż pominięte”) — Artur w pokoju
 P24 12:09 odpowiedź: A (niższa pewność przy niepewnym wzorcu, przeliczenie po wskazaniu wzorca) — Artur w pokoju
 P25 12:09 odpowiedź: A, ale BEZ czasu analizy w nagłówku („operatora to nie obchodzi, ma tylko widzieć, że wynik jest”); reszta: większe numery ramek z obwódką, „3 miejsca / 5 miejsc”, zrzut powiększenia — Artur w pokoju
 P26 12:09 odpowiedź: wyrzucić czas analizy z ekranu; reszta zostaje — Artur w pokoju
+12:10 Szef: 0P przyjęte (68a4eb8; A: FN 0/60, FP 2/30). Dalej Programista na karcie: S1+S2+B1–B3 + kalibracja na ≥60 czystych parach (osobno od testu), potem S3 (zbiór kontrolny, strefy, reguła towaru), S4, B4–B16.

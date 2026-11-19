@@ -1,10 +1,11 @@
-# Stan — 12:09 (sob)
+# Stan — 12:10 (sob)
 Kamień: 20:00 makieta (GitHub Pages) + docs/hacktribe.md; spec zamknięty 11:48.
 
 | zadanie | kto | status |
 |---|---|---|
 | 0 materiały | Analityk | zamknięte |
-| 0P szkielet, generator, skrypt oceny FP/FN, OMEN, wynik bazowy | Programista | w toku — przebieg bazowy zgl-3807 na karcie od 11:49; potem B1–B16, sondy S1–S4 |
+| 0P szkielet, generator, ocena FP/FN, wynik bazowy | Programista | zamknięte (68a4eb8): A FN 0/60, FP 2/30; 0,49 s/obraz 50 MB |
+| S1+S2+B1–B3 + kalibracja ≥60 par → S3 (kontrolny, strefy, towar) → S4 → B4–B16 | Programista | zlecone |
 | 1a competitive-analysis (docs/pm/01) | Projektant | zamknięte (R3) + 2 poprawki Szefa |
 | 1b /discover (docs/pm/02) | Projektant | zamknięte |
 | przesłuchanie Artura | Projektant | P1–P17 odp. |
