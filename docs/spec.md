@@ -9,7 +9,7 @@ Ekran główny = **wariant 3 + lista z wariantu 2** (P12). Makieta: https://pawe
 2. Widzi **dwa obrazy obok siebie**: wzorzec (z zaznaczonym odpowiednikiem miejsca) i badane auto (z ramkami).
 3. Z boku **lista miejsc od najpewniejszego** (P7). Każda pozycja: nazwa miejsca, krótko czym różni się od wzorca (P9), pewność.
 4. Klik w miejsce (na liście albo w ramce) — **oba obrazy przybliżają to samo miejsce** (powiększenie, P10/idea 5).
-5. Decyzja: **„do kontroli”** (zleca kontrolę fizyczną miejsca) albo **„odrzuć”** jednym kliknięciem z **powodem z listy** (P3). Miejsce przycisków: przy każdej pozycji listy (rekomendacja, P13 czeka na Artura).
+5. Decyzja: **„do kontroli”** (zleca kontrolę fizyczną miejsca) albo **„odrzuć”** jednym kliknięciem z **powodem z listy** (P3). Przyciski przy każdej pozycji listy z boku (P13, odpowiedź A).
 6. Linia „N miejsc do sprawdzenia · zostało M” (P10).
 7. Zapis kontroli: lista „miejsce — do kontroli: przedmiot / odrzucone (powód)” (zadanie, p. 9).
 Poza zakresem: podsumowanie partii poza linią „ile miejsc”, uszkodzenia naczepy (P6), ciche pomijanie różnic (P8).
@@ -78,7 +78,7 @@ Liczby progowe ustala Szef po pierwszym przebiegu (E1+E2); do tego czasu kryteri
 6. Liczba aut dziennie nieznana (założenie, P5).
 
 ## 9. Otwarte
-- P13 (miejsce przycisków), P14 (uwagi do ekranu), P15 (inny ładunek) — czekają na Artura; spec zawiera rekomendacje oznaczone jako założenia.
+- P15 (inny ładunek) czeka na Artura; spec zawiera rekomendację oznaczoną jako założenie. P13 (przyciski przy pozycji listy) i P14 (układ wariantu 3 zostaje; dodać powiększenie, linię „ile miejsc”, powód przy „odrzuć”) — rozstrzygnięte.
 
 <!-- skill: przeplywy-pm -->
 <!-- skill: create-prd -->
