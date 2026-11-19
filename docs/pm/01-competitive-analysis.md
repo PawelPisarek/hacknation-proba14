@@ -25,14 +25,14 @@ Rynek skanerów cargo/pojazdów dominują Nuctech, Smiths Detection, Rapiscan i 
 | Otwarte biblioteki anomalii przemysłowych (PatchCore, PaDiM, EfficientAD) | pośredni | przemysł | wykrywanie wad na produkcie | działają offline, darmowe | trenowane na wadach powierzchni, nie na RTG naczep |
 
 ## Cena, ślad rynkowy, ostatnie ruchy (krok 3 skilla)
-Ceny: wszystkie rozwiązania komercyjne są sprzedawane w ofercie z dostawą sprzętu — ceny niepubliczne (w przeszukanych źródłach brak cen). Ślad rynkowy i ruchy — tylko to, co w źródłach.
+Cena i wejście na rynek: nie dotyczy — narzędzie dla urzędu, oceniane w konkursie (decyzja Szefa 11:29). Poniżej tylko ślad rynkowy i ostatnie ruchy z przeszukanych źródeł.
 
 | Rozwiązanie | Cena | Ślad rynkowy | Ostatnie ruchy |
 |---|---|---|---|
-| Nuctech | niepubliczna | wymieniany wśród liderów rynku cargo (raport rynkowy, źródło komercyjne) | warstwa deep learning w platformie inspekcyjnej (deklaracja producenta) |
-| Rapiscan | niepubliczna | lider rynku cargo (raport rynkowy) | wykrywanie anomalii i porównanie z historycznymi skanami, wykrywanie broni i papierosów (strona producenta) |
-| Smiths Detection | niepubliczna | lider rynku (raport rynkowy) | brak danych o cargo w źródłach |
-| Multicontrol | niepubliczna | dostawca urządzeń KAS (zadanie, p. 1); w raportach rynkowych nie ustalono | brak danych w źródłach (założenie: nie ma publicznie opisanej AI porównującej do wzorca) |
+| Nuctech | nie dotyczy | wymieniany wśród liderów rynku cargo (raport rynkowy, źródło komercyjne) | warstwa deep learning w platformie inspekcyjnej (deklaracja producenta) |
+| Rapiscan | nie dotyczy | lider rynku cargo (raport rynkowy) | wykrywanie anomalii i porównanie z historycznymi skanami, wykrywanie broni i papierosów (strona producenta) |
+| Smiths Detection | nie dotyczy | lider rynku (raport rynkowy) | brak danych o cargo w źródłach |
+| Multicontrol | nie dotyczy | dostawca urządzeń KAS (zadanie, p. 1); w raportach rynkowych nie ustalono | brak danych w źródłach (założenie: nie ma publicznie opisanej AI porównującej do wzorca) |
 | Narzędzie KAS | wewnętrzne | używane w kontroli nieinwazyjnej (zadanie, p. 1) | brak danych |
 
 ## Przegląd podejść do porównywania obrazów i wykrywania anomalii (offline, mała karta)
@@ -40,10 +40,10 @@ Wymagania: tylko obrazy czyste do nauki (dane „wzorcowe”), mapa różnic jak
 
 | Podejście | Jak działa | Offline / mała karta | Zalety | Wady / ryzyko |
 |---|---|---|---|---|
-| **Różnica pikselowa po dopasowaniu** (rejestracja pary + odjęcie, progi) | porównuje wzorzec z badanym | tak, nawet bez karty | proste, przejrzyste, dobre dla par „przed/po” | wrażliwe na przesunięcie, skalę, szum; wiele fałszywych alarmów |
+| **Różnica pikselowa po dopasowaniu** (rejestracja pary + odjęcie, progi) | porównuje wzorzec z badanym | liczone na karcie (decyzja zespołu: nigdy na procesorze) | proste, przejrzyste, dobre dla par „przed/po” | wrażliwe na przesunięcie, skalę, szum; wiele fałszywych alarmów |
 | **Odjęcie od średniego/„czystego” modelu** (statystyka z wielu czystych obrazów, lokalne odchylenie) | uczy rozkład normalny pikseli/łatek | tak | tanie, wyjaśnialne | słabe przy dużej zmienności naczep |
-| **PaDiM** (rozkład cech łatek z sieci pretrenowanej) | model normalnych cech na pozycję | tak; ok. 60 klatek/s w jednym teście na jednej karcie ([IM-IAD, arXiv 2301.13359](https://arxiv.org/pdf/2301.13359) — numer z zestawienia porównawczego wyszukiwarki, do potwierdzenia) | szybki, lekki | niższa jakość (obraz AUROC ok. 95,3% na MVTec wg zestawienia w wynikach wyszukiwania; założenie do sprawdzenia we własnym pomiarze) |
-| **PatchCore** (pamięć cech łatek, najbliższy sąsiad) | porównuje łatki z bankiem normalnych | tak, ale pamięć GPU rośnie z liczbą obrazów (rzędu 6–9 GB wg zewnętrznej strony benchmarkowej o niejasnym źródle — założenie, nie zmierzone u nas) | najwyższa dokładność w benchmarkach (ok. 99% na MVTec, [PatchCore arXiv 2106.08265](https://arxiv.org/pdf/2106.08265)) | ciężki; 4 GB wymaga zmniejszenia banku (coreset) i cięcia na kafelki |
+| **PaDiM** (rozkład cech łatek z sieci pretrenowanej) | model normalnych cech na pozycję | tak; liczby szybkości i jakości do własnego pomiaru na karcie | szybki, lekki | jakość zwykle niższa niż PatchCore — do własnego pomiaru |
+| **PatchCore** (pamięć cech łatek, najbliższy sąsiad) | porównuje łatki z bankiem normalnych | tak, ale zużycie pamięci karty rośnie z liczbą obrazów w banku — do własnego pomiaru | najwyższa dokładność w benchmarkach (ok. 99% na MVTec, [PatchCore arXiv 2106.08265](https://arxiv.org/pdf/2106.08265)) | ciężki; 4 GB wymaga zmniejszenia banku (coreset) i cięcia na kafelki |
 | **EfficientAD** (uczeń–nauczyciel + autoenkoder) | uczeń uczy się odtwarzać cechy nauczyciela | tak; ok. 2–5 ms/obraz w publikacji (inne karty) | szybki, lekki, dobry kompromis | wymaga treningu; obrazy 50 MB trzeba kafelkować |
 | **Autoenkoder / rekonstrukcja** | błąd odtworzenia = anomalia | tak | proste | rozmywa szczegóły; małe skrytki mogą się „odtworzyć” |
 | **Segmentacja nadzorowana (np. U-Net) na „dodatkach”** | uczy się wskazywać obiekty | tak | wprost mapa obiektów | wymaga oznaczonych przykładów; u nas sztuczne dane — ryzyko, że uczy się artefaktów generatora |
@@ -71,7 +71,7 @@ Oś X: wykrywa tylko znany towar ↔ wykrywa dowolną różnicę od wzorca. Oś 
 ## Szanse różnicowania
 1. **Różnica od wzorca bez oznaczonych przykładów skrytek** — uczymy się tylko na czystych obrazach; odpowiada na lukę KAS (małe skrytki w konstrukcji).
 2. **Wejście z plików .bmp z repozytorium obu dostawców (Nuctech, Multicontrol), działanie offline na małej karcie** — wymóg zadania (p. 9); czy konkurenci tego nie oferują — nieznane (założenie), więc to nie jest potwierdzona przewaga.
-3. **Raport z kilkoma zaznaczonymi miejscami na aucie (nie kilkadziesiąt — P2) i krótkim czasem oceny** — założenie do potwierdzenia przez P3 (co operator robi z wynikiem) i poz. 5 (kształt raportu).
+3. **Raport z kilkoma zaznaczonymi miejscami na aucie (nie kilkadziesiąt — P2)** — operator zleca kontrolę zaznaczonych miejsc albo odrzuca jednym kliknięciem (P3). Priorytet miejsc i „mało czasu operatora” zostają tylko, jeśli Artur potwierdzi (P5/P7); kształt raportu — poz. 5.
 4. **Przetwarzanie dużych obrazów partiami** — skalowalność wymagana w zadaniu.
 
 ## Zagrożenia
@@ -95,6 +95,10 @@ Oś X: wykrywa tylko znany towar ↔ wykrywa dowolną różnicę od wzorca. Oś 
 
 ## Czego nie wiem o produkcie
 Lista w `docs/pm/00-niewiadome.md` — pytania do Artura idą po kolei (P1…).
+
+## Zakres i wdrożenie (rozstrzygnięcia Szefa 11:29)
+- Każdy wynik zapisuje miejsce i przedmiot kontroli (p. 9) — pola w raporcie. Integracja z repozytorium obrazów Nuctech/Multicontrol jest poza MVP, opisana jako ścieżka wdrożenia; wejście to pliki .bmp, niezależnie od producenta skanera.
+- Czy zaznaczać też uszkodzenia naczepy (p. 2 zadania): pytanie do Artura w pokoju; do odpowiedzi zakładamy tylko dodatkowe przedmioty i przeróbki.
 
 ## Źródła (sprawdzone 2026-11-19)
 - [Rapiscan — technologia (anomaly detection, change detection)](https://rapiscan-ase.com/resource-center/technology)
