@@ -44,17 +44,21 @@ TODO (uzupełnia Programista): przepływ obraz wzorcowy + badany → różnice �
 
 ## Użyte narzędzia
 
-Narzędzia przygotowane wcześniej i użyte w projekcie:
+Narzędzia przygotowane wcześniej i użyte w projekcie (każde w jednym zdaniu: do czego służyło):
 
-- **OpenMausBot** ([github.com/milind-soni/OpenMausBot](https://github.com/milind-soni/OpenMausBot), Apache-2.0) — zespół 5 botów, który pracował nad projektem:
-  - Szef — rozdział pracy i rozmowa z człowiekiem,
-  - Projektant — persona, ścieżka użytkownika, specyfikacja,
-  - Analityk — materiały zadania, ryzyka, recenzje,
-  - Programista — kod, makieta, wdrożenia,
-  - Prezenter — README i teksty.
-- **Modele Claude** (Anthropic) — pisanie kodu i tekstów przez boty.
-- **pm-skills** ([github.com/phuryn/pm-skills](https://github.com/phuryn/pm-skills), MIT) — skille produktowe (m.in. nazwa produktu, value proposition, notatki zmian).
-- **Biblioteki z kodu:** TODO (lista od Programisty).
+- **OpenMausBot** ([github.com/milind-soni/OpenMausBot](https://github.com/milind-soni/OpenMausBot), Apache-2.0) — platforma, na której przed startem przygotowaliśmy zespół 5 botów:
+  - Szef — rozdzielał pracę i rozmawiał z człowiekiem (Pawłem),
+  - Projektant — pisał personę, ścieżkę użytkownika i specyfikację (rozmawiał z Arturem),
+  - Analityk — czytał materiały zadania, wskazywał ryzyka i robił recenzje,
+  - Programista — pisał kod, makietę i wdrożenia,
+  - Prezenter — pisał README, zgłoszenie i slajdy.
+- **Modele Claude** (Anthropic) — napędzają boty: pisanie kodu, specyfikacji i tekstów.
+- **pm-skills** ([github.com/phuryn/pm-skills](https://github.com/phuryn/pm-skills), MIT) — skille produktowe, które prowadziły kolejne kroki pracy (m.in. nazwa produktu, value proposition, PRD, analiza konkurencji, /discover).
+- **dummy-dataset** (skill z pm-skills) — pomógł zaplanować sztuczne dane; sam zbiór obrazów generuje nasz kod (`anomalie/generator.py`).
+- **Biblioteki z `requirements.txt` i kodu:** `numpy` i `scipy` — obliczenia i przetwarzanie obrazów, `pillow` — wczytywanie i zapis obrazów .bmp/.png, `torch` i `torchvision` (z indeksu CUDA) — liczenie na karcie graficznej i cechy ResNet18.
+- **GitHub Pages** — publikacja makiety ekranu (warianty i wersja końcowa) pod publicznym adresem.
+- **Coolify na ksefbot.pl** — hosting aplikacji (wersja pokazowa dostępna w przeglądarce).
+- **Orkiestrator i karta graficzna OMENa** (GTX 1050, 4 GB) — całe liczenie (generator, uczenie, ocena) idzie na karcie, uruchamiane przez orkiestrator (`--klasa gpu-tlo`), nigdy na procesorze.
 
 ## Licencja
 
