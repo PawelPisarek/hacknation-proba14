@@ -1,6 +1,6 @@
 # Różnica RTG (tytuł roboczy)
 
-Narzędzie dla operatora RTG na granicy: porównuje obraz kontrolowanej naczepy z obrazem wzorcowym i zaznacza miejsca, które się różnią — możliwe skrytki i towar niezgłoszony. Po analizie powstaje raport z zaznaczonymi obszarami. Obrazy .bmp (~50 MB) przetwarzamy partiami, a model działa bez internetu i chmury. Decyzję o kontroli fizycznej zawsze podejmuje operator.
+Narzędzie dla operatora RTG na granicy: porównuje obraz kontrolowanej naczepy z obrazem wzorcowym i zaznacza miejsca, które się różnią — możliwe skrytki i towar niezgłoszony. Po analizie powstaje raport z zaznaczonymi obszarami. Obrazy .bmp (~50 MB) przetwarzamy partiami, a całość jest budowana tak, by działać bez internetu i chmury (cel — do czasu pomiaru nie jest to zmierzony stan). Decyzję o kontroli fizycznej zawsze podejmuje operator.
 
 **Dla kogo:** operator RTG (Służba Celno-Skarbowa) przy stanowisku w trakcie kontroli — ma kilka minut na jedno auto (ustalenie z Arturem, `docs/decyzje.md`).
 
@@ -25,7 +25,7 @@ TODO (uzupełnia Programista): wymagania, instalacja, uruchomienie analizy pary 
 
 ## Architektura
 
-TODO (uzupełnia Programista): przepływ obraz wzorcowy + badany → różnice → raport (obraz z ramkami, plik ze współrzędnymi, podsumowanie partii); przetwarzanie partiami; praca bez internetu.
+TODO (uzupełnia Programista): przepływ obraz wzorcowy + badany → różnice → raport (obraz z ramkami, plik ze współrzędnymi, podsumowanie partii); przetwarzanie partiami; praca bez internetu (cel budowy, jeszcze niezmierzony).
 
 ## Użyte narzędzia
 
@@ -43,4 +43,4 @@ Narzędzia przygotowane wcześniej i użyte w projekcie:
 
 ## Licencja
 
-TODO — do ustalenia z zespołem (kod własny); narzędzia zewnętrzne na licencjach podanych wyżej.
+Kod na licencji MIT — zob. [LICENSE](LICENSE). Narzędzia zewnętrzne na licencjach podanych w sekcji „Użyte narzędzia”.
